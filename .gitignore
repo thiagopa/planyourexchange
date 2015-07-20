@@ -5,4 +5,4 @@
 .DS_Store
 /build
 /captures
-/app/src/main/java/com/planyourexchange/secret.properties
+/app/src/main/assets/secret.properties
