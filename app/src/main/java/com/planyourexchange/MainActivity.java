@@ -1,5 +1,8 @@
 package com.planyourexchange;
 
+import android.content.ComponentName;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 import android.support.v4.app.TaskStackBuilder;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,11 +16,29 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 
+import com.android.vending.billing.IInAppBillingService;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private AdView adView;
     private PropertyReader propertyReader;
+
+    IInAppBillingService mService;
+
+    ServiceConnection mServiceConn = new ServiceConnection() {
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            mService = null;
+        }
+
+        @Override
+        public void onServiceConnected(ComponentName name,
+                                       IBinder service) {
+            mService = IInAppBillingService.Stub.asInterface(service);
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
