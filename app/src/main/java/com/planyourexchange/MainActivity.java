@@ -1,6 +1,8 @@
 package com.planyourexchange;
 
 import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.support.v4.app.TaskStackBuilder;
@@ -68,6 +70,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(mainLayout);
 
         showBanner();
+
+        // Create In-app purchases
+        Intent serviceIntent = new Intent("com.android.vending.billing.InAppBillingService.BIND");
+        serviceIntent.setPackage("com.android.vending");
+        bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
+
     }
 
     private void showBanner() {
@@ -105,5 +113,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mService != null) {
+            unbindService(mServiceConn);
+        }
     }
 }
