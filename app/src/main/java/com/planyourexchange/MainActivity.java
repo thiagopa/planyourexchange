@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Color;
 import android.os.IBinder;
 import android.support.v4.app.TaskStackBuilder;
 import android.os.Bundle;
@@ -59,8 +60,6 @@ public class MainActivity extends AppCompatActivity {
 
         propertyReader = new PropertyReader(this);
 
-        SurfaceView surfaceView = new SurfaceView(this);
-
         // Create and load the AdView.
         adView = new AdView(this);
         adView.setAdUnitId(propertyReader.getProperty("AdUnitId"));
@@ -68,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Create a RelativeLayout as the main layout and add the gameView.
         RelativeLayout mainLayout = new RelativeLayout(this);
-        mainLayout.addView(surfaceView);
+        mainLayout.setBackgroundColor(Color.WHITE);
 
         // Add adView to the bottom of the screen.
         RelativeLayout.LayoutParams adParams = new RelativeLayout.LayoutParams(
