@@ -11,6 +11,9 @@ import retrofit.RestAdapter;
  */
 public class ServerService {
 
+    private static final String TOKEN = "Token ";
+    private static final String AUTHORIZATION = "Authorization";
+
     private ServerApi serverApi;
     private String authToken;
 
@@ -23,14 +26,14 @@ public class ServerService {
                     @Override
                     public void intercept(RequestFacade request) {
                         if (authToken != null) {
-                            request.addHeader("Authorization", authToken);
+                            request.addHeader(AUTHORIZATION, authToken);
                         }
                     }
                 }).build();
 
         this.serverApi = restAdapter.create(ServerApi.class);
 
-        this.authToken = this.serverApi.login(userName,password);
+        this.authToken = TOKEN + this.serverApi.login(userName,password).getToken();
     }
 
     public ServerApi getServerApi() {

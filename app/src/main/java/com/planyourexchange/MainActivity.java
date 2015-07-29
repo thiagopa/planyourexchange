@@ -19,12 +19,22 @@ import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 
 import com.android.vending.billing.IInAppBillingService;
+import com.planyourexchange.rest.api.ServerApi;
+import com.planyourexchange.rest.model.Country;
+import com.planyourexchange.rest.service.ServerService;
 
+import android.os.AsyncTask;
+import android.widget.TextView;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private AdView adView;
     private PropertyReader propertyReader;
+    private ServerApi serverApi;
+
+    TextView textView;
 
     IInAppBillingService mService;
 
@@ -66,6 +76,10 @@ public class MainActivity extends AppCompatActivity {
         adParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         mainLayout.addView(adView, adParams);
 
+        // -- Test Text
+        textView = new TextView(this);
+        mainLayout.addView(textView);
+
         // Set the RelativeLayout as the main layout.
         setContentView(mainLayout);
 
@@ -75,6 +89,9 @@ public class MainActivity extends AppCompatActivity {
         Intent serviceIntent = new Intent("com.android.vending.billing.InAppBillingService.BIND");
         serviceIntent.setPackage("com.android.vending");
         bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
+
+        BackgroundTask task = new BackgroundTask();
+        task.execute();
 
     }
 
@@ -122,4 +139,27 @@ public class MainActivity extends AppCompatActivity {
             unbindService(mServiceConn);
         }
     }
+
+    private class BackgroundTask extends AsyncTask<Void,Void,List<Country>> {
+
+        @Override
+        protected List<Country> doInBackground(Void... params) {
+            serverApi = new ServerService(propertyReader.getProperty("service.url"),
+                    propertyReader.getProperty("service.userName"),
+                    propertyReader.getProperty("service.password")
+            ).getServerApi();
+
+            return serverApi.listCountries();
+        }
+
+        @Override
+        protected void onPostExecute(List<Country> countries) {
+            textView.setText("\n\n");
+            for (Country country : countries) {
+                textView.setText(textView.getText() + country.getName() +
+                        " - " + country.getIcon() + "\n");
+            }
+        }
+    }
+
 }
