@@ -1,6 +1,7 @@
 package com.planyourexchange.rest.api;
 
 import com.planyourexchange.rest.model.AuthToken;
+import com.planyourexchange.rest.model.City;
 import com.planyourexchange.rest.model.Country;
 
 import java.util.List;
@@ -19,6 +20,9 @@ public interface ServerApi {
     @POST("/token-auth/")
     AuthToken login(@Field("username") String userName, @Field("password") String password);
 
-    @GET("/cities/")
+    @GET("/countries/")
     List<Country> listCountries();
+
+    @GET("/cities/")
+    List<City> listCities();
 }

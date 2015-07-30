@@ -29,6 +29,7 @@ public class PropertyReader {
             properties.load(inputStream);
 
         } catch (Exception e) {
+            // -- TODO Refactor this to use proper logging system
             System.out.print(e.getMessage());
         }
 

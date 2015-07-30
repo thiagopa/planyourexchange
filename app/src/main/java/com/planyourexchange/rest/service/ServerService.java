@@ -32,7 +32,7 @@ public class ServerService {
                 }).build();
 
         this.serverApi = restAdapter.create(ServerApi.class);
-
+        // -- TODO Refactor this to include this call elsewhere (token managment)
         this.authToken = TOKEN + this.serverApi.login(userName,password).getToken();
     }
 

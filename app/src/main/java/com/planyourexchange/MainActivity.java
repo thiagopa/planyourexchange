@@ -11,8 +11,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.SurfaceView;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.google.android.gms.ads.AdRequest;
@@ -20,11 +21,14 @@ import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 
 import com.android.vending.billing.IInAppBillingService;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.planyourexchange.rest.api.ServerApi;
 import com.planyourexchange.rest.model.Country;
 import com.planyourexchange.rest.service.ServerService;
 
 import android.os.AsyncTask;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -35,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
     private PropertyReader propertyReader;
     private ServerApi serverApi;
 
-    TextView textView;
+    ScrollView scroolView;
+    LinearLayout linearLayout;
 
     IInAppBillingService mService;
 
@@ -56,7 +61,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        // Create global configuration and initialize ImageLoader with this config
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
+        ImageLoader.getInstance().init(config);
 
         propertyReader = new PropertyReader(this);
 
@@ -75,9 +83,12 @@ public class MainActivity extends AppCompatActivity {
         adParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         mainLayout.addView(adView, adParams);
 
-        // -- Test Text
-        textView = new TextView(this);
-        mainLayout.addView(textView);
+        scroolView = new ScrollView(this);
+        linearLayout = new LinearLayout(this);
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        scroolView.addView(linearLayout);
+
+        mainLayout.addView(scroolView);
 
         // Set the RelativeLayout as the main layout.
         setContentView(mainLayout);
@@ -89,8 +100,8 @@ public class MainActivity extends AppCompatActivity {
         serviceIntent.setPackage("com.android.vending");
         bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
 
-        BackgroundTask task = new BackgroundTask();
-        task.execute();
+        BackgroundTask loadImages = new BackgroundTask();
+        loadImages.execute();
 
     }
 
@@ -153,10 +164,16 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(List<Country> countries) {
-            textView.setText("\n\n");
+
             for (Country country : countries) {
-                textView.setText(textView.getText() + country.getName() +
-                        " - " + country.getIcon() + "\n");
+                TextView textView = new TextView(getApplicationContext());
+                textView.setText(country.getName());
+                textView.setTextColor(Color.BLACK);
+                linearLayout.addView(textView);
+
+                ImageView imageView = new ImageView(getApplicationContext());
+                ImageLoader.getInstance().displayImage(country.getIcon(),imageView);
+                linearLayout.addView(imageView);
             }
         }
     }
