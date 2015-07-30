@@ -7,6 +7,15 @@ public class BaseModel {
 
     private String icon;
     private String name;
+    private String url;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public String getName() {
         return name;
@@ -23,4 +32,6 @@ public class BaseModel {
     public void setIcon(String icon) {
         this.icon = icon;
     }
+
+
 }

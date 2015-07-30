@@ -3,6 +3,9 @@ package com.planyourexchange.rest.api;
 import com.planyourexchange.rest.model.AuthToken;
 import com.planyourexchange.rest.model.City;
 import com.planyourexchange.rest.model.Country;
+import com.planyourexchange.rest.model.Course;
+import com.planyourexchange.rest.model.School;
+import com.planyourexchange.rest.model.SchoolCourseValue;
 
 import java.util.List;
 
@@ -25,4 +28,13 @@ public interface ServerApi {
 
     @GET("/cities/")
     List<City> listCities();
+
+    @GET("/courses/")
+    List<Course> listCourses();
+
+    @GET("/schools/")
+    List<School> listSchools();
+
+    @GET("/coursevaluebyschool/")
+    List<SchoolCourseValue> listCourseValueBySchool();
 }
