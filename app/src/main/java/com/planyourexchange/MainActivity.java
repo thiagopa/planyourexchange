@@ -21,6 +21,8 @@ import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 
 import com.android.vending.billing.IInAppBillingService;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.planyourexchange.rest.api.ServerApi;
@@ -35,6 +37,10 @@ import android.widget.TextView;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    public static final int DISPATCH_PERIOD_IN_SECONDS = 1800;
+    public static GoogleAnalytics analytics;
+    public static Tracker tracker;
 
     private AdView adView;
     private PropertyReader propertyReader;
@@ -63,11 +69,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        propertyReader = new PropertyReader(this);
+
+        // -- Analytics init
+        analytics = GoogleAnalytics.getInstance(this);
+        analytics.setLocalDispatchPeriod(DISPATCH_PERIOD_IN_SECONDS);
+
+        tracker = analytics.newTracker(propertyReader.getProperty("AnalyticsId"));
+        tracker.enableExceptionReporting(true);
+        tracker.enableAdvertisingIdCollection(true);
+        tracker.enableAutoActivityTracking(true);
+
         // Create global configuration and initialize ImageLoader with this config
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
         ImageLoader.getInstance().init(config);
-
-        propertyReader = new PropertyReader(this);
 
         // Create and load the AdView.
         adView = new AdView(this);
