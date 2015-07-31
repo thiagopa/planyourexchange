@@ -8,7 +8,7 @@ import retrofit.RestAdapter;
 /**
  * Created by thiago on 28/07/15.
  */
-public class ServerService {
+public final class ServerService {
 
     private static final String TOKEN = "Token ";
     private static final String AUTHORIZATION = "Authorization";

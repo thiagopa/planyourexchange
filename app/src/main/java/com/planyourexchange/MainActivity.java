@@ -9,11 +9,14 @@ import android.os.IBinder;
 import android.support.v4.app.TaskStackBuilder;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.google.android.gms.ads.AdRequest;
@@ -28,7 +31,10 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.planyourexchange.rest.api.ServerApi;
 import com.planyourexchange.rest.model.Country;
 import com.planyourexchange.rest.service.ServerService;
+import com.planyourexchange.tasks.CountryLoaderTask;
+import com.planyourexchange.tasks.ServerServiceTask;
 import com.planyourexchange.utils.PropertyReader;
+import com.planyourexchange.views.ViewAbstraction;
 
 import android.os.AsyncTask;
 import android.widget.ScrollView;
@@ -36,11 +42,13 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ViewAbstraction {
 
     public static final int DISPATCH_PERIOD_IN_SECONDS = 1800;
     public static GoogleAnalytics analytics;
     public static Tracker tracker;
+
+    ProgressBar progressBar;
 
     private AdView adView;
     private PropertyReader propertyReader;
@@ -93,6 +101,10 @@ public class MainActivity extends AppCompatActivity {
         RelativeLayout mainLayout = new RelativeLayout(this);
         mainLayout.setBackgroundColor(Color.WHITE);
 
+        // -- Progress Bar
+        progressBar = (ProgressBar) findViewById(R.id.progressBar1);
+        mainLayout.addView(progressBar);
+
         // Add adView to the bottom of the screen.
         RelativeLayout.LayoutParams adParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -116,9 +128,10 @@ public class MainActivity extends AppCompatActivity {
         serviceIntent.setPackage("com.android.vending");
         bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
 
-        BackgroundTask loadImages = new BackgroundTask();
-        loadImages.execute();
-
+        ServerServiceTask serverServiceTask = new ServerServiceTask(this);
+        serverServiceTask.execute(propertyReader.getProperty("service.url"),
+                propertyReader.getProperty("service.userName"),
+                propertyReader.getProperty("service.password"));
     }
 
     private void showBanner() {
@@ -166,32 +179,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private class BackgroundTask extends AsyncTask<Void,Void,List<Country>> {
-
-        @Override
-        protected List<Country> doInBackground(Void... params) {
-            serverApi = new ServerService(propertyReader.getProperty("service.url"),
-                    propertyReader.getProperty("service.userName"),
-                    propertyReader.getProperty("service.password")
-            ).getServerApi();
-
-            return serverApi.listCountries();
-        }
-
-        @Override
-        protected void onPostExecute(List<Country> countries) {
-
-            for (Country country : countries) {
-                TextView textView = new TextView(getApplicationContext());
-                textView.setText(country.getName());
-                textView.setTextColor(Color.BLACK);
-                linearLayout.addView(textView);
-
-                ImageView imageView = new ImageView(getApplicationContext());
-                ImageLoader.getInstance().displayImage(country.getIcon(),imageView);
-                linearLayout.addView(imageView);
-            }
-        }
+    @Override
+    public Context getViewContext() {
+        return getApplicationContext();
     }
 
+    @Override
+    public ViewGroup getViewLayout() {
+        return linearLayout;
+    }
 }
