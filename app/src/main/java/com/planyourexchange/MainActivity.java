@@ -26,6 +26,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.planyourexchange.rest.api.ServerApi;
 import com.planyourexchange.rest.model.Country;
 import com.planyourexchange.rest.service.ServerService;
+import com.planyourexchange.utils.PropertyReader;
 
 import android.os.AsyncTask;
 import android.widget.ScrollView;

@@ -1,4 +1,4 @@
-package com.planyourexchange;
+package com.planyourexchange.utils;
 
 import android.content.Context;
 import android.content.res.AssetManager;

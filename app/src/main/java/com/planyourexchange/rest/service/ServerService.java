@@ -1,6 +1,5 @@
 package com.planyourexchange.rest.service;
 
-import com.planyourexchange.PropertyReader;
 import com.planyourexchange.rest.api.ServerApi;
 
 import retrofit.RequestInterceptor;
