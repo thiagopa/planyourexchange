@@ -48,8 +48,6 @@ public class MainActivity extends AppCompatActivity implements ViewAbstraction {
     public static GoogleAnalytics analytics;
     public static Tracker tracker;
 
-    ProgressBar progressBar;
-
     private AdView adView;
     private PropertyReader propertyReader;
     private ServerApi serverApi;
@@ -100,10 +98,6 @@ public class MainActivity extends AppCompatActivity implements ViewAbstraction {
         // Create a RelativeLayout as the main layout and add the gameView.
         RelativeLayout mainLayout = new RelativeLayout(this);
         mainLayout.setBackgroundColor(Color.WHITE);
-
-        // -- Progress Bar
-        progressBar = (ProgressBar) findViewById(R.id.progressBar1);
-        mainLayout.addView(progressBar);
 
         // Add adView to the bottom of the screen.
         RelativeLayout.LayoutParams adParams = new RelativeLayout.LayoutParams(
