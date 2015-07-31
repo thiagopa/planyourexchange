@@ -1,5 +1,7 @@
 package com.planyourexchange;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -34,6 +36,7 @@ import com.planyourexchange.rest.service.ServerService;
 import com.planyourexchange.tasks.CountryLoaderTask;
 import com.planyourexchange.tasks.ServerServiceTask;
 import com.planyourexchange.utils.PropertyReader;
+import com.planyourexchange.views.CountriesFragment;
 import com.planyourexchange.views.ViewAbstraction;
 
 import android.os.AsyncTask;
@@ -50,11 +53,9 @@ public class MainActivity extends AppCompatActivity implements ViewAbstraction {
 
     private AdView adView;
     private PropertyReader propertyReader;
-    private ServerApi serverApi;
 
-    ScrollView scroolView;
-    LinearLayout linearLayout;
-
+    /*
+    / -- TODO Implement this latter
     IInAppBillingService mService;
 
     ServiceConnection mServiceConn = new ServiceConnection() {
@@ -69,11 +70,13 @@ public class MainActivity extends AppCompatActivity implements ViewAbstraction {
             mService = IInAppBillingService.Stub.asInterface(service);
         }
     };
-
+    */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // -- This should come first
+        setContentView(R.layout.activity_main);
 
         propertyReader = new PropertyReader(this);
 
@@ -95,9 +98,8 @@ public class MainActivity extends AppCompatActivity implements ViewAbstraction {
         adView.setAdUnitId(propertyReader.getProperty("AdUnitId"));
         adView.setAdSize(AdSize.SMART_BANNER);
 
-        // Create a RelativeLayout as the main layout and add the gameView.
-        RelativeLayout mainLayout = new RelativeLayout(this);
-        mainLayout.setBackgroundColor(Color.WHITE);
+        // -- Relative Layout manipulation
+        RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
 
         // Add adView to the bottom of the screen.
         RelativeLayout.LayoutParams adParams = new RelativeLayout.LayoutParams(
@@ -105,22 +107,24 @@ public class MainActivity extends AppCompatActivity implements ViewAbstraction {
         adParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         mainLayout.addView(adView, adParams);
 
-        scroolView = new ScrollView(this);
-        linearLayout = new LinearLayout(this);
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
-        scroolView.addView(linearLayout);
-
-        mainLayout.addView(scroolView);
-
-        // Set the RelativeLayout as the main layout.
-        setContentView(mainLayout);
-
         showBanner();
 
         // Create In-app purchases
+        /*
+         -- TODO Implement this latter
         Intent serviceIntent = new Intent("com.android.vending.billing.InAppBillingService.BIND");
         serviceIntent.setPackage("com.android.vending");
         bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
+        */
+
+        // -- Fragments
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        // -- Initializing first fragment
+        CountriesFragment countriesFragment = new CountriesFragment();
+        fragmentTransaction.add(R.id.mainLayout,countriesFragment);
+        fragmentTransaction.commit();
 
         ServerServiceTask serverServiceTask = new ServerServiceTask(this);
         serverServiceTask.execute(propertyReader.getProperty("service.url"),
@@ -168,9 +172,12 @@ public class MainActivity extends AppCompatActivity implements ViewAbstraction {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        /*
+        TODO Implement this latter
         if (mService != null) {
             unbindService(mServiceConn);
         }
+        */
     }
 
     @Override
@@ -180,6 +187,6 @@ public class MainActivity extends AppCompatActivity implements ViewAbstraction {
 
     @Override
     public ViewGroup getViewLayout() {
-        return linearLayout;
+        return (ViewGroup) findViewById(R.id.countries_linear_layout);
     }
 }
