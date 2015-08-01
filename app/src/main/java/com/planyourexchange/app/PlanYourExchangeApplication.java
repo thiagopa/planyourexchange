@@ -2,7 +2,11 @@ package com.planyourexchange.app;
 
 import android.app.Application;
 import android.util.Log;
+import android.view.View;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -51,6 +55,15 @@ public class PlanYourExchangeApplication extends Application {
                 propertyReader.getProperty("service.userName"),
                 propertyReader.getProperty("service.password"));
 
-        new PlanYourExchangeContext(propertyReader, googleAnalytics, tracker, serverService);
+        // -- Create and load the AdView.
+        AdView adView = new AdView(this);
+        adView.setAdUnitId(propertyReader.getProperty("AdUnitId"));
+        adView.setAdSize(AdSize.SMART_BANNER);
+        adView.setVisibility(View.VISIBLE);
+        // -- TODO should be replaced in production
+        adView.loadAd(new AdRequest.Builder()
+                .addTestDevice(PlanYourExchangeContext.getInstance().propertyReader.getProperty("TestDeviceId")).build());
+
+        new PlanYourExchangeContext(propertyReader, googleAnalytics, tracker, serverService, adView);
     }
 }

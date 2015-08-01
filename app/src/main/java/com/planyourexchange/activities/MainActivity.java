@@ -22,7 +22,6 @@ import com.planyourexchange.tasks.CountryLoaderTask;
 
 public class MainActivity extends AppCompatActivity {
 
-    private AdView adView;
     /*
     / -- TODO Implement this latter
     IInAppBillingService mService;
@@ -47,11 +46,6 @@ public class MainActivity extends AppCompatActivity {
         // -- This should come first
         setContentView(R.layout.activity_main);
 
-        // Create and load the AdView.
-        adView = new AdView(this);
-        adView.setAdUnitId(PlanYourExchangeContext.getInstance().propertyReader.getProperty("AdUnitId"));
-        adView.setAdSize(AdSize.SMART_BANNER);
-
         // -- Relative Layout manipulation
         RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
 
@@ -59,9 +53,7 @@ public class MainActivity extends AppCompatActivity {
         RelativeLayout.LayoutParams adParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         adParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        mainLayout.addView(adView, adParams);
-
-        showBanner();
+        mainLayout.addView(PlanYourExchangeContext.getInstance().adView, adParams);
 
         // Create In-app purchases
         /*
@@ -82,15 +74,11 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    private void showBanner() {
-        adView.setVisibility(View.VISIBLE);
-        adView.loadAd(new AdRequest.Builder()
-                .addTestDevice(PlanYourExchangeContext.getInstance().propertyReader.getProperty("TestDeviceId")).build());
-    }
-
+    /* TODO -- Leave this to hide banners when donated
     private void hideBanner() {
         adView.setVisibility(View.GONE);
     }
+    */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -1,5 +1,6 @@
 package com.planyourexchange.app;
 
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.planyourexchange.rest.api.ServerApi;
@@ -19,12 +20,14 @@ public final class PlanYourExchangeContext {
     public final GoogleAnalytics googleAnalytics;
     public final Tracker tracker;
     public final ServerService serverService;
+    public final AdView adView;
 
-    public PlanYourExchangeContext(PropertyReader propertyReader, GoogleAnalytics googleAnalytics, Tracker tracker, ServerService serverService) {
+    public PlanYourExchangeContext(PropertyReader propertyReader, GoogleAnalytics googleAnalytics, Tracker tracker, ServerService serverService, AdView adView) {
         this.propertyReader = propertyReader;
         this.googleAnalytics = googleAnalytics;
         this.tracker = tracker;
         this.serverService = serverService;
+        this.adView = adView;
 
         this.instance = this;
     }
