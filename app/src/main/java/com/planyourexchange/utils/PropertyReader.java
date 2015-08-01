@@ -15,8 +15,6 @@ import java.util.Properties;
  */
 public class PropertyReader {
 
-    private static final String TAG = PropertyReader.class.getCanonicalName();
-
     private Properties properties;
 
     private static final String SECRET_PROPERTIES = "secret.properties";
@@ -27,16 +25,9 @@ public class PropertyReader {
     }
 
     private void loadProperties(Context context, String file) throws IOException {
-        try {
-            AssetManager assetManager = context.getAssets();
-            InputStream inputStream = assetManager.open(file);
-            properties.load(inputStream);
-
-        } catch (Exception e) {
-            Log.e(TAG,"Loading property file",e);
-            throw e;
-        }
-
+        AssetManager assetManager = context.getAssets();
+        InputStream inputStream = assetManager.open(file);
+        properties.load(inputStream);
     }
 
     public String getProperty(String property) {
