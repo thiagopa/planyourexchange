@@ -13,8 +13,9 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.planyourexchange.R;
+import com.planyourexchange.app.PlanYourExchangeContext;
 import com.planyourexchange.rest.model.Country;
-import com.planyourexchange.tasks.CountryLoaderTask;
+import com.planyourexchange.tasks.RestLoaderTask;
 import com.planyourexchange.views.ModelView;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class CountriesFragment extends Fragment implements ModelView<Country> {
 
         // -- Dispatch task to load resources if not cached
         if(COUNTRY_CACHE==null) {
-            new CountryLoaderTask(context, viewGroup, this).execute();
+            new RestLoaderTask<Country>(context, viewGroup, this).execute();
         } else {
             drawList(COUNTRY_CACHE,context,viewGroup);
         }
@@ -68,5 +69,10 @@ public class CountriesFragment extends Fragment implements ModelView<Country> {
 
             viewGroup.addView(imageView);
         }
+    }
+
+    @Override
+    public List<Country> callService(Integer modelId) {
+        return PlanYourExchangeContext.getInstance().serverService.getServerApi().listCountries();
     }
 }

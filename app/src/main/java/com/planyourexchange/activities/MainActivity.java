@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.google.android.gms.ads.AdRequest;
@@ -18,7 +17,6 @@ import com.google.android.gms.ads.AdView;
 import com.planyourexchange.R;
 import com.planyourexchange.app.PlanYourExchangeContext;
 import com.planyourexchange.fragments.CountriesFragment;
-import com.planyourexchange.tasks.CountryLoaderTask;
 
 public class MainActivity extends AppCompatActivity {
 

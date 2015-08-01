@@ -17,4 +17,7 @@ public interface ModelView<Model> {
 
     // -- Draw cached data with the given context to the given view
     void drawList(List<Model> modelList, Context context, ViewGroup viewGroup);
+
+    // -- Which method to call
+    List<Model> callService(Integer modelId);
 }
