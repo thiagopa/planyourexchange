@@ -20,17 +20,16 @@ public final class PlanYourExchangeContext {
     public final GoogleAnalytics googleAnalytics;
     public final Tracker tracker;
     public final ServerService serverService;
-    public final AdView adView;
 
-    public PlanYourExchangeContext(PropertyReader propertyReader, GoogleAnalytics googleAnalytics, Tracker tracker, ServerService serverService, AdView adView) {
+    public PlanYourExchangeContext(PropertyReader propertyReader, GoogleAnalytics googleAnalytics, Tracker tracker, ServerService serverService) {
         this.propertyReader = propertyReader;
         this.googleAnalytics = googleAnalytics;
         this.tracker = tracker;
         this.serverService = serverService;
-        this.adView = adView;
 
         this.instance = this;
     }
+
 
     public static PlanYourExchangeContext getInstance() {
         return instance;

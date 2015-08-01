@@ -49,12 +49,6 @@ public class MainActivity extends AppCompatActivity {
         // -- Relative Layout manipulation
         RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
 
-        // Add adView to the bottom of the screen.
-        RelativeLayout.LayoutParams adParams = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        adParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        mainLayout.addView(PlanYourExchangeContext.getInstance().adView, adParams);
-
         // Create In-app purchases
         /*
          -- TODO Implement this latter
@@ -62,6 +56,29 @@ public class MainActivity extends AppCompatActivity {
         serviceIntent.setPackage("com.android.vending");
         bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
         */
+
+        // -- Create adRequest
+
+        AdView adView = new AdView(this);
+        adView.setAdUnitId(PlanYourExchangeContext.getInstance().propertyReader.getProperty("AdUnitId"));
+        adView.setAdSize(AdSize.SMART_BANNER);
+        adView.setVisibility(View.VISIBLE);
+
+        RelativeLayout.LayoutParams adParams = new RelativeLayout.LayoutParams(
+                                RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        adParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        adParams.addRule(RelativeLayout.CENTER_VERTICAL);
+        adParams.addRule(RelativeLayout.BELOW);
+        mainLayout.addView(adView, adParams);
+
+        // -- TODO should be replaced in production
+        adView.loadAd(new AdRequest.Builder()
+                .addTestDevice(PlanYourExchangeContext.getInstance().propertyReader.getProperty("TestDeviceId")).build());
+        /*
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+        */
+
 
         // -- Fragments
 
@@ -79,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         adView.setVisibility(View.GONE);
     }
     */
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

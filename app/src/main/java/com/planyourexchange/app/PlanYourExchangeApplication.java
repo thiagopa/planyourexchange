@@ -55,15 +55,6 @@ public class PlanYourExchangeApplication extends Application {
                 propertyReader.getProperty("service.userName"),
                 propertyReader.getProperty("service.password"));
 
-        // -- Create and load the AdView.
-        AdView adView = new AdView(this);
-        adView.setAdUnitId(propertyReader.getProperty("AdUnitId"));
-        adView.setAdSize(AdSize.SMART_BANNER);
-        adView.setVisibility(View.VISIBLE);
-        // -- TODO should be replaced in production
-        adView.loadAd(new AdRequest.Builder()
-                .addTestDevice(PlanYourExchangeContext.getInstance().propertyReader.getProperty("TestDeviceId")).build());
-
-        new PlanYourExchangeContext(propertyReader, googleAnalytics, tracker, serverService, adView);
+        new PlanYourExchangeContext(propertyReader, googleAnalytics, tracker, serverService);
     }
 }
