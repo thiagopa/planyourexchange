@@ -7,14 +7,14 @@ public class BaseModel {
 
     private String icon;
     private String name;
-    private String url;
+    private Integer id;
 
-    public String getUrl() {
-        return url;
+    public Integer getId() {
+        return id;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {

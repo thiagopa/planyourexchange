@@ -58,7 +58,14 @@ public class CountriesFragment extends Fragment implements ModelView<Country> {
             viewGroup.addView(textView);
 
             ImageView imageView = new ImageView(context);
-            ImageLoader.getInstance().displayImage(country.getIcon(),imageView);
+            ImageLoader.getInstance().displayImage(country.getIcon(), imageView);
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+
             viewGroup.addView(imageView);
         }
     }

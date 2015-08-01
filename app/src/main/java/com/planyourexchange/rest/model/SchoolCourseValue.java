@@ -10,11 +10,19 @@ import java.math.BigDecimal;
 public class SchoolCourseValue {
     private Course course;
     private School school;
-    private String url;
+    private Integer id;
     @SerializedName("week_price")
     private BigDecimal weekPrice;
     @SerializedName("week_price_currency")
     private String currency;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Course getCourse() {
         return course;
@@ -30,14 +38,6 @@ public class SchoolCourseValue {
 
     public void setSchool(School school) {
         this.school = school;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     public BigDecimal getWeekPrice() {

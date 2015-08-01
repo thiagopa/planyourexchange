@@ -13,6 +13,7 @@ import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.POST;
+import retrofit.http.Path;
 
 /**
  * Created by thiago on 28/07/15.
@@ -28,6 +29,9 @@ public interface ServerApi {
 
     @GET("/cities/")
     List<City> listCities();
+
+    @GET("/countries/{id}/cities/")
+    List<City> listCities(@Path("id") Integer countryId);
 
     @GET("/courses/")
     List<Course> listCourses();
