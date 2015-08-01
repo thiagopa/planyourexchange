@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         */
 
         // -- Create adRequest
-
         AdView adView = new AdView(this);
         adView.setAdUnitId(PlanYourExchangeContext.getInstance().propertyReader.getProperty("AdUnitId"));
         adView.setAdSize(AdSize.SMART_BANNER);
@@ -68,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
                                 RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         adParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         adParams.addRule(RelativeLayout.CENTER_VERTICAL);
-        adParams.addRule(RelativeLayout.BELOW);
         mainLayout.addView(adView, adParams);
 
         // -- TODO should be replaced in production
@@ -81,13 +79,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         // -- Fragments
-
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         // -- Initializing first fragment
         CountriesFragment countriesFragment = new CountriesFragment();
-        fragmentTransaction.replace(R.id.mainLayout, countriesFragment);
+        fragmentTransaction.replace(R.id.fragment_container, countriesFragment);
         fragmentTransaction.commit();
     }
 
