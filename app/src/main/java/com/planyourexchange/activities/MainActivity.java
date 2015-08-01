@@ -1,59 +1,27 @@
-package com.planyourexchange;
+package com.planyourexchange.activities;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
-import android.graphics.Color;
-import android.os.IBinder;
 import android.support.v4.app.TaskStackBuilder;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 
-import com.android.vending.billing.IInAppBillingService;
-import com.google.android.gms.analytics.GoogleAnalytics;
-import com.google.android.gms.analytics.Tracker;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.planyourexchange.rest.api.ServerApi;
-import com.planyourexchange.rest.model.Country;
-import com.planyourexchange.rest.service.ServerService;
-import com.planyourexchange.tasks.CountryLoaderTask;
-import com.planyourexchange.tasks.ServerServiceTask;
+import com.planyourexchange.R;
+import com.planyourexchange.app.PlanYourExchangeContext;
 import com.planyourexchange.utils.PropertyReader;
-import com.planyourexchange.views.CountriesFragment;
 import com.planyourexchange.views.ViewAbstraction;
-
-import android.os.AsyncTask;
-import android.widget.ScrollView;
-import android.widget.TextView;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements ViewAbstraction {
 
-    public static final int DISPATCH_PERIOD_IN_SECONDS = 1800;
-    public static GoogleAnalytics analytics;
-    public static Tracker tracker;
-
     private AdView adView;
-    private PropertyReader propertyReader;
-
     /*
     / -- TODO Implement this latter
     IInAppBillingService mService;
@@ -78,24 +46,9 @@ public class MainActivity extends AppCompatActivity implements ViewAbstraction {
         // -- This should come first
         setContentView(R.layout.activity_main);
 
-        propertyReader = new PropertyReader(this);
-
-        // -- Analytics init
-        analytics = GoogleAnalytics.getInstance(this);
-        analytics.setLocalDispatchPeriod(DISPATCH_PERIOD_IN_SECONDS);
-
-        tracker = analytics.newTracker(propertyReader.getProperty("AnalyticsId"));
-        tracker.enableExceptionReporting(true);
-        tracker.enableAdvertisingIdCollection(true);
-        tracker.enableAutoActivityTracking(true);
-
-        // Create global configuration and initialize ImageLoader with this config
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
-        ImageLoader.getInstance().init(config);
-
         // Create and load the AdView.
         adView = new AdView(this);
-        adView.setAdUnitId(propertyReader.getProperty("AdUnitId"));
+        adView.setAdUnitId(PlanYourExchangeContext.getInstance().propertyReader.getProperty("AdUnitId"));
         adView.setAdSize(AdSize.SMART_BANNER);
 
         // -- Relative Layout manipulation
@@ -118,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements ViewAbstraction {
         */
 
         // -- Fragments
+        /*
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -130,12 +84,13 @@ public class MainActivity extends AppCompatActivity implements ViewAbstraction {
         serverServiceTask.execute(propertyReader.getProperty("service.url"),
                 propertyReader.getProperty("service.userName"),
                 propertyReader.getProperty("service.password"));
+        */
     }
 
     private void showBanner() {
         adView.setVisibility(View.VISIBLE);
         adView.loadAd(new AdRequest.Builder()
-                .addTestDevice(propertyReader.getProperty("TestDeviceId")).build());
+                .addTestDevice(PlanYourExchangeContext.getInstance().propertyReader.getProperty("TestDeviceId")).build());
     }
 
     private void hideBanner() {

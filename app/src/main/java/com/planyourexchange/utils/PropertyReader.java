@@ -2,7 +2,9 @@ package com.planyourexchange.utils;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.util.Log;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -13,24 +15,26 @@ import java.util.Properties;
  */
 public class PropertyReader {
 
+    private static final String TAG = PropertyReader.class.getCanonicalName();
+
     private Properties properties;
 
     private static final String SECRET_PROPERTIES = "secret.properties";
 
-    public PropertyReader(Context context) {
+    public PropertyReader(Context context) throws IOException {
         properties = new Properties();
         loadProperties(context, SECRET_PROPERTIES);
     }
 
-    private void loadProperties(Context context, String file) {
+    private void loadProperties(Context context, String file) throws IOException {
         try {
             AssetManager assetManager = context.getAssets();
             InputStream inputStream = assetManager.open(file);
             properties.load(inputStream);
 
         } catch (Exception e) {
-            // -- TODO Refactor this to use proper logging system
-            System.out.print(e.getMessage());
+            Log.e(TAG,"Loading property file",e);
+            throw e;
         }
 
     }

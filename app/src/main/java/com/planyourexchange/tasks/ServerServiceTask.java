@@ -2,30 +2,39 @@ package com.planyourexchange.tasks;
 
 import android.os.AsyncTask;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
+import com.planyourexchange.app.PlanYourExchangeContext;
 import com.planyourexchange.rest.api.ServerApi;
 import com.planyourexchange.rest.service.ServerService;
-import com.planyourexchange.views.ViewAbstraction;
+import com.planyourexchange.utils.PropertyReader;
 
 /**
  * Created by thiago on 31/07/15.
  */
-public class ServerServiceTask extends AsyncTask<String,Integer,ServerApi> {
+public class ServerServiceTask extends AsyncTask<Void, Void, ServerApi> {
 
-    private ViewAbstraction viewAbstraction;
+    private PropertyReader propertyReader;
+    private GoogleAnalytics googleAnalytics;
+    private Tracker tracker;
 
-    public ServerServiceTask(ViewAbstraction viewAbstraction) {
-        this.viewAbstraction = viewAbstraction;
+    public ServerServiceTask(PropertyReader propertyReader, GoogleAnalytics googleAnalytics, Tracker tracker) {
+        this.propertyReader = propertyReader;
+        this.googleAnalytics = googleAnalytics;
+        this.tracker = tracker;
     }
 
+
     @Override
-    protected ServerApi doInBackground(String... params) {
-        ServerService service = new ServerService(params[0],params[1],params[2]);
+    protected ServerApi doInBackground(Void... params) {
+        ServerService service = new ServerService(propertyReader.getProperty("service.url"),
+                propertyReader.getProperty("service.userName"),
+                propertyReader.getProperty("service.password"));
         return service.getServerApi();
     }
 
     @Override
     protected void onPostExecute(ServerApi serverApi) {
-        CountryLoaderTask countryLoaderTask = new CountryLoaderTask(serverApi,viewAbstraction);
-        countryLoaderTask.execute();
+        new PlanYourExchangeContext(propertyReader, googleAnalytics, tracker, serverApi);
     }
 }
