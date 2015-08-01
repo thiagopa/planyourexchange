@@ -10,32 +10,26 @@ import retrofit.RestAdapter;
  */
 public final class ServerService {
 
-    private static final String TOKEN = "Token ";
-    private static final String AUTHORIZATION = "Authorization";
-
     private ServerApi serverApi;
-    private String authToken;
+    private TokenManager tokenManager;
 
     public ServerService(String serviceUrl, String userName, String password) {
+
+        tokenManager = new TokenManager(userName,password);
 
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setLogLevel(RestAdapter.LogLevel.FULL)
                 .setEndpoint(serviceUrl)
-                .setRequestInterceptor(new RequestInterceptor() {
-                    @Override
-                    public void intercept(RequestFacade request) {
-                        if (authToken != null) {
-                            request.addHeader(AUTHORIZATION, authToken);
-                        }
-                    }
-                }).build();
+                .setRequestInterceptor(tokenManager).build();
 
         this.serverApi = restAdapter.create(ServerApi.class);
-        // -- TODO Refactor this to include this call elsewhere (token managment)
-        this.authToken = TOKEN + this.serverApi.login(userName,password).getToken();
     }
 
     public ServerApi getServerApi() {
+
+        if(!tokenManager.isValidToken()) {
+          tokenManager.newToken(serverApi);
+        }
         return serverApi;
     }
 }

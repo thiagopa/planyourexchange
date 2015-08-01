@@ -1,16 +1,13 @@
 package com.planyourexchange.app;
 
 import android.app.Application;
-import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.planyourexchange.rest.api.ServerApi;
 import com.planyourexchange.rest.service.ServerService;
-import com.planyourexchange.tasks.ServerServiceTask;
 import com.planyourexchange.utils.PropertyReader;
 
 import java.io.IOException;
@@ -37,10 +34,10 @@ public class PlanYourExchangeApplication extends Application {
         }
 
         // -- Initialize Google Analytics
-        GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
-        analytics.setLocalDispatchPeriod(DISPATCH_PERIOD_IN_SECONDS);
+        GoogleAnalytics googleAnalytics = GoogleAnalytics.getInstance(this);
+        googleAnalytics.setLocalDispatchPeriod(DISPATCH_PERIOD_IN_SECONDS);
 
-        Tracker tracker = analytics.newTracker(propertyReader.getProperty("AnalyticsId"));
+        Tracker tracker = googleAnalytics.newTracker(propertyReader.getProperty("AnalyticsId"));
         tracker.enableExceptionReporting(true);
         tracker.enableAdvertisingIdCollection(true);
         tracker.enableAutoActivityTracking(true);
@@ -49,7 +46,11 @@ public class PlanYourExchangeApplication extends Application {
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
         ImageLoader.getInstance().init(config);
 
-        // -- Inits the rest service api on background and tight context
-        new ServerServiceTask(propertyReader,analytics,tracker).execute();
+        // -- Initialize Rest Service Api
+        ServerService serverService = new ServerService(propertyReader.getProperty("service.url"),
+                propertyReader.getProperty("service.userName"),
+                propertyReader.getProperty("service.password"));
+
+        new PlanYourExchangeContext(propertyReader, googleAnalytics, tracker, serverService);
     }
 }

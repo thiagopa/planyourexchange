@@ -3,6 +3,7 @@ package com.planyourexchange.app;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.planyourexchange.rest.api.ServerApi;
+import com.planyourexchange.rest.service.ServerService;
 import com.planyourexchange.utils.PropertyReader;
 
 /**
@@ -17,13 +18,13 @@ public final class PlanYourExchangeContext {
     public final PropertyReader propertyReader;
     public final GoogleAnalytics googleAnalytics;
     public final Tracker tracker;
-    public final ServerApi serverApi;
+    public final ServerService serverService;
 
-    public PlanYourExchangeContext(PropertyReader propertyReader, GoogleAnalytics googleAnalytics, Tracker tracker, ServerApi serverApi) {
+    public PlanYourExchangeContext(PropertyReader propertyReader, GoogleAnalytics googleAnalytics, Tracker tracker, ServerService serverService) {
         this.propertyReader = propertyReader;
         this.googleAnalytics = googleAnalytics;
         this.tracker = tracker;
-        this.serverApi = serverApi;
+        this.serverService = serverService;
 
         this.instance = this;
     }
