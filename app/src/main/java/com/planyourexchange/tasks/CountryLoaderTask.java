@@ -1,48 +1,46 @@
 package com.planyourexchange.tasks;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.planyourexchange.rest.api.ServerApi;
+import com.planyourexchange.R;
+import com.planyourexchange.app.PlanYourExchangeContext;
+import com.planyourexchange.fragments.CountriesFragment;
 import com.planyourexchange.rest.model.Country;
 import com.planyourexchange.rest.service.ServerService;
-import com.planyourexchange.views.ViewAbstraction;
+import com.planyourexchange.views.ModelView;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by thiago on 31/07/15.
  */
 public class CountryLoaderTask extends AsyncTask<Void, Integer, List<Country>> {
 
-    private ServerApi serverApi;
-    private ViewAbstraction viewAbstraction;
+    private Context context;
+    private ViewGroup viewGroup;
+    private ModelView<Country> modelView;
 
-    public CountryLoaderTask(ServerApi serverApi, ViewAbstraction viewAbstraction) {
-        this.serverApi = serverApi;
-        this.viewAbstraction = viewAbstraction;
+    public CountryLoaderTask(Context context, ViewGroup viewGroup, ModelView<Country> modelView) {
+        this.context = context;
+        this.viewGroup = viewGroup;
+        this.modelView = modelView;
     }
 
     @Override
     protected List<Country> doInBackground(Void... params) {
-        return serverApi.listCountries();
+        return PlanYourExchangeContext.getInstance().serverService.getServerApi().listCountries();
     }
 
     @Override
     protected void onPostExecute(List<Country> countries) {
-        for (Country country : countries) {
-            TextView textView = new TextView(viewAbstraction.getViewContext());
-            textView.setText(country.getName());
-            textView.setTextColor(Color.BLACK);
-            viewAbstraction.getViewLayout().addView(textView);
-
-            ImageView imageView = new ImageView(viewAbstraction.getViewContext());
-            ImageLoader.getInstance().displayImage(country.getIcon(),imageView);
-            viewAbstraction.getViewLayout().addView(imageView);
-        }
+        modelView.setCachedData(countries);
+        modelView.drawList(countries,context,viewGroup);
     }
 }

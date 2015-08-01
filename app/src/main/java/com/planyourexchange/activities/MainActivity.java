@@ -1,6 +1,7 @@
 package com.planyourexchange.activities;
 
-import android.content.Context;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.support.v4.app.TaskStackBuilder;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,10 +17,10 @@ import com.google.android.gms.ads.AdView;
 
 import com.planyourexchange.R;
 import com.planyourexchange.app.PlanYourExchangeContext;
-import com.planyourexchange.utils.PropertyReader;
-import com.planyourexchange.views.ViewAbstraction;
+import com.planyourexchange.fragments.CountriesFragment;
+import com.planyourexchange.tasks.CountryLoaderTask;
 
-public class MainActivity extends AppCompatActivity implements ViewAbstraction {
+public class MainActivity extends AppCompatActivity {
 
     private AdView adView;
     /*
@@ -71,20 +72,14 @@ public class MainActivity extends AppCompatActivity implements ViewAbstraction {
         */
 
         // -- Fragments
-        /*
+
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         // -- Initializing first fragment
         CountriesFragment countriesFragment = new CountriesFragment();
-        fragmentTransaction.add(R.id.mainLayout,countriesFragment);
+        fragmentTransaction.replace(R.id.mainLayout, countriesFragment);
         fragmentTransaction.commit();
-
-        ServerServiceTask serverServiceTask = new ServerServiceTask(this);
-        serverServiceTask.execute(propertyReader.getProperty("service.url"),
-                propertyReader.getProperty("service.userName"),
-                propertyReader.getProperty("service.password"));
-        */
     }
 
     private void showBanner() {
@@ -133,15 +128,5 @@ public class MainActivity extends AppCompatActivity implements ViewAbstraction {
             unbindService(mServiceConn);
         }
         */
-    }
-
-    @Override
-    public Context getViewContext() {
-        return getApplicationContext();
-    }
-
-    @Override
-    public ViewGroup getViewLayout() {
-        return (ViewGroup) findViewById(R.id.countries_linear_layout);
     }
 }
