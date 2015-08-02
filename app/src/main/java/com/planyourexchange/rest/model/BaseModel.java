@@ -33,5 +33,18 @@ public class BaseModel {
         this.icon = icon;
     }
 
+    @Override
+    public boolean equals(Object o) {
 
+        if(o!=null && o instanceof BaseModel) {
+            return this.id.equals(((BaseModel) o).id);
+        }
+
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.id;
+    }
 }

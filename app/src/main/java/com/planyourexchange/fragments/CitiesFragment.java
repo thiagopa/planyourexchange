@@ -16,37 +16,42 @@ import com.planyourexchange.R;
 import com.planyourexchange.app.PlanYourExchangeApplication;
 import com.planyourexchange.app.PlanYourExchangeContext;
 import com.planyourexchange.rest.model.City;
+import com.planyourexchange.rest.model.Country;
 import com.planyourexchange.tasks.RestLoaderTask;
 import com.planyourexchange.views.ModelView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by thiago on 01/08/15.
  */
 public class CitiesFragment extends Fragment implements ModelView<City> {
 
-    private static List<City> CITIES_CACHE;
+    private final static Map<Country,List<City>> COUNTRY_CITIES_CACHE = new HashMap<Country,List<City>>();
 
     @Override
     public void setCachedData(List<City> cities) {
-        CITIES_CACHE = cities;
+        COUNTRY_CITIES_CACHE.put(cities.get(0).getCountry(), cities);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.countries_fragment,container,false);
+        View view = inflater.inflate(R.layout.cities_fragment,container,false);
 
         Context context = container.getContext();
-        ViewGroup viewGroup = (ViewGroup) view.findViewById(R.id.countries_linear_layout);
+        ViewGroup viewGroup = (ViewGroup) view.findViewById(R.id.cities_linear_layout);
+        Integer countryId = getArguments().getInt(CountriesFragment.COUNTRY_ID);
+        Country lookup = new Country();
+        lookup.setId(countryId);
 
         // -- Dispatch task to load resources if not cached
-        if(CITIES_CACHE==null) {
-            Integer countryId = savedInstanceState.getInt(CountriesFragment.COUNTRY_ID);
-            new RestLoaderTask<City>(context, viewGroup, this).execute(countryId);
+        if(COUNTRY_CITIES_CACHE.containsKey(lookup)) {
+            drawList(COUNTRY_CITIES_CACHE.get(lookup),context,viewGroup);
         } else {
-            drawList(CITIES_CACHE,context,viewGroup);
+            new RestLoaderTask<City>(context, viewGroup, this).execute(countryId);
         }
 
         return view;

@@ -40,7 +40,9 @@ public class RestLoaderTask<Model> extends AsyncTask<Integer, Void, List<Model>>
 
     @Override
     protected void onPostExecute(List<Model> list) {
-        modelView.setCachedData(list);
-        modelView.drawList(list,context,viewGroup);
+        if(!list.isEmpty()) {
+            modelView.setCachedData(list);
+            modelView.drawList(list,context,viewGroup);
+        }
     }
 }

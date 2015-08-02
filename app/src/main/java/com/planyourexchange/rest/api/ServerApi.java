@@ -27,9 +27,6 @@ public interface ServerApi {
     @GET("/countries/")
     List<Country> listCountries();
 
-    @GET("/cities/")
-    List<City> listCities();
-
     @GET("/countries/{id}/cities/")
     List<City> listCities(@Path("id") Integer countryId);
 
