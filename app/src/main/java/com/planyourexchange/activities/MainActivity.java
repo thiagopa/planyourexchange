@@ -84,15 +84,14 @@ public class MainActivity extends AppCompatActivity {
             mAdView.loadAd(adRequest);
             */
 
-            // -- Fragments
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
             // -- Initializing first fragment
             CountriesFragment countriesFragment = new CountriesFragment();
-            fragmentTransaction.replace(R.id.fragment_container, countriesFragment);
-            fragmentTransaction.commit();
 
+            // -- Fragments Managment
+            getFragmentManager().beginTransaction()
+                                       .replace(R.id.fragment_container, countriesFragment)
+                                       .addToBackStack(null)
+                                       .commit();
         }
 
 
@@ -104,6 +103,16 @@ public class MainActivity extends AppCompatActivity {
     }
     */
 
+
+    @Override
+    public void onBackPressed() {
+        if(getFragmentManager().getBackStackEntryCount() == 0) {
+            super.onBackPressed();
+        }
+        else {
+            getFragmentManager().popBackStack();
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

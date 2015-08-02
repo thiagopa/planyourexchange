@@ -70,18 +70,17 @@ public class CountriesFragment extends Fragment implements ModelView<Country> {
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                    // -- Initializing first fragment
+                    // -- Initializing cities fragment
                     CitiesFragment citiesFragment = new CitiesFragment();
                     // -- Passing the country Id
                     Bundle bundle = new Bundle();
                     bundle.putInt(COUNTRY_ID,country.getId());
                     citiesFragment.setArguments(bundle);
 
-                    fragmentTransaction.replace(R.id.fragment_container, citiesFragment);
-                    // -- Used for back button navigation
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
-
+                    getFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container, citiesFragment)
+                            .addToBackStack(null)
+                            .commit();
                 }
             });
 
