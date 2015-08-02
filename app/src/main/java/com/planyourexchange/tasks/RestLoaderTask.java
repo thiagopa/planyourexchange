@@ -28,7 +28,14 @@ public class RestLoaderTask<Model> extends AsyncTask<Integer, Void, List<Model>>
 
     @Override
     protected List<Model> doInBackground(Integer... params) {
-        return modelView.callService(params[0]);
+        Integer argument = null;
+
+        // -- Some cases, argument may be null
+        if(params!=null && params.length > 0) {
+            argument = params[0];
+        }
+
+        return modelView.callService(argument);
     }
 
     @Override

@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.planyourexchange.R;
+import com.planyourexchange.app.PlanYourExchangeApplication;
+import com.planyourexchange.app.PlanYourExchangeContext;
 import com.planyourexchange.rest.model.City;
 import com.planyourexchange.tasks.RestLoaderTask;
 import com.planyourexchange.views.ModelView;
@@ -41,7 +43,8 @@ public class CitiesFragment extends Fragment implements ModelView<City> {
 
         // -- Dispatch task to load resources if not cached
         if(CITIES_CACHE==null) {
-            new RestLoaderTask<City>(context, viewGroup, this).execute();
+            Integer countryId = savedInstanceState.getInt(CountriesFragment.COUNTRY_ID);
+            new RestLoaderTask<City>(context, viewGroup, this).execute(countryId);
         } else {
             drawList(CITIES_CACHE,context,viewGroup);
         }
@@ -60,19 +63,20 @@ public class CitiesFragment extends Fragment implements ModelView<City> {
 
             ImageView imageView = new ImageView(context);
             ImageLoader.getInstance().displayImage(city.getIcon(), imageView);
+            /*
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                 }
             });
-
+            */
             viewGroup.addView(imageView);
         }
     }
 
     @Override
     public List<City> callService(Integer modelId) {
-        return null;
+        return PlanYourExchangeContext.getInstance().serverService.getServerApi().listCities(modelId);
     }
 }
