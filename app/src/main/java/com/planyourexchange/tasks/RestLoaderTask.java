@@ -12,13 +12,14 @@ import com.planyourexchange.rest.model.City;
 import com.planyourexchange.rest.model.Country;
 import com.planyourexchange.views.ModelView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by thiago on 01/08/15.
  */
-public class RestLoaderTask<Key,Model> extends AsyncTask<Key, Void, List<Model>> {
+public class RestLoaderTask<Key extends Serializable ,Model> extends AsyncTask<Key, Void, List<Model>> {
 
     private Context context;
     private ViewGroup viewGroup;
