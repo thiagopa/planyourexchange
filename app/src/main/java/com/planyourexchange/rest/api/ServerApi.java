@@ -38,6 +38,6 @@ public interface ServerApi {
     @GET("/cities/{id}/schools/")
     List<School> listSchools(@Path("id") Integer cityId);
 
-    @POST("schoolcoursevalue/find/")
+    @POST("/schoolcoursevalue/find/")
     List<SchoolCourseValue> findCourseSchoolValue(@Body SchoolCourseValueKey request);
 }
