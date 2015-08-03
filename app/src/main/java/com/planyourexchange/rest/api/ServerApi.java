@@ -33,7 +33,7 @@ public interface ServerApi {
     @GET("/cities/{id}/courses/")
     List<Course> listCourses(@Path("id") Integer cityId);
 
-    @GET("/cities/{id}/courses/")
+    @GET("/cities/{id}/schools/")
     List<School> listSchools(@Path("id") Integer cityId);
 
     @GET("/coursevaluebyschool/")

@@ -23,6 +23,7 @@ public class RestLoaderTask<Key,Model extends BaseModel> extends AsyncTask<Key, 
     private Context context;
     private ViewGroup viewGroup;
     private ModelView<Key,Model> modelView;
+    private Exception errorDuringExecution;
 
     public RestLoaderTask(Context context, ViewGroup viewGroup, ModelView<Key,Model> modelView) {
         this.context = context;
@@ -43,16 +44,7 @@ public class RestLoaderTask<Key,Model extends BaseModel> extends AsyncTask<Key, 
         try {
             result = modelView.callService(argument);
         } catch(Exception e) {
-            // -- Show an error dialog in case some pesky little network or whatever error happens
-            // -- TODO This should be better handled
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setMessage(e.getMessage())
-                    .setTitle("Error")
-                    .setNeutralButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    }).create().show();
+            errorDuringExecution = e;
         }
         return result;
     }
@@ -62,6 +54,19 @@ public class RestLoaderTask<Key,Model extends BaseModel> extends AsyncTask<Key, 
         if(!list.isEmpty()) {
             modelView.addCachedData(list);
             modelView.drawList(list,context,viewGroup);
+        } else {
+            // -- Show an error dialog in case some pesky little network or whatever error happens
+            // -- TODO This should be better handled
+            String message = errorDuringExecution!=null?errorDuringExecution.getMessage():"No data was found on server";
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setMessage(message)
+                    .setTitle("Error")
+                    .setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    }).create().show();
         }
     }
 }
