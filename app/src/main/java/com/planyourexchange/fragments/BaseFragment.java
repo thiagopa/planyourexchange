@@ -28,48 +28,14 @@ import static com.planyourexchange.utils.Constants.CITY_ID;
  * Created by thiago on 02/08/15.
  */
 // -- Base model for handling information between fragments that share enormous similarities
-public abstract class BaseFragment<Key, Model extends BaseModel> extends Fragment implements ModelView<Key, Model> {
+public abstract class BaseFragment<Key, Model extends BaseModel> extends AbstractBaseFragment<Key, Model> {
 
-    // -- Cache of information
-    private final Map<Key, List<Model>> CACHE = new HashMap<Key, List<Model>>();
-
-    protected static final String KEY_ID = "keyId";
-
-    // -- Base properties
-    private final int inflateLayout;
-    private final int drawLayout;
     private final Fragment nextScreen;
 
     // -- Need to be called by overriding class
-    protected BaseFragment(final int inflateLayout, final int drawLayout,final Fragment nextScreen) {
-        this.inflateLayout = inflateLayout;
-        this.drawLayout = drawLayout;
+    protected BaseFragment(final int inflateLayout, final int drawLayout, final Fragment nextScreen) {
+        super(inflateLayout,drawLayout);
         this.nextScreen = nextScreen;
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(this.inflateLayout, container, false);
-
-        Context context = container.getContext();
-        ViewGroup viewGroup = (ViewGroup) view.findViewById(this.drawLayout);
-        Key key = (Key) getArguments().get(KEY_ID);
-
-        // -- Dispatch task to load resources if not cached
-        if (CACHE.containsKey(key)) {
-            drawList(CACHE.get(key), context, viewGroup);
-        } else {
-            new RestLoaderTask<Key,Model>(context, viewGroup, this).execute(key);
-        }
-
-        return view;
-    }
-
-
-    @Override
-    public void addCachedData(List<Model> modelList) {
-        CACHE.put((Key)getArguments().get(KEY_ID),modelList);
     }
 
     @Override

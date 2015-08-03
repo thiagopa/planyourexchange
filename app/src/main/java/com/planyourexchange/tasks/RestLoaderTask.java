@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by thiago on 01/08/15.
  */
-public class RestLoaderTask<Key,Model extends BaseModel> extends AsyncTask<Key, Void, List<Model>> {
+public class RestLoaderTask<Key,Model> extends AsyncTask<Key, Void, List<Model>> {
 
     private Context context;
     private ViewGroup viewGroup;

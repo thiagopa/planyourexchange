@@ -6,7 +6,7 @@ import com.planyourexchange.rest.model.Country;
 import com.planyourexchange.rest.model.Course;
 import com.planyourexchange.rest.model.School;
 import com.planyourexchange.rest.model.SchoolCourseValue;
-import com.planyourexchange.rest.model.SchoolCourseValueFindRequest;
+import com.planyourexchange.rest.model.SchoolCourseValueKey;
 
 import java.util.List;
 
@@ -39,5 +39,5 @@ public interface ServerApi {
     List<School> listSchools(@Path("id") Integer cityId);
 
     @POST("schoolcoursevalue/find/")
-    List<SchoolCourseValue> findCourseSchoolValue(@Body SchoolCourseValueFindRequest request);
+    List<SchoolCourseValue> findCourseSchoolValue(@Body SchoolCourseValueKey request);
 }

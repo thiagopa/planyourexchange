@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by thiago on 03/08/15.
  */
-public class SchoolCourseValueFindRequest {
+public class SchoolCourseValueKey {
 
     @SerializedName("city_id")
     private Integer cityId;
@@ -36,5 +36,17 @@ public class SchoolCourseValueFindRequest {
 
     public void setSchoolId(Integer schoolId) {
         this.schoolId = schoolId;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+
+        if(o!=null && o instanceof SchoolCourseValueKey) {
+            SchoolCourseValueKey c = (SchoolCourseValueKey) o;
+            return cityId != null && cityId.equals(c.cityId) && ( (courseId != null && courseId.equals(c.courseId)) || (schoolId != null && schoolId.equals(c.schoolId)) );
+        }
+
+        return false;
     }
 }

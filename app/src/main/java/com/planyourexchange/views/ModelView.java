@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by thiago on 01/08/15.
  */
-public interface ModelView<Key, Model extends BaseModel> {
+public interface ModelView<Key, Model> {
 
     // -- Store cached data for model list
     void addCachedData(List<Model> modelList);
