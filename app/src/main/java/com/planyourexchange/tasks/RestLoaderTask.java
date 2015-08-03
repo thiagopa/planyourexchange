@@ -1,6 +1,8 @@
 package com.planyourexchange.tasks;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.view.ViewGroup;
 
@@ -10,6 +12,7 @@ import com.planyourexchange.rest.model.City;
 import com.planyourexchange.rest.model.Country;
 import com.planyourexchange.views.ModelView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,7 +39,22 @@ public class RestLoaderTask<Key,Model extends BaseModel> extends AsyncTask<Key, 
             argument = params[0];
         }
 
-        return modelView.callService(argument);
+        List<Model> result = new ArrayList<>(0);
+        try {
+            result = modelView.callService(argument);
+        } catch(Exception e) {
+            // -- Show an error dialog in case some pesky little network or whatever error happens
+            // -- TODO This should be better handled
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setMessage(e.getMessage())
+                    .setTitle("Error")
+                    .setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    }).create().show();
+        }
+        return result;
     }
 
     @Override
