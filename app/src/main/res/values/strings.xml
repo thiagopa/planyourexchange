@@ -4,6 +4,6 @@
     <string name="choose_country">Pick desired country</string>
     <string name="choose_city">Pick desired city</string>
     <string name="choose_between">Choose between</string>
-    <string name="course">Course</string>
-    <string name="school">School</string>
+    <string name="course">By Course</string>
+    <string name="school">By School</string>
 </resources>

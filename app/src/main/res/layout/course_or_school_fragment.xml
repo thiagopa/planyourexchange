@@ -14,17 +14,19 @@
             android:text="@string/choose_between"
             android:textStyle="bold"/>
 
-        <TextView
+        <Button
+            android:id="@+id/button_by_course"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/course"
-            android:textStyle="bold"/>
+            android:textStyle="italic"/>
 
-        <TextView
+        <Button
+            android:id="@+id/button_by_school"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/school"
-            android:textStyle="bold"/>
+            android:textStyle="italic"/>
 
 
     </LinearLayout>

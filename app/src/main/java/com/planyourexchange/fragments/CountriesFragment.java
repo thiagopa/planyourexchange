@@ -1,8 +1,6 @@
 package com.planyourexchange.fragments;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -22,12 +20,13 @@ import com.planyourexchange.views.ModelView;
 
 import java.util.List;
 
+import static com.planyourexchange.utils.Constants.COUNTRY_ID;
+
 /**
  * Created by thiago on 31/07/15.
  */
 public class CountriesFragment extends Fragment implements ModelView<Country> {
 
-    public static final String COUNTRY_ID = "countryId";
     private static List<Country> COUNTRY_CACHE;
 
     @Nullable
@@ -66,10 +65,6 @@ public class CountriesFragment extends Fragment implements ModelView<Country> {
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // -- Fragments
-                    FragmentManager fragmentManager = getFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
                     // -- Initializing cities fragment
                     CitiesFragment citiesFragment = new CitiesFragment();
                     // -- Passing the country Id
