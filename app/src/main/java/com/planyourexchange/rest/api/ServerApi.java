@@ -30,11 +30,11 @@ public interface ServerApi {
     @GET("/countries/{id}/cities/")
     List<City> listCities(@Path("id") Integer countryId);
 
-    @GET("/courses/")
-    List<Course> listCourses();
+    @GET("/cities/{id}/courses/")
+    List<Course> listCourses(@Path("id") Integer cityId);
 
-    @GET("/schools/")
-    List<School> listSchools();
+    @GET("/cities/{id}/courses/")
+    List<School> listSchools(@Path("id") Integer cityId);
 
     @GET("/coursevaluebyschool/")
     List<SchoolCourseValue> listCourseValueBySchool();

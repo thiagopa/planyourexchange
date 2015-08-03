@@ -14,21 +14,21 @@ import java.util.List;
 /**
  * Created by thiago on 01/08/15.
  */
-public class RestLoaderTask<Model> extends AsyncTask<Integer, Void, List<Model>> {
+public class RestLoaderTask<Key,Model> extends AsyncTask<Key, Void, List<Model>> {
 
     private Context context;
     private ViewGroup viewGroup;
-    private ModelView<Model> modelView;
+    private ModelView<Key,Model> modelView;
 
-    public RestLoaderTask(Context context, ViewGroup viewGroup, ModelView<Model> modelView) {
+    public RestLoaderTask(Context context, ViewGroup viewGroup, ModelView<Key,Model> modelView) {
         this.context = context;
         this.viewGroup = viewGroup;
         this.modelView = modelView;
     }
 
     @Override
-    protected List<Model> doInBackground(Integer... params) {
-        Integer argument = null;
+    protected List<Model> doInBackground(Key... params) {
+        Key argument = null;
 
         // -- Some cases, argument may be null
         if(params!=null && params.length > 0) {
@@ -41,7 +41,7 @@ public class RestLoaderTask<Model> extends AsyncTask<Integer, Void, List<Model>>
     @Override
     protected void onPostExecute(List<Model> list) {
         if(!list.isEmpty()) {
-            modelView.setCachedData(list);
+            modelView.addCachedData(list);
             modelView.drawList(list,context,viewGroup);
         }
     }

@@ -25,66 +25,20 @@ import static com.planyourexchange.utils.Constants.COUNTRY_ID;
 /**
  * Created by thiago on 31/07/15.
  */
-public class CountriesFragment extends Fragment implements ModelView<Country> {
+public class CountriesFragment extends BaseFragment<String,Country> {
 
-    private static List<Country> COUNTRY_CACHE;
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.countries_fragment,container,false);
-
-        Context context = container.getContext();
-        ViewGroup viewGroup = (ViewGroup) view.findViewById(R.id.countries_linear_layout);
-
-        // -- Dispatch task to load resources if not cached
-        if(COUNTRY_CACHE==null) {
-            new RestLoaderTask<Country>(context, viewGroup, this).execute();
-        } else {
-            drawList(COUNTRY_CACHE,context,viewGroup);
-        }
-
-        return view;
+    public CountriesFragment() {
+        super(R.layout.countries_fragment, R.id.countries_linear_layout, new CitiesFragment());
+        // -- Hard Coding English Language for now
+        Bundle bundle = new Bundle();
+        bundle.putString(KEY_ID,"English");
+        setArguments(bundle);
     }
 
+    // -- List all countries (only english for now)
     @Override
-    public void setCachedData(List<Country> countries) {
-        COUNTRY_CACHE = countries;
-    }
-
-    @Override
-    public void drawList(List<Country> countries,Context context, ViewGroup viewGroup) {
-        for (final Country country : countries) {
-            TextView textView = new TextView(context);
-            textView.setText(country.getName());
-            textView.setTextColor(Color.BLACK);
-            viewGroup.addView(textView);
-
-            ImageView imageView = new ImageView(context);
-            ImageLoader.getInstance().displayImage(country.getIcon(), imageView);
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // -- Initializing cities fragment
-                    CitiesFragment citiesFragment = new CitiesFragment();
-                    // -- Passing the country Id
-                    Bundle bundle = new Bundle();
-                    bundle.putInt(COUNTRY_ID,country.getId());
-                    citiesFragment.setArguments(bundle);
-
-                    getFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_container, citiesFragment)
-                            .addToBackStack(null)
-                            .commit();
-                }
-            });
-
-            viewGroup.addView(imageView);
-        }
-    }
-
-    @Override
-    public List<Country> callService(Integer modelId) {
+    public List<Country> callService(String language) {
         return PlanYourExchangeContext.getInstance().serverService.getServerApi().listCountries();
     }
 }

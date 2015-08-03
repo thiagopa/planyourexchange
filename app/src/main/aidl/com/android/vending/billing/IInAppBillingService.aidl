@@ -80,7 +80,7 @@ interface IInAppBillingService {
      * @param sku the SKU of the in-app item as published in the developer console
      * @param type the type of the in-app item ("inapp" for one-time purchases
      *        and "subs" for subscription).
-     * @param developerPayload optional argument to be sent back with the purchase information
+     * @param developerPayload optional argumentId to be sent back with the purchase information
      * @return Bundle containing the following key-value pairs
      *         "RESPONSE_CODE" with int value, RESULT_OK(0) if success, other response codes on
      *              failure as listed above.

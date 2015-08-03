@@ -11,6 +11,9 @@ import android.widget.Button;
 import com.planyourexchange.R;
 import android.view.View.OnClickListener;
 
+import static com.planyourexchange.utils.Constants.CITY_ID;
+import static com.planyourexchange.utils.Constants.COUNTRY_ID;
+
 /**
  * Created by thiago on 02/08/15.
  */
@@ -32,15 +35,28 @@ public class CourseOrSchoolFragment extends Fragment implements OnClickListener 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            // -- Load Restservice for City and Course
-            case R.id.button_by_course:
 
+        Fragment fragment = null;
+
+        // -- I could have used a nested if expression, but...
+        switch (v.getId()) {
+            // -- Load Courses List for given City
+            case R.id.button_by_course:
+                fragment = new CoursesFragment();
                 break;
-            // -- Load Restservice for City and School
+            // -- Load Schools List for given City
             case R.id.button_by_school:
+                fragment = new SchoolsFragment();
                 break;
 
         }
+
+        fragment.setArguments(new Bundle(getArguments()));
+
+        getFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)
+                .commit();
+
     }
 }
