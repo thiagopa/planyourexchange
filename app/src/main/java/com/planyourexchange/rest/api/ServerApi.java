@@ -6,9 +6,11 @@ import com.planyourexchange.rest.model.Country;
 import com.planyourexchange.rest.model.Course;
 import com.planyourexchange.rest.model.School;
 import com.planyourexchange.rest.model.SchoolCourseValue;
+import com.planyourexchange.rest.model.SchoolCourseValueFindRequest;
 
 import java.util.List;
 
+import retrofit.http.Body;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
@@ -36,6 +38,6 @@ public interface ServerApi {
     @GET("/cities/{id}/schools/")
     List<School> listSchools(@Path("id") Integer cityId);
 
-    @GET("/coursevaluebyschool/")
-    List<SchoolCourseValue> listCourseValueBySchool();
+    @POST("schoolcoursevalue/find/")
+    List<SchoolCourseValue> findCourseSchoolValue(@Body SchoolCourseValueFindRequest request);
 }
