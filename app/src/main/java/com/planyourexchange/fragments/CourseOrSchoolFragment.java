@@ -35,7 +35,7 @@ public class CourseOrSchoolFragment extends Fragment implements OnClickListener 
         switch (v.getId()) {
             // -- Load Restservice for City and Course
             case R.id.button_by_course:
-                
+
                 break;
             // -- Load Restservice for City and School
             case R.id.button_by_school:

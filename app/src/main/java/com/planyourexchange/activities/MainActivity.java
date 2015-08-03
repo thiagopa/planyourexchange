@@ -87,10 +87,9 @@ public class MainActivity extends AppCompatActivity {
             // -- Initializing first fragment
             CountriesFragment countriesFragment = new CountriesFragment();
 
-            // -- Fragments Managment
+            // -- Fragments Management
             getFragmentManager().beginTransaction()
                                        .replace(R.id.fragment_container, countriesFragment)
-                                       .addToBackStack(null)
                                        .commit();
         }
 
