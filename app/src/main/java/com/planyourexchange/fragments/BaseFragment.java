@@ -18,6 +18,7 @@ import com.planyourexchange.rest.model.City;
 import com.planyourexchange.tasks.RestLoaderTask;
 import com.planyourexchange.views.ModelView;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +29,7 @@ import static com.planyourexchange.utils.Constants.CITY_ID;
  * Created by thiago on 02/08/15.
  */
 // -- Base model for handling information between fragments that share enormous similarities
-public abstract class BaseFragment<Key, Model extends BaseModel> extends AbstractBaseFragment<Key, Model> {
+public abstract class BaseFragment<Key extends Serializable, Model extends BaseModel> extends AbstractBaseFragment<Key, Model> {
 
     private final Fragment nextScreen;
 
@@ -52,9 +53,8 @@ public abstract class BaseFragment<Key, Model extends BaseModel> extends Abstrac
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // -- Passing the model Id
                     Bundle bundle = new Bundle();
-                    bundle.putInt(KEY_ID, model.getId());
+                    bundle.putSerializable(KEY_ID, createNextKey(model));
                     nextScreen.setArguments(bundle);
                     // -- Creating transaction and adding to back stack navigation
                     getFragmentManager().beginTransaction()
@@ -66,5 +66,9 @@ public abstract class BaseFragment<Key, Model extends BaseModel> extends Abstrac
 
             viewGroup.addView(imageView);
         }
+    }
+    // -- Default is the model id as key
+    protected Serializable createNextKey(Model model) {
+        return model.getId();
     }
 }

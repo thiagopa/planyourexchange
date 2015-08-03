@@ -17,6 +17,7 @@ import com.planyourexchange.rest.model.BaseModel;
 import com.planyourexchange.tasks.RestLoaderTask;
 import com.planyourexchange.views.ModelView;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +26,7 @@ import java.util.Map;
  * Created by thiago on 02/08/15.
  */
 // -- Base model for handling information between fragments that share enormous similarities
-public abstract class AbstractBaseFragment<Key, Model> extends Fragment implements ModelView<Key, Model> {
+public abstract class AbstractBaseFragment<Key extends Serializable, Model> extends Fragment implements ModelView<Key, Model> {
 
     // -- Cache of information
     private final Map<Key, List<Model>> CACHE = new HashMap<Key, List<Model>>();
@@ -49,7 +50,7 @@ public abstract class AbstractBaseFragment<Key, Model> extends Fragment implemen
 
         Context context = container.getContext();
         ViewGroup viewGroup = (ViewGroup) view.findViewById(this.drawLayout);
-        Key key = (Key) getArguments().get(KEY_ID);
+        Key key = (Key) getArguments().getSerializable(KEY_ID);
 
         // -- Dispatch task to load resources if not cached
         if (CACHE.containsKey(key)) {
