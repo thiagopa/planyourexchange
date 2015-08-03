@@ -11,11 +11,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.planyourexchange.R;
+import com.planyourexchange.app.PlanYourExchangeContext;
 import com.planyourexchange.rest.model.BaseModel;
 import com.planyourexchange.rest.model.City;
 import com.planyourexchange.tasks.RestLoaderTask;
+import com.planyourexchange.utils.Constants;
 import com.planyourexchange.views.ModelView;
 
 import java.io.Serializable;
@@ -56,6 +60,14 @@ public abstract class BaseFragment<Key extends Serializable, Model extends BaseM
                     Bundle bundle = new Bundle();
                     bundle.putSerializable(KEY_ID, createNextKey(model));
                     nextScreen.setArguments(bundle);
+                    // -- Analytics click event for model
+                    Tracker tracker = PlanYourExchangeContext.getInstance().tracker;
+                    tracker.send(new HitBuilders.EventBuilder()
+                            .setCategory(Constants.CATEGORY_NAVIGATION)
+                            .setAction(Constants.ACTION_CLICK_ON_MODEL)
+                            .setLabel(model.getName())
+                            .build());
+
                     // -- Creating transaction and adding to back stack navigation
                     getFragmentManager().beginTransaction()
                             .replace(R.id.fragment_container, nextScreen)

@@ -11,8 +11,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.planyourexchange.R;
+import com.planyourexchange.app.PlanYourExchangeContext;
 import com.planyourexchange.rest.model.BaseModel;
 import com.planyourexchange.tasks.RestLoaderTask;
 import com.planyourexchange.views.ModelView;
@@ -41,6 +44,15 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model> exte
     protected AbstractBaseFragment(final int inflateLayout, final int drawLayout) {
         this.inflateLayout = inflateLayout;
         this.drawLayout = drawLayout;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // -- Send tracking information to Google Analytics so I know which screen users are browsing
+        Tracker tracker = PlanYourExchangeContext.getInstance().tracker;
+        tracker.setScreenName(this.getClass().getSimpleName());
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Nullable
