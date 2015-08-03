@@ -2,12 +2,17 @@ package com.planyourexchange.fragments;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TableRow;
+import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.planyourexchange.R;
 import com.planyourexchange.app.PlanYourExchangeContext;
 import com.planyourexchange.rest.model.SchoolCourseValue;
@@ -21,7 +26,7 @@ import java.util.List;
 public class SchoolCourseValueFragment extends AbstractBaseFragment<SchoolCourseValueKey,SchoolCourseValue> {
 
     public SchoolCourseValueFragment() {
-        super(R.layout.school_course_value_fragment, R.id.school_course_value_linear_layout);
+        super(R.layout.school_course_value_fragment, R.id.school_course_value_table_layout);
     }
 
     @Override
@@ -31,6 +36,42 @@ public class SchoolCourseValueFragment extends AbstractBaseFragment<SchoolCourse
 
     @Override
     public void drawList(List<SchoolCourseValue> schoolCourseValues, Context context, ViewGroup viewGroup) {
+        TableRow.LayoutParams rowParams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
+        SchoolCourseValueKey key = (SchoolCourseValueKey) getArguments().getSerializable(KEY_ID);
 
+        for (SchoolCourseValue schoolCourseValue : schoolCourseValues) {
+
+            TableRow row = new TableRow(context);
+            row.setLayoutParams(rowParams);
+
+            String iconUrl = null;
+            String name = null;
+
+            // -- If course is empty, list all courses
+            if(key.getCourseId()==null) {
+                iconUrl = schoolCourseValue.getCourse().getIcon();
+                name = schoolCourseValue.getCourse().getName();
+            // -- On the other hand if school is empty, list all schools
+            } else if(key.getSchoolId()==null) {
+                iconUrl = schoolCourseValue.getSchool().getIcon();
+                name = schoolCourseValue.getSchool().getName();
+            }
+
+            ImageView icon = new ImageView(context);
+            ImageLoader.getInstance().displayImage(iconUrl, icon);
+            row.addView(icon);
+
+            TextView nameView = new TextView(context);
+            nameView.setText(name);
+            nameView.setTextColor(Color.BLACK);
+            row.addView(nameView);
+
+            TextView valueView = new TextView(context);
+            valueView.setText( schoolCourseValue.getCurrency() + " " + schoolCourseValue.getWeekPrice() );
+            valueView.setTextColor(Color.BLACK);
+            row.addView(valueView);
+
+            viewGroup.addView(row);
+        }
     }
 }

@@ -13,9 +13,11 @@ import com.planyourexchange.app.PlanYourExchangeContext;
 import com.planyourexchange.rest.model.City;
 import com.planyourexchange.rest.model.Country;
 import com.planyourexchange.rest.model.Course;
+import com.planyourexchange.rest.model.SchoolCourseValueKey;
 import com.planyourexchange.tasks.RestLoaderTask;
 import com.planyourexchange.views.ModelView;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,5 +37,13 @@ public class CoursesFragment extends BaseFragment<Integer,Course> {
     @Override
     public List<Course> callService(Integer modelId) {
         return PlanYourExchangeContext.getInstance().serverService.getServerApi().listCourses(modelId);
+    }
+
+    @Override
+    protected Serializable createNextKey(Course model) {
+        SchoolCourseValueKey key = new SchoolCourseValueKey();
+        key.setCityId( (Integer) getArguments().getSerializable(KEY_ID));
+        key.setCourseId(model.getId());
+        return key;
     }
 }

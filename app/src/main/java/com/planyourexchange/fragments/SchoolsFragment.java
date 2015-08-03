@@ -11,7 +11,9 @@ import com.planyourexchange.R;
 import com.planyourexchange.app.PlanYourExchangeContext;
 import com.planyourexchange.rest.model.Course;
 import com.planyourexchange.rest.model.School;
+import com.planyourexchange.rest.model.SchoolCourseValueKey;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -26,5 +28,13 @@ public class SchoolsFragment extends BaseFragment<Integer,School> {
     @Override
     public List<School> callService(Integer modelId) {
         return PlanYourExchangeContext.getInstance().serverService.getServerApi().listSchools(modelId);
+    }
+
+    @Override
+    protected Serializable createNextKey(School model) {
+        SchoolCourseValueKey key = new SchoolCourseValueKey();
+        key.setCityId((Integer) getArguments().getSerializable(KEY_ID));
+        key.setSchoolId(model.getId());
+        return key;
     }
 }
