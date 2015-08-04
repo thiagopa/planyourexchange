@@ -15,7 +15,7 @@ public class CountriesFragment extends BaseFragment<String,Country> {
 
 
     public CountriesFragment() {
-        super(R.layout.countries_fragment, R.id.countries_linear_layout, new CitiesFragment());
+        super("Countries",R.layout.countries_fragment, R.id.countries_linear_layout, new CitiesFragment());
         // -- Hard Coding English Language for now
         Bundle bundle = new Bundle();
         bundle.putString(KEY_ID,"English");

@@ -26,7 +26,7 @@ import java.util.List;
 public class SchoolCourseValueFragment extends AbstractBaseFragment<SchoolCourseValueKey,SchoolCourseValue> {
 
     public SchoolCourseValueFragment() {
-        super(R.layout.school_course_value_fragment, R.id.school_course_value_table_layout);
+        super("Course Value By School",R.layout.school_course_value_fragment, R.id.school_course_value_table_layout);
     }
 
     @Override

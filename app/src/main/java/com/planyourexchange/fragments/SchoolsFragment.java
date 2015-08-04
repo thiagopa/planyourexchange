@@ -22,7 +22,7 @@ import java.util.List;
 public class SchoolsFragment extends BaseFragment<Integer,School> {
 
     public SchoolsFragment() {
-        super(R.layout.schools_fragment, R.id.schools_linear_layout, new SchoolCourseValueFragment());
+        super("Schools",R.layout.schools_fragment, R.id.schools_linear_layout, new SchoolCourseValueFragment());
     }
 
     @Override

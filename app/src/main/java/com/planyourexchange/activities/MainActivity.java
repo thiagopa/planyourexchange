@@ -1,7 +1,9 @@
 package com.planyourexchange.activities;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.support.annotation.NonNull;
 import android.support.v4.app.TaskStackBuilder;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +19,7 @@ import com.google.android.gms.ads.AdView;
 import com.planyourexchange.R;
 import com.planyourexchange.app.PlanYourExchangeContext;
 import com.planyourexchange.fragments.CountriesFragment;
+import com.planyourexchange.fragments.FragmentName;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -84,12 +87,24 @@ public class MainActivity extends AppCompatActivity {
             mAdView.loadAd(adRequest);
             */
 
-            // -- Initializing first fragment
-            CountriesFragment countriesFragment = new CountriesFragment();
+            // -- Fragment Manager
+            FragmentManager fragmentManager = getFragmentManager();
 
-            // -- Fragments Management
-            getFragmentManager().beginTransaction()
-                                       .replace(R.id.fragment_container, countriesFragment)
+            // -- Changing title according to fragment
+            fragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+                @Override
+                public void onBackStackChanged() {
+                    FragmentName fragment = (FragmentName) getFragmentManager().findFragmentById(R.id.fragment_container);
+                    setTitle(fragment.getName());
+                }
+            });
+
+            // -- Initializing first fragment and setting screen title
+            CountriesFragment fragment = new CountriesFragment();
+            setTitle(fragment.getName());
+
+            fragmentManager.beginTransaction()
+                                       .replace(R.id.fragment_container, fragment)
                                        .commit();
         }
 
@@ -101,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
         adView.setVisibility(View.GONE);
     }
     */
-
 
     @Override
     public void onBackPressed() {

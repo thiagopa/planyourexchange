@@ -29,7 +29,7 @@ import java.util.Map;
  * Created by thiago on 02/08/15.
  */
 // -- Base model for handling information between fragments that share enormous similarities
-public abstract class AbstractBaseFragment<Key extends Serializable, Model> extends Fragment implements ModelView<Key, Model> {
+public abstract class AbstractBaseFragment<Key extends Serializable, Model> extends Fragment implements ModelView<Key, Model>, FragmentName {
 
     // -- Cache of information
     private final Map<Key, List<Model>> CACHE = new HashMap<Key, List<Model>>();
@@ -39,9 +39,11 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model> exte
     // -- Base properties
     private final int inflateLayout;
     private final int drawLayout;
+    private final String titleName;
 
     // -- Need to be called by overriding class
-    protected AbstractBaseFragment(final int inflateLayout, final int drawLayout) {
+    protected AbstractBaseFragment(final String titleName, final int inflateLayout, final int drawLayout) {
+        this.titleName = titleName;
         this.inflateLayout = inflateLayout;
         this.drawLayout = drawLayout;
     }
@@ -51,7 +53,7 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model> exte
         super.onStart();
         // -- Send tracking information to Google Analytics so I know which screen users are browsing
         Tracker tracker = PlanYourExchangeContext.getInstance().tracker;
-        tracker.setScreenName(this.getClass().getSimpleName());
+        tracker.setScreenName(getName());
         tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
@@ -78,5 +80,11 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model> exte
     @Override
     public void addCachedData(List<Model> modelList) {
         CACHE.put((Key)getArguments().get(KEY_ID),modelList);
+    }
+
+    @Override
+    // -- TODO Implement Internationalization
+    public String getName() {
+        return titleName;
     }
 }

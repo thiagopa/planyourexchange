@@ -29,8 +29,8 @@ public abstract class BaseFragment<Key extends Serializable, Model extends BaseM
     private final Fragment nextScreen;
 
     // -- Need to be called by overriding class
-    protected BaseFragment(final int inflateLayout, final int drawLayout, final Fragment nextScreen) {
-        super(inflateLayout,drawLayout);
+    protected BaseFragment(final String titleName, final int inflateLayout, final int drawLayout, final Fragment nextScreen) {
+        super(titleName,inflateLayout,drawLayout);
         this.nextScreen = nextScreen;
     }
 

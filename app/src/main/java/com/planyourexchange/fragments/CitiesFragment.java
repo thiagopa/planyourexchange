@@ -12,7 +12,7 @@ import java.util.List;
 public class CitiesFragment extends BaseFragment<Integer,City> {
 
     public CitiesFragment() {
-        super(R.layout.cities_fragment, R.id.cities_linear_layout, new CourseOrSchoolFragment());
+        super("Cities",R.layout.cities_fragment, R.id.cities_linear_layout, new CourseOrSchoolFragment());
     }
 
     @Override

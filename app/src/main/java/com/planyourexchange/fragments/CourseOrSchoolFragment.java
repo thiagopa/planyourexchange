@@ -8,13 +8,18 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.planyourexchange.R;
+import com.planyourexchange.app.PlanYourExchangeContext;
+import com.planyourexchange.utils.Constants;
 
 /**
  * Created by thiago on 02/08/15.
  */
-public class CourseOrSchoolFragment extends Fragment implements OnClickListener {
+public class CourseOrSchoolFragment extends Fragment implements OnClickListener, FragmentName {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -28,6 +33,15 @@ public class CourseOrSchoolFragment extends Fragment implements OnClickListener 
         bySchool.setOnClickListener(this);
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // -- Send tracking information to Google Analytics so I know which screen users are browsing
+        Tracker tracker = PlanYourExchangeContext.getInstance().tracker;
+        tracker.setScreenName(getName());
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override
@@ -48,6 +62,14 @@ public class CourseOrSchoolFragment extends Fragment implements OnClickListener 
 
         }
 
+        // -- Analytics click event for model
+        Tracker tracker = PlanYourExchangeContext.getInstance().tracker;
+        tracker.send(new HitBuilders.EventBuilder()
+                .setCategory(Constants.CATEGORY_NAVIGATION)
+                .setAction(Constants.ACTION_CLICK_ON_CHOICE)
+                .setLabel( ((TextView)v).getText().toString() )
+                .build());
+
         fragment.setArguments(new Bundle(getArguments()));
 
         getFragmentManager().beginTransaction()
@@ -55,5 +77,10 @@ public class CourseOrSchoolFragment extends Fragment implements OnClickListener 
                 .addToBackStack(null)
                 .commit();
 
+    }
+
+    @Override
+    public String getName() {
+        return "Course Or School";
     }
 }
