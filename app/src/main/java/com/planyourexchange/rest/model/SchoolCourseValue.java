@@ -11,10 +11,8 @@ public class SchoolCourseValue {
     private Course course;
     private School school;
     private Integer id;
-    @SerializedName("week_price")
     private BigDecimal weekPrice;
-    @SerializedName("week_price_currency")
-    private String currency;
+    private String weekPriceCurrency;
 
     public Integer getId() {
         return id;
@@ -48,11 +46,11 @@ public class SchoolCourseValue {
         this.weekPrice = weekPrice;
     }
 
-    public String getCurrency() {
-        return currency;
+    public String getWeekPriceCurrency() {
+        return weekPriceCurrency;
     }
 
-    public void setCurrency(String currency) {
-        this.currency = currency;
+    public void setWeekPriceCurrency(String weekPriceCurrency) {
+        this.weekPriceCurrency = weekPriceCurrency;
     }
 }

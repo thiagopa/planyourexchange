@@ -9,11 +9,8 @@ import java.io.Serializable;
  */
 public class SchoolCourseValueKey implements Serializable {
 
-    @SerializedName("city_id")
     private Integer cityId;
-    @SerializedName("course_id")
     private Integer courseId;
-    @SerializedName("school_id")
     private Integer schoolId;
 
     public Integer getCityId() {

@@ -1,4 +1,4 @@
-package com.planyourexchange.fragments;
+package com.planyourexchange.fragments.schoolcourse;
 
 /**
  * Created by thiago on 04/08/15.

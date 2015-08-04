@@ -1,12 +1,7 @@
-package com.planyourexchange.fragments;
+package com.planyourexchange.fragments.schoolcourse;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Color;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TableRow;
@@ -67,7 +62,7 @@ public class SchoolCourseValueFragment extends AbstractBaseFragment<SchoolCourse
             row.addView(nameView);
 
             TextView valueView = new TextView(context);
-            valueView.setText( schoolCourseValue.getCurrency() + " " + schoolCourseValue.getWeekPrice() );
+            valueView.setText( schoolCourseValue.getWeekPriceCurrency() + " " + schoolCourseValue.getWeekPrice() );
             valueView.setTextColor(Color.BLACK);
             row.addView(valueView);
 

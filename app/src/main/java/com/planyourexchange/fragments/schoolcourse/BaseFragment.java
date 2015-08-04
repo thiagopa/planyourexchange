@@ -1,4 +1,4 @@
-package com.planyourexchange.fragments;
+package com.planyourexchange.fragments.schoolcourse;
 
 import android.app.Fragment;
 import android.content.Context;

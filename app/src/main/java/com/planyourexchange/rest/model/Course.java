@@ -7,7 +7,6 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Course extends BaseModel {
 
-    @SerializedName("week_duration")
     private Integer weekDuration;
 
     public Integer getWeekDuration() {
