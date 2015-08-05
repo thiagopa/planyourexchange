@@ -11,6 +11,7 @@ import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.planyourexchange.R;
 import com.planyourexchange.rest.service.ServerService;
 import com.planyourexchange.utils.PropertyReader;
 
@@ -33,7 +34,7 @@ public class PlanYourExchangeApplication extends Application {
         try {
             propertyReader = new PropertyReader(this);
         } catch (IOException e) {
-            Log.e(TAG, "Closing App, can't continue without a property file!!!", e);
+            Log.e(TAG, getResources().getString(R.string.app_init_error), e);
             android.os.Process.killProcess(android.os.Process.myPid());
         }
 

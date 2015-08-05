@@ -9,4 +9,7 @@
     <string name="course">By Course</string>
     <string name="school">By School</string>
     <string name="school_course_value">Course Value per week by School</string>
+    <string name="app_init_error">Closing App, can't continue without a property file!!!</string>
+    <string name="loading_title">Loading</string>
+    <string name="loading_dialog">Please, wait a moment</string>
 </resources>

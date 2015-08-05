@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Planeje seu intercâmbio</string>
+    <string name="action_settings">Configurações</string>
+    <string name="choose_between">Escolha entre</string>
+    <string name="choose_city">Escolha a cidade desejada</string>
+    <string name="choose_country">Escolha o país desejado</string>
+    <string name="choose_course">Escolha o curso desejado</string>
+    <string name="choose_school">Escolha a escola desejada</string>
+    <string name="course">Por curso</string>
+    <string name="school">Por escola</string>
+    <string name="school_course_value">Valor do curso por semana por escola</string>
+    <string name="app_init_error">Fechando Aplicativo, faltando arquivo de propriedades!!!</string>
+    <string name="loading_title">Carregando</string>
+    <string name="loading_dialog">Por favor, aguarde um momento</string>
+</resources>

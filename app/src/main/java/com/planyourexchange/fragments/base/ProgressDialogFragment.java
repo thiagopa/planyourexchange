@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 
+import com.planyourexchange.R;
 import com.planyourexchange.interfaces.ProgressDialogListener;
 
 /**
@@ -17,8 +18,8 @@ public abstract class ProgressDialogFragment extends Fragment implements Progres
     @Override
     public void onTaskStarted(DialogInterface.OnCancelListener onCancelListener) {
         progressDialog = ProgressDialog.show(getActivity(),
-                "Loading",
-                "Please wait a moment",
+                getResources().getString(R.string.loading_title),
+                getResources().getString(R.string.loading_dialog),
                 true,
                 true,
                 onCancelListener);
