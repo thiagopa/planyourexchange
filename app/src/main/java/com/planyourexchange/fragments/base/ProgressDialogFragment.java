@@ -18,22 +18,18 @@ public abstract class ProgressDialogFragment extends Fragment implements Progres
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // -- Trying to handle tasks effectively
-        setRetainInstance(true);
+        // setRetainInstance(true);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         // -- Was this screen create WHILE a previous task is still running ?
-        if(!isTaskRunning) {
+        if(isTaskRunning) {
             progressDialog = ProgressDialog.show(getActivity(),
                     "Loading",
                     "Task still in progress");
         }
-    }
-
-    private void createDialog(DialogInterface.OnCancelListener onCancelListener) {
-
     }
 
     @Override
