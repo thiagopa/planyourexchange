@@ -81,6 +81,7 @@ public class RestLoaderTask<Key extends Serializable ,Model> extends AsyncTask<K
 
     @Override
     public void onCancel(DialogInterface dialog) {
+        // -- Cancel this task
         this.cancel(true);
     }
 }
