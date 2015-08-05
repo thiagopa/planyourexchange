@@ -1,4 +1,4 @@
-package com.planyourexchange.fragments.schoolcourse;
+package com.planyourexchange.fragments.base;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.planyourexchange.app.PlanYourExchangeContext;
+import com.planyourexchange.fragments.schoolcourse.FragmentName;
 import com.planyourexchange.tasks.RestLoaderTask;
 import com.planyourexchange.views.ModelView;
 
@@ -23,7 +24,7 @@ import java.util.Map;
  * Created by thiago on 02/08/15.
  */
 // -- Base model for handling information between fragments that share enormous similarities
-public abstract class AbstractBaseFragment<Key extends Serializable, Model> extends Fragment implements ModelView<Key, Model>, FragmentName {
+public abstract class AbstractBaseFragment<Key extends Serializable, Model> extends ProgressDialogFragment implements ModelView<Key, Model>, FragmentName {
 
     // -- Cache of information
     private final Map<Key, List<Model>> CACHE = new HashMap<Key, List<Model>>();
@@ -64,7 +65,7 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model> exte
         if (CACHE.containsKey(key)) {
             drawList(CACHE.get(key), context, viewGroup);
         } else {
-            new RestLoaderTask<Key,Model>(context, viewGroup, this).execute(key);
+            new RestLoaderTask<Key,Model>(context, viewGroup, this, this).execute(key);
         }
 
         return view;

@@ -2,6 +2,7 @@ package com.planyourexchange.fragments.schoolcourse;
 
 import com.planyourexchange.R;
 import com.planyourexchange.app.PlanYourExchangeContext;
+import com.planyourexchange.fragments.base.BaseFragment;
 import com.planyourexchange.rest.model.School;
 import com.planyourexchange.rest.model.SchoolCourseValueKey;
 

@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.view.ViewGroup;
 
 import com.planyourexchange.app.PlanYourExchangeContext;
+import com.planyourexchange.fragments.base.ProgressDialogListener;
 import com.planyourexchange.rest.model.BaseModel;
 import com.planyourexchange.rest.model.City;
 import com.planyourexchange.rest.model.Country;
@@ -21,15 +22,23 @@ import java.util.List;
  */
 public class RestLoaderTask<Key extends Serializable ,Model> extends AsyncTask<Key, Void, List<Model>> {
 
-    private Context context;
-    private ViewGroup viewGroup;
-    private ModelView<Key,Model> modelView;
+    private final Context context;
+    private final ViewGroup viewGroup;
+    private final ModelView<Key,Model> modelView;
+    private final ProgressDialogListener progressDialogListener;
     private Exception errorDuringExecution;
 
-    public RestLoaderTask(Context context, ViewGroup viewGroup, ModelView<Key,Model> modelView) {
+    public RestLoaderTask(Context context, ViewGroup viewGroup, ModelView<Key,Model> modelView, ProgressDialogListener progressDialogListener) {
         this.context = context;
         this.viewGroup = viewGroup;
         this.modelView = modelView;
+        this.progressDialogListener = progressDialogListener;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        // -- Opens progress dialog
+        progressDialogListener.onTaskStarted();
     }
 
     @Override
@@ -52,6 +61,9 @@ public class RestLoaderTask<Key extends Serializable ,Model> extends AsyncTask<K
 
     @Override
     protected void onPostExecute(List<Model> list) {
+        // -- Closes progress dialog
+        progressDialogListener.onTaskFinished();
+        // -- Starts view creation if not empty or show error message
         if(!list.isEmpty()) {
             modelView.addCachedData(list);
             modelView.drawList(list,context,viewGroup);
