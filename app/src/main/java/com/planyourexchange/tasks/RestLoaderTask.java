@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Created by thiago on 01/08/15.
  */
-public class RestLoaderTask<Key extends Serializable ,Model> extends AsyncTask<Key, Void, List<Model>> {
+public class RestLoaderTask<Key extends Serializable ,Model> extends AsyncTask<Key, Void, List<Model>> implements DialogInterface.OnCancelListener {
 
     private final Context context;
     private final ViewGroup viewGroup;
@@ -38,7 +38,7 @@ public class RestLoaderTask<Key extends Serializable ,Model> extends AsyncTask<K
     @Override
     protected void onPreExecute() {
         // -- Opens progress dialog
-        progressDialogListener.onTaskStarted();
+        progressDialogListener.onTaskStarted(this);
     }
 
     @Override
@@ -81,5 +81,10 @@ public class RestLoaderTask<Key extends Serializable ,Model> extends AsyncTask<K
                         }
                     }).create().show();
         }
+    }
+
+    @Override
+    public void onCancel(DialogInterface dialog) {
+        this.cancel(true);
     }
 }

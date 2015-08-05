@@ -78,7 +78,6 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model> exte
     }
 
     @Override
-    // -- TODO Implement Internationalization
     public String getName() {
         return titleName;
     }

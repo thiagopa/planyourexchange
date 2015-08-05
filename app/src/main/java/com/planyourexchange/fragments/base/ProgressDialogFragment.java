@@ -2,11 +2,8 @@ package com.planyourexchange.fragments.base;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 /**
  * Created by thiago on 05/08/15.
@@ -28,19 +25,26 @@ public abstract class ProgressDialogFragment extends Fragment implements Progres
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         // -- Was this screen create WHILE a previous task is still running ?
-        if(isTaskRunning) {
-            createDialog();
+        if(!isTaskRunning) {
+            progressDialog = ProgressDialog.show(getActivity(),
+                    "Loading",
+                    "Task still in progress");
         }
     }
 
-    private void createDialog() {
-        progressDialog = ProgressDialog.show(getActivity(),"Loading","Please wait a moment");
+    private void createDialog(DialogInterface.OnCancelListener onCancelListener) {
+
     }
 
     @Override
-    public void onTaskStarted() {
+    public void onTaskStarted(DialogInterface.OnCancelListener onCancelListener) {
         isTaskRunning = true;
-        createDialog();
+        progressDialog = ProgressDialog.show(getActivity(),
+                "Loading",
+                "Please wait a moment",
+                true,
+                true,
+                onCancelListener);
     }
 
     @Override
