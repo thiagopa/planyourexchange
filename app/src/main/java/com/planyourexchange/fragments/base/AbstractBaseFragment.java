@@ -1,6 +1,5 @@
 package com.planyourexchange.fragments.base;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,9 +10,9 @@ import android.view.ViewGroup;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.planyourexchange.app.PlanYourExchangeContext;
-import com.planyourexchange.fragments.schoolcourse.FragmentName;
+import com.planyourexchange.interfaces.FragmentName;
 import com.planyourexchange.tasks.RestLoaderTask;
-import com.planyourexchange.views.ModelView;
+import com.planyourexchange.interfaces.ModelView;
 
 import java.io.Serializable;
 import java.util.HashMap;

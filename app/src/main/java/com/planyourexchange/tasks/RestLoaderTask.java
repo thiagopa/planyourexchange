@@ -6,12 +6,8 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.view.ViewGroup;
 
-import com.planyourexchange.app.PlanYourExchangeContext;
-import com.planyourexchange.fragments.base.ProgressDialogListener;
-import com.planyourexchange.rest.model.BaseModel;
-import com.planyourexchange.rest.model.City;
-import com.planyourexchange.rest.model.Country;
-import com.planyourexchange.views.ModelView;
+import com.planyourexchange.interfaces.ProgressDialogListener;
+import com.planyourexchange.interfaces.ModelView;
 
 import java.io.Serializable;
 import java.util.ArrayList;

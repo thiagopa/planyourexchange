@@ -3,7 +3,8 @@ package com.planyourexchange.fragments.base;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.os.Bundle;
+
+import com.planyourexchange.interfaces.ProgressDialogListener;
 
 /**
  * Created by thiago on 05/08/15.

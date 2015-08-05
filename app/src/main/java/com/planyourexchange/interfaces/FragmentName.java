@@ -1,4 +1,4 @@
-package com.planyourexchange.fragments.schoolcourse;
+package com.planyourexchange.interfaces;
 
 /**
  * Created by thiago on 04/08/15.

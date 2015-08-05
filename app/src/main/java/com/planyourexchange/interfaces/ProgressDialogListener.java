@@ -1,4 +1,4 @@
-package com.planyourexchange.fragments.base;
+package com.planyourexchange.interfaces;
 
 import android.content.DialogInterface;
 
