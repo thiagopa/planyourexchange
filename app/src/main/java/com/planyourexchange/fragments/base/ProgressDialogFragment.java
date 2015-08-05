@@ -12,29 +12,9 @@ import android.os.Bundle;
 public abstract class ProgressDialogFragment extends Fragment implements ProgressDialogListener {
 
     private ProgressDialog progressDialog;
-    private boolean isTaskRunning = false;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // -- Trying to handle tasks effectively
-        // setRetainInstance(true);
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        // -- Was this screen create WHILE a previous task is still running ?
-        if(isTaskRunning) {
-            progressDialog = ProgressDialog.show(getActivity(),
-                    "Loading",
-                    "Task still in progress");
-        }
-    }
 
     @Override
     public void onTaskStarted(DialogInterface.OnCancelListener onCancelListener) {
-        isTaskRunning = true;
         progressDialog = ProgressDialog.show(getActivity(),
                 "Loading",
                 "Please wait a moment",
@@ -48,7 +28,6 @@ public abstract class ProgressDialogFragment extends Fragment implements Progres
         if(progressDialog!=null) {
             progressDialog.dismiss();
         }
-        isTaskRunning = false;
     }
 
     @Override
