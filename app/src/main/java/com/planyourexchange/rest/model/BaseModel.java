@@ -3,7 +3,7 @@ package com.planyourexchange.rest.model;
 /**
  * Created by thiago on 29/07/15.
  */
-public class BaseModel {
+public class BaseModel implements Comparable<BaseModel> {
 
     private String icon;
     private String name;
@@ -46,5 +46,10 @@ public class BaseModel {
     @Override
     public int hashCode() {
         return this.id;
+    }
+
+    @Override
+    public int compareTo(BaseModel another) {
+        return name.compareTo(another.name);
     }
 }

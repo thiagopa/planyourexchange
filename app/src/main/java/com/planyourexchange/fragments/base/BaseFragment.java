@@ -24,6 +24,7 @@ import com.planyourexchange.utils.Constants;
 import com.planyourexchange.utils.InternationalNames;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -42,6 +43,9 @@ public abstract class BaseFragment<Key extends Serializable, Model extends BaseM
 
     @Override
     public void drawList(final List<Model> modelList, final Context context, ListView listView) {
+        // -- Sort Results Alphabetically
+        Collections.sort(modelList);
+
         // -- Handle Model rendering
         listView.setAdapter(new ArrayAdapter<Model>(context,R.layout.model_list,modelList) {
             @Override
@@ -84,6 +88,8 @@ public abstract class BaseFragment<Key extends Serializable, Model extends BaseM
                         .commit();
             }
         });
+        // -- Notify that new data has arrived
+        listView.deferNotifyDataSetChanged();
     }
     // -- Default is the model id as key
     protected Serializable createNextKey(Model model) {

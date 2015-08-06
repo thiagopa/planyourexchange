@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TableRow;
 import android.widget.TextView;
 
@@ -31,7 +32,7 @@ public class SchoolCourseValueFragment extends AbstractBaseFragment<SchoolCourse
     }
 
     @Override
-    public void drawList(List<SchoolCourseValue> schoolCourseValues, Context context, ViewGroup viewGroup) {
+    public void drawList(List<SchoolCourseValue> schoolCourseValues, Context context, ListView listView) {
         TableRow.LayoutParams rowParams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
         SchoolCourseValueKey key = (SchoolCourseValueKey) getArguments().getSerializable(KEY_ID);
 
@@ -67,7 +68,7 @@ public class SchoolCourseValueFragment extends AbstractBaseFragment<SchoolCourse
             valueView.setTextColor(Color.BLACK);
             row.addView(valueView);
 
-            viewGroup.addView(row);
+            // viewGroup.addView(row);
         }
     }
 }
