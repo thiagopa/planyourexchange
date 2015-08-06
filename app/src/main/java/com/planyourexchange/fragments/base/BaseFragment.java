@@ -16,6 +16,7 @@ import com.planyourexchange.R;
 import com.planyourexchange.app.PlanYourExchangeContext;
 import com.planyourexchange.rest.model.BaseModel;
 import com.planyourexchange.utils.Constants;
+import com.planyourexchange.utils.InternationalNames;
 
 import java.io.Serializable;
 import java.util.List;
@@ -35,7 +36,7 @@ public abstract class BaseFragment<Key extends Serializable, Model extends BaseM
     }
 
     @Override
-    public void drawList(List<Model> modelList, Context context, ViewGroup viewGroup) {
+    public void drawList(List<Model> modelList, final Context context, ViewGroup viewGroup) {
         for (final Model model : modelList) {
             TextView textView = new TextView(context);
             textView.setText(model.getName());
@@ -56,7 +57,7 @@ public abstract class BaseFragment<Key extends Serializable, Model extends BaseM
                     tracker.send(new HitBuilders.EventBuilder()
                             .setCategory(Constants.CATEGORY_NAVIGATION)
                             .setAction(Constants.ACTION_CLICK_ON_MODEL)
-                            .setLabel(model.getName())
+                            .setLabel(InternationalNames.getInternationalName(context,model.getName()))
                             .build());
 
                     // -- Creating transaction and adding to back stack navigation

@@ -13,4 +13,7 @@
     <string name="app_init_error">Fechando Aplicativo, faltando arquivo de propriedades!!!</string>
     <string name="loading_title">Carregando</string>
     <string name="loading_dialog">Por favor, aguarde um momento</string>
+    <string name="United_Kingdom">Reino Unido</string>
+    <string name="Ireland">Irlanda</string>
+    <string name="United_States">Estados Unidos</string>
 </resources>
