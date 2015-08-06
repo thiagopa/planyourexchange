@@ -1,8 +1,7 @@
 package com.planyourexchange.activities;
 
-import android.app.FragmentManager;
-import android.support.v4.app.TaskStackBuilder;
 import android.os.Bundle;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -14,14 +13,11 @@ import android.widget.RelativeLayout;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
-
 import com.planyourexchange.R;
 import com.planyourexchange.adapters.ScreenSlidePagerAdapter;
 import com.planyourexchange.app.PlanYourExchangeContext;
 import com.planyourexchange.fragments.costofliving.CostOfLivingFragment;
-import com.planyourexchange.fragments.schoolcourse.CountriesFragment;
 import com.planyourexchange.fragments.schoolcourse.SchoolCourseBaseFragment;
-import com.planyourexchange.interfaces.FragmentName;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -55,17 +51,16 @@ public class MainActivity extends AppCompatActivity {
 
         // Check that the activity is using the layout version with
         // the fragment_container FrameLayout
-        if (findViewById(R.id.fragment_container) != null) {
-            // However, if we're being restored from a previous state,
-            // then we don't need to do anything and should return or else
-            // we could end up with overlapping fragments.
-            if (savedInstanceState != null) {
-                return;
-            }
-            // -- Relative Layout manipulation
-            RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
+        // However, if we're being restored from a previous state,
+        // then we don't need to do anything and should return or else
+        // we could end up with overlapping fragments.
+        if (savedInstanceState != null) {
+            return;
+        }
+        // -- Relative Layout manipulation
+        RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
 
-            // Create In-app purchases
+        // Create In-app purchases
             /*
             -- TODO Implement this latter
             Intent serviceIntent = new Intent("com.android.vending.billing.InAppBillingService.BIND");
@@ -73,38 +68,38 @@ public class MainActivity extends AppCompatActivity {
             bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
             */
 
-            // -- Create adRequest
-            AdView adView = new AdView(this);
-            adView.setAdUnitId(PlanYourExchangeContext.getInstance().propertyReader.getProperty("AdUnitId"));
-            adView.setAdSize(AdSize.SMART_BANNER);
-            adView.setVisibility(View.VISIBLE);
+        // -- Create adRequest
+        AdView adView = new AdView(this);
+        adView.setAdUnitId(PlanYourExchangeContext.getInstance().propertyReader.getProperty("AdUnitId"));
+        adView.setAdSize(AdSize.SMART_BANNER);
+        adView.setVisibility(View.VISIBLE);
 
-            RelativeLayout.LayoutParams adParams = new RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-            adParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-            adParams.addRule(RelativeLayout.CENTER_VERTICAL);
-            mainLayout.addView(adView, adParams);
+        RelativeLayout.LayoutParams adParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        adParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        adParams.addRule(RelativeLayout.CENTER_VERTICAL);
+        mainLayout.addView(adView, adParams);
 
-            // -- TODO should be replaced in production
-            adView.loadAd(new AdRequest.Builder()
-                    .addTestDevice(PlanYourExchangeContext.getInstance().propertyReader.getProperty("TestDeviceId")).build());
+        // -- TODO should be replaced in production
+        adView.loadAd(new AdRequest.Builder()
+                .addTestDevice(PlanYourExchangeContext.getInstance().propertyReader.getProperty("TestDeviceId")).build());
             /*
             AdRequest adRequest = new AdRequest.Builder().build();
             mAdView.loadAd(adRequest);
             */
-            // -- View Pager Adapter
-            viewPager = (ViewPager) findViewById(R.id.pager);
-            pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(),
-                    new SchoolCourseBaseFragment(),
-                    new CostOfLivingFragment());
+        // -- View Pager Adapter
+        viewPager = (ViewPager) findViewById(R.id.pager);
+        pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(),
+                new SchoolCourseBaseFragment(),
+                new CostOfLivingFragment());
 
-            viewPager.setAdapter(pagerAdapter);
+        viewPager.setAdapter(pagerAdapter);
 
 
-            // -- Fragment Manager
-            //FragmentManager fragmentManager = getFragmentManager();
+        // -- Fragment Manager
+        //FragmentManager fragmentManager = getFragmentManager();
 
-            // -- Changing title according to fragment
+        // -- Changing title according to fragment
             /*fragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
                 @Override
                 public void onBackStackChanged() {
@@ -112,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
                     setTitle(fragment.getName());
                 }
             });*/
-        }
 
 
     }
