@@ -1,18 +1,17 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/countries_relative_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/countries_layout">
-    
-    <LinearLayout
-        android:id="@+id/countries_linear_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/choose_country"
-            android:textStyle="bold"/>
-    </LinearLayout>
-    
-</ScrollView>
+    android:orientation="vertical">
+    <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/countries_list_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:layout_below="@+id/countries_header" />
+    <TextView
+        android:id="@+id/countries_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/choose_country"
+        android:textStyle="bold"/>
+</RelativeLayout>
+

@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.view.ViewGroup;
 
+import com.planyourexchange.R;
 import com.planyourexchange.interfaces.ProgressDialogListener;
 import com.planyourexchange.interfaces.ModelView;
 
@@ -66,11 +67,11 @@ public class RestLoaderTask<Key extends Serializable ,Model> extends AsyncTask<K
         } else {
             // -- Show an error dialog in case some pesky little network or whatever error happens
             // -- TODO This should be better handled
-            String message = errorDuringExecution!=null?errorDuringExecution.getMessage():"No data was found on server";
+            String message = errorDuringExecution!=null? errorDuringExecution.getMessage(): context.getString(R.string.no_data_server);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setMessage(message)
-                    .setTitle("Error")
+                    .setTitle(R.string.error)
                     .setNeutralButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.cancel();

@@ -4,9 +4,14 @@ import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.gms.analytics.HitBuilders;
@@ -36,40 +41,49 @@ public abstract class BaseFragment<Key extends Serializable, Model extends BaseM
     }
 
     @Override
-    public void drawList(List<Model> modelList, final Context context, ViewGroup viewGroup) {
-        for (final Model model : modelList) {
-            TextView textView = new TextView(context);
-            textView.setText(InternationalNames.getInternationalName(context,model.getName()));
-            textView.setTextColor(Color.BLACK);
-            viewGroup.addView(textView);
+    public void drawList(final List<Model> modelList, final Context context, ListView listView) {
+        // -- Handle Model rendering
+        listView.setAdapter(new ArrayAdapter<Model>(context,R.layout.model_list,modelList) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View rowView = inflater.inflate(R.layout.model_list,null,true);
 
-            ImageView imageView = new ImageView(context);
-            ImageLoader.getInstance().displayImage(model.getIcon(), imageView);
+                Model model = modelList.get(position);
 
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable(KEY_ID, createNextKey(model));
-                    nextScreen.setArguments(bundle);
-                    // -- Analytics click event for model
-                    Tracker tracker = PlanYourExchangeContext.getInstance().tracker;
-                    tracker.send(new HitBuilders.EventBuilder()
-                            .setCategory(Constants.CATEGORY_NAVIGATION)
-                            .setAction(Constants.ACTION_CLICK_ON_MODEL)
-                            .setLabel(model.getName())
-                            .build());
+                ImageView imageView = (ImageView) rowView.findViewById(R.id.model_list_icon);
+                TextView textView = (TextView) rowView.findViewById(R.id.model_list_name);
 
-                    // -- Creating transaction and adding to back stack navigation
-                    getFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_container, nextScreen)
-                            .addToBackStack(null)
-                            .commit();
-                }
-            });
+                ImageLoader.getInstance().displayImage(model.getIcon(), imageView);
+                textView.setText(InternationalNames.getInternationalName(context,model.getName()));
 
-            viewGroup.addView(imageView);
-        }
+                return rowView;
+            }
+        });
+        // -- Handle onClick events
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Model model = modelList.get(position);
+
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(KEY_ID, createNextKey(model));
+                nextScreen.setArguments(bundle);
+                // -- Analytics click event for model
+                Tracker tracker = PlanYourExchangeContext.getInstance().tracker;
+                tracker.send(new HitBuilders.EventBuilder()
+                        .setCategory(Constants.CATEGORY_NAVIGATION)
+                        .setAction(Constants.ACTION_CLICK_ON_MODEL)
+                        .setLabel(model.getName())
+                        .build());
+
+                // -- Creating transaction and adding to back stack navigation
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, nextScreen)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
     }
     // -- Default is the model id as key
     protected Serializable createNextKey(Model model) {
