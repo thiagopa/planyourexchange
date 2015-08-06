@@ -2,7 +2,10 @@ package com.planyourexchange.fragments.schoolcourse;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TableRow;
@@ -23,7 +26,7 @@ import java.util.List;
 public class SchoolCourseValueFragment extends AbstractBaseFragment<SchoolCourseValueKey,SchoolCourseValue> {
 
     public SchoolCourseValueFragment() {
-        super(R.string.school_course_value_title,R.layout.school_course_value_fragment, R.id.school_course_value_table_layout);
+        super(R.string.school_course_value_title,R.layout.school_course_value_fragment, R.id.school_course_value_list_view);
     }
 
     @Override
@@ -32,43 +35,45 @@ public class SchoolCourseValueFragment extends AbstractBaseFragment<SchoolCourse
     }
 
     @Override
-    public void drawList(List<SchoolCourseValue> schoolCourseValues, Context context, ListView listView) {
-        TableRow.LayoutParams rowParams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
-        SchoolCourseValueKey key = (SchoolCourseValueKey) getArguments().getSerializable(KEY_ID);
+    public void drawList(final List<SchoolCourseValue> schoolCourseValues, final Context context, ListView listView) {
+        final SchoolCourseValueKey key = (SchoolCourseValueKey) getArguments().getSerializable(KEY_ID);
 
-        for (SchoolCourseValue schoolCourseValue : schoolCourseValues) {
+        // -- Handle Model rendering
+        listView.setAdapter(new ArrayAdapter<SchoolCourseValue>(context,R.layout.school_course_value_list,schoolCourseValues) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View rowView = inflater.inflate(R.layout.school_course_value_list,null,true);
 
-            TableRow row = new TableRow(context);
-            row.setLayoutParams(rowParams);
+                SchoolCourseValue schoolCourseValue = schoolCourseValues.get(position);
 
-            String iconUrl = null;
-            String name = null;
+                String iconUrl = null;
+                String name = null;
 
-            // -- If course is empty, list all courses
-            if(key.getCourseId()==null) {
-                iconUrl = schoolCourseValue.getCourse().getIcon();
-                name = schoolCourseValue.getCourse().getName();
-            // -- On the other hand if school is empty, list all schools
-            } else if(key.getSchoolId()==null) {
-                iconUrl = schoolCourseValue.getSchool().getIcon();
-                name = schoolCourseValue.getSchool().getName();
+                // -- If course is empty, list all courses
+                if(key.getCourseId()==null) {
+                    iconUrl = schoolCourseValue.getCourse().getIcon();
+                    name = schoolCourseValue.getCourse().getName();
+                    // -- On the other hand if school is empty, list all schools
+                } else if(key.getSchoolId()==null) {
+                    iconUrl = schoolCourseValue.getSchool().getIcon();
+                    name = schoolCourseValue.getSchool().getName();
+                }
+
+                ImageView imageView = (ImageView) rowView.findViewById(R.id.model_list_icon);
+                TextView nameView = (TextView) rowView.findViewById(R.id.model_list_name);
+                TextView valueView = (TextView) rowView.findViewById(R.id.model_list_value);
+
+                ImageLoader.getInstance().displayImage(iconUrl, imageView);
+
+                nameView.setText(name);
+                valueView.setText(schoolCourseValue.getWeekPriceCurrency() + " " + schoolCourseValue.getWeekPrice());
+
+                return rowView;
             }
+        });
 
-            ImageView icon = new ImageView(context);
-            ImageLoader.getInstance().displayImage(iconUrl, icon);
-            row.addView(icon);
-
-            TextView nameView = new TextView(context);
-            nameView.setText(name);
-            nameView.setTextColor(Color.BLACK);
-            row.addView(nameView);
-
-            TextView valueView = new TextView(context);
-            valueView.setText( schoolCourseValue.getWeekPriceCurrency() + " " + schoolCourseValue.getWeekPrice() );
-            valueView.setTextColor(Color.BLACK);
-            row.addView(valueView);
-
-            // viewGroup.addView(row);
-        }
+        // -- Notify that new data has arrived
+        listView.deferNotifyDataSetChanged();
     }
 }

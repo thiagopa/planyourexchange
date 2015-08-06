@@ -15,7 +15,7 @@ import java.util.List;
 public class CoursesFragment extends BaseFragment<Integer,Course> {
 
     public CoursesFragment() {
-        super(R.string.courses_title, R.layout.courses_fragment, R.id.courses_linear_layout, new SchoolCourseValueFragment());
+        super(R.string.courses_title, R.layout.courses_fragment, R.id.courses_list_view, new SchoolCourseValueFragment());
     }
 
     @Override

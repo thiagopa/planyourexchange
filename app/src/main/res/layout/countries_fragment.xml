@@ -6,7 +6,8 @@
     <ListView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/countries_list_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:layout_below="@+id/countries_header" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/countries_header" />
     <TextView
         android:id="@+id/countries_header"
         android:layout_width="wrap_content"
@@ -14,4 +15,3 @@
         android:text="@string/choose_country"
         android:textStyle="bold"/>
 </RelativeLayout>
-
