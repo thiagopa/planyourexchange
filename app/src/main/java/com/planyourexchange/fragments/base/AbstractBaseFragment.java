@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -57,14 +58,14 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model> exte
         View view = inflater.inflate(this.inflateLayout, container, false);
 
         Context context = container.getContext();
-        ViewGroup viewGroup = (ViewGroup) view.findViewById(this.drawLayout);
+        ListView listView = (ListView) view.findViewById(this.drawLayout);
         Key key = (Key) getArguments().getSerializable(KEY_ID);
 
         // -- Dispatch task to load resources if not cached
         if (CACHE.containsKey(key)) {
-            drawList(CACHE.get(key), context, viewGroup);
+            drawList(CACHE.get(key), context, listView);
         } else {
-            new RestLoaderTask<Key,Model>(context, viewGroup, this, this).execute(key);
+            new RestLoaderTask<Key,Model>(context, listView, this, this).execute(key);
         }
 
         return view;
