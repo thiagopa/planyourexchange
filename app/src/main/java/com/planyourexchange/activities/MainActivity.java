@@ -3,6 +3,8 @@ package com.planyourexchange.activities;
 import android.app.FragmentManager;
 import android.support.v4.app.TaskStackBuilder;
 import android.os.Bundle;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,9 +16,13 @@ import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 
 import com.planyourexchange.R;
+import com.planyourexchange.adapters.ScreenSlidePagerAdapter;
 import com.planyourexchange.app.PlanYourExchangeContext;
+import com.planyourexchange.fragments.costofliving.CostOfLivingFragment;
 import com.planyourexchange.fragments.schoolcourse.CountriesFragment;
+import com.planyourexchange.fragments.schoolcourse.SchoolCourseBaseFragment;
 import com.planyourexchange.interfaces.FragmentName;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
         }
     };
     */
+    // -- View Pager
+    private ViewPager viewPager;
+    private PagerAdapter pagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +92,14 @@ public class MainActivity extends AppCompatActivity {
             AdRequest adRequest = new AdRequest.Builder().build();
             mAdView.loadAd(adRequest);
             */
+            // -- View Pager Adapter
+            viewPager = (ViewPager) findViewById(R.id.pager);
+            pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(),
+                    new SchoolCourseBaseFragment(),
+                    new CostOfLivingFragment());
+
+            viewPager.setAdapter(pagerAdapter);
+
 
             // -- Fragment Manager
             FragmentManager fragmentManager = getFragmentManager();
@@ -95,14 +112,6 @@ public class MainActivity extends AppCompatActivity {
                     setTitle(fragment.getName());
                 }
             });
-
-            // -- Initializing first fragment and setting screen title
-            CountriesFragment fragment = new CountriesFragment();
-            setTitle(R.string.countries_title);
-
-            fragmentManager.beginTransaction()
-                                       .replace(R.id.fragment_container, fragment)
-                                       .commit();
         }
 
 

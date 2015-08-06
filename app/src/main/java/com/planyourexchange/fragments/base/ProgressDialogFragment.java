@@ -1,8 +1,9 @@
 package com.planyourexchange.fragments.base;
 
-import android.app.Fragment;
+
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.support.v4.app.Fragment;
 
 import com.planyourexchange.R;
 import com.planyourexchange.interfaces.ProgressDialogListener;
