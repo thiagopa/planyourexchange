@@ -22,7 +22,7 @@ import java.util.List;
 public class SchoolCourseValueFragment extends AbstractBaseFragment<SchoolCourseValueKey,SchoolCourseValue> {
 
     public SchoolCourseValueFragment() {
-        super("Course Value By School",R.layout.school_course_value_fragment, R.id.school_course_value_table_layout);
+        super(R.string.school_course_value_title,R.layout.school_course_value_fragment, R.id.school_course_value_table_layout);
     }
 
     @Override

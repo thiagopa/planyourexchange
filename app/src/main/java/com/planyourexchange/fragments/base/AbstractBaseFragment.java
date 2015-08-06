@@ -33,10 +33,10 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model> exte
     // -- Base properties
     private final int inflateLayout;
     private final int drawLayout;
-    private final String titleName;
+    private final int titleName;
 
     // -- Need to be called by overriding class
-    protected AbstractBaseFragment(final String titleName, final int inflateLayout, final int drawLayout) {
+    protected AbstractBaseFragment(final int titleName, final int inflateLayout, final int drawLayout) {
         this.titleName = titleName;
         this.inflateLayout = inflateLayout;
         this.drawLayout = drawLayout;
@@ -78,6 +78,6 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model> exte
 
     @Override
     public String getName() {
-        return titleName;
+        return getResources().getString(titleName);
     }
 }

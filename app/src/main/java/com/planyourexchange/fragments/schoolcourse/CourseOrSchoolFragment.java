@@ -82,6 +82,6 @@ public class CourseOrSchoolFragment extends Fragment implements OnClickListener,
 
     @Override
     public String getName() {
-        return "Course Or School";
+        return getResources().getString(R.string.course_or_school_title);
     }
 }

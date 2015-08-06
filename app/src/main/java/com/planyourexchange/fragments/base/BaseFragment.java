@@ -30,7 +30,7 @@ public abstract class BaseFragment<Key extends Serializable, Model extends BaseM
     private final Fragment nextScreen;
 
     // -- Need to be called by overriding class
-    protected BaseFragment(final String titleName, final int inflateLayout, final int drawLayout, final Fragment nextScreen) {
+    protected BaseFragment(final int titleName, final int inflateLayout, final int drawLayout, final Fragment nextScreen) {
         super(titleName,inflateLayout,drawLayout);
         this.nextScreen = nextScreen;
     }
@@ -39,7 +39,7 @@ public abstract class BaseFragment<Key extends Serializable, Model extends BaseM
     public void drawList(List<Model> modelList, final Context context, ViewGroup viewGroup) {
         for (final Model model : modelList) {
             TextView textView = new TextView(context);
-            textView.setText(model.getName());
+            textView.setText(InternationalNames.getInternationalName(context,model.getName()));
             textView.setTextColor(Color.BLACK);
             viewGroup.addView(textView);
 
@@ -57,7 +57,7 @@ public abstract class BaseFragment<Key extends Serializable, Model extends BaseM
                     tracker.send(new HitBuilders.EventBuilder()
                             .setCategory(Constants.CATEGORY_NAVIGATION)
                             .setAction(Constants.ACTION_CLICK_ON_MODEL)
-                            .setLabel(InternationalNames.getInternationalName(context,model.getName()))
+                            .setLabel(model.getName())
                             .build());
 
                     // -- Creating transaction and adding to back stack navigation
