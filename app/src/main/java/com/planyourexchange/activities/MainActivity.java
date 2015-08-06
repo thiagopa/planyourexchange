@@ -102,16 +102,16 @@ public class MainActivity extends AppCompatActivity {
 
 
             // -- Fragment Manager
-            FragmentManager fragmentManager = getFragmentManager();
+            //FragmentManager fragmentManager = getFragmentManager();
 
             // -- Changing title according to fragment
-            fragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            /*fragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
                 @Override
                 public void onBackStackChanged() {
                     FragmentName fragment = (FragmentName) getFragmentManager().findFragmentById(R.id.fragment_container);
                     setTitle(fragment.getName());
                 }
-            });
+            });*/
         }
 
 
@@ -125,12 +125,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(getFragmentManager().getBackStackEntryCount() == 0) {
+        /*if(getFragmentManager().getBackStackEntryCount() == 0) {
             super.onBackPressed();
         }
         else {
             getFragmentManager().popBackStack();
         }
+        */
     }
 
     @Override

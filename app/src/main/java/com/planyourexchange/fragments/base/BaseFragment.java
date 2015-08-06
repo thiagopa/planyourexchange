@@ -81,7 +81,7 @@ public abstract class BaseFragment<Key extends Serializable, Model extends BaseM
                         .build());
 
                 // -- Creating transaction and adding to back stack navigation
-                getFragmentManager().beginTransaction()
+                getChildFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, nextScreen)
                         .addToBackStack(null)
                         .commit();
