@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.planyourexchange.R;
 import com.planyourexchange.interfaces.ProgressDialogListener;
@@ -20,14 +21,14 @@ import java.util.List;
 public class RestLoaderTask<Key extends Serializable ,Model> extends AsyncTask<Key, Void, List<Model>> implements DialogInterface.OnCancelListener {
 
     private final Context context;
-    private final ViewGroup viewGroup;
+    private final ListView listView;
     private final ModelView<Key,Model> modelView;
     private final ProgressDialogListener progressDialogListener;
     private Exception errorDuringExecution;
 
-    public RestLoaderTask(Context context, ViewGroup viewGroup, ModelView<Key,Model> modelView, ProgressDialogListener progressDialogListener) {
+    public RestLoaderTask(Context context, ListView listView, ModelView<Key,Model> modelView, ProgressDialogListener progressDialogListener) {
         this.context = context;
-        this.viewGroup = viewGroup;
+        this.listView = listView;
         this.modelView = modelView;
         this.progressDialogListener = progressDialogListener;
     }
@@ -63,7 +64,7 @@ public class RestLoaderTask<Key extends Serializable ,Model> extends AsyncTask<K
         // -- Starts view creation if not empty or show error message
         if(!list.isEmpty()) {
             modelView.addCachedData(list);
-            modelView.drawList(list,context,viewGroup);
+            modelView.drawList(list,context,listView);
         } else {
             // -- Show an error dialog in case some pesky little network or whatever error happens
             // -- TODO This should be better handled
