@@ -18,4 +18,6 @@
     <string name="schools_title">Schools</string>
     <string name="course_or_school_title">Course or School</string>
     <string name="school_course_value_title">Course Value by School</string>
+    <string name="no_data_server">No data was found on server</string>
+    <string name="error">Error</string>
 </resources>

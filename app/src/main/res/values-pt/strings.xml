@@ -18,6 +18,7 @@
     <string name="United_States">Estados Unidos</string>
     <string name="South_Africa">África do Sul</string>
     <string name="Australia">Austrália</string>
+    <string name="New_Zealand">Nova Zelândia</string>
     <string name="Canada">Canadá</string>
     <string name="countries_title">Países</string>
     <string name="cities_title">Cidades</string>
@@ -25,4 +26,6 @@
     <string name="schools_title">Escolas</string>
     <string name="course_or_school_title">Curso ou Escola</string>
     <string name="school_course_value_title">Valor do Curso por Escola</string>
+    <string name="no_data_server">Nenhum dado foi encontrado no servidor</string>
+    <string name="error">Erro</string>
 </resources>
