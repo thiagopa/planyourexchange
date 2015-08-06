@@ -12,16 +12,21 @@ public final class InternationalNames {
     }
 
     public static String getInternationalName(Context context, String text) {
+        String translated = null;
         Resources resources = context.getResources();
         int resourceId = resources.getIdentifier(format(text),"string",context.getPackageName());
         if(resourceId!=0) {
-            return resources.getString(resourceId);
+            try {
+                translated = resources.getString(resourceId);
+            } catch(Resources.NotFoundException nfe) {
+              // Returns text if can't translate it
+            }
         }
-        return text;
+        return translated!=null?translated:text;
     }
 
     // -- Strips spaces for key lookup
     private static String format(String text) {
-        return text.replaceAll(" ","_");
+        return text.replaceAll(" ", "_");
     }
 }
