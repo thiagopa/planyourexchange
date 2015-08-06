@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
             // -- Initializing first fragment and setting screen title
             CountriesFragment fragment = new CountriesFragment();
-            setTitle(fragment.getName());
+            setTitle(R.string.countries_title);
 
             fragmentManager.beginTransaction()
                                        .replace(R.id.fragment_container, fragment)

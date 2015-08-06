@@ -16,6 +16,9 @@
     <string name="United_Kingdom">Reino Unido</string>
     <string name="Ireland">Irlanda</string>
     <string name="United_States">Estados Unidos</string>
+    <string name="South_Africa">África do Sul</string>
+    <string name="Australia">Austrália</string>
+    <string name="Canada">Canadá</string>
     <string name="countries_title">Países</string>
     <string name="cities_title">Cidades</string>
     <string name="courses_title">Cursos</string>
