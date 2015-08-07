@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
         // -- Create adRequest
         AdView adView = new AdView(this);
-        adView.setAdUnitId(PlanYourExchangeContext.getInstance().propertyReader.getProperty("AdUnitId"));
+        adView.setAdUnitId(PlanYourExchangeContext.instance.propertyReader.getProperty("AdUnitId"));
         adView.setAdSize(AdSize.SMART_BANNER);
         adView.setVisibility(View.VISIBLE);
 
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
         // -- TODO should be replaced in production
         adView.loadAd(new AdRequest.Builder()
-                .addTestDevice(PlanYourExchangeContext.getInstance().propertyReader.getProperty("TestDeviceId")).build());
+                .addTestDevice(PlanYourExchangeContext.instance.propertyReader.getProperty("TestDeviceId")).build());
             /*
             AdRequest adRequest = new AdRequest.Builder().build();
             mAdView.loadAd(adRequest);
