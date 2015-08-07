@@ -23,23 +23,29 @@ public class TokenManager implements RequestInterceptor , Callback<AuthToken>, A
     private static final String TOKEN = "Token ";
     private static final String AUTHORIZATION = "Authorization";
 
-    private String authToken;
+    // -- Token
+    private volatile StringBuilder authToken = new StringBuilder();
 
     @Override
     public void intercept(RequestFacade request) {
         if (isValidToken()) {
-            request.addHeader(AUTHORIZATION, authToken);
+            request.addHeader(AUTHORIZATION, authToken.toString());
         }
     }
 
     // -- For while just verify if it exists
     public boolean isValidToken() {
-        return authToken != null;
+        return !authToken.toString().isEmpty();
     }
 
     @Override
     public void success(AuthToken authToken, Response response) {
-        this.authToken = TOKEN + authToken.getToken();
+        // -- Writes the token and notify possible sleeping threads
+        synchronized (this.authToken) {
+            this.authToken.append(TOKEN);
+            this.authToken.append(authToken.getToken());
+            this.authToken.notify();
+        }
     }
 
     @Override
@@ -49,10 +55,17 @@ public class TokenManager implements RequestInterceptor , Callback<AuthToken>, A
 
     @Override
     public Request authenticate(Proxy proxy, com.squareup.okhttp.Response response) throws IOException {
-        if (isValidToken()) {
-            return response.request().newBuilder().header(AUTHORIZATION, authToken).build();
+        // -- Blocks the thread until the token becomes valid
+        synchronized (this.authToken) {
+            if(!isValidToken()) {
+                try {
+                    this.authToken.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-        return null;
+        return response.request().newBuilder().header(AUTHORIZATION, authToken.toString()).build();
     }
 
     @Override
