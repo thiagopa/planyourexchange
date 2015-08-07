@@ -1,6 +1,8 @@
 package com.planyourexchange.fragments.base;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -10,21 +12,24 @@ import android.widget.ListView;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.planyourexchange.R;
 import com.planyourexchange.app.PlanYourExchangeContext;
 import com.planyourexchange.interfaces.FragmentName;
-import com.planyourexchange.tasks.RestLoaderTask;
-import com.planyourexchange.interfaces.ModelView;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
 /**
  * Created by thiago on 02/08/15.
  */
 // -- Base model for handling information between fragments that share enormous similarities
-public abstract class AbstractBaseFragment<Key extends Serializable, Model> extends ProgressDialogFragment implements ModelView<Key, Model>, FragmentName {
+public abstract class AbstractBaseFragment<Key extends Serializable, Model> extends ProgressDialogFragment implements FragmentName, Callback<List<Model>> {
 
     // -- Cache of information
     private final Map<Key, List<Model>> CACHE = new HashMap<Key, List<Model>>();
@@ -33,11 +38,11 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model> exte
 
     // -- Base properties
     private final int inflateLayout;
-    private final int drawLayout;
     private final int titleName;
+    private final int drawLayout;
 
     // -- Need to be called by overriding class
-    protected AbstractBaseFragment(final int titleName, final int inflateLayout, final int drawLayout) {
+    protected AbstractBaseFragment(final int titleName, final int inflateLayout, int drawLayout) {
         this.titleName = titleName;
         this.inflateLayout = inflateLayout;
         this.drawLayout = drawLayout;
@@ -57,24 +62,45 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model> exte
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(this.inflateLayout, container, false);
 
-        Context context = container.getContext();
-        ListView listView = (ListView) view.findViewById(this.drawLayout);
         Key key = (Key) getArguments().getSerializable(KEY_ID);
+        ListView listView = (ListView) getActivity().findViewById(this.drawLayout);
 
         // -- Dispatch task to load resources if not cached
         if (CACHE.containsKey(key)) {
-            drawList(CACHE.get(key), context, listView);
+            drawList(CACHE.get(key),listView);
         } else {
-            new RestLoaderTask<Key,Model>(context, listView, this, this).execute(key);
+            onTaskStarted();
+            callService(key);
         }
 
         return view;
     }
-
+    // -- Call rest Service
+    protected abstract void callService(Key key);
+    // -- Draw objects
+    protected abstract void drawList(List<Model> modelList, ListView listView);
 
     @Override
-    public void addCachedData(List<Model> modelList) {
-        CACHE.put((Key)getArguments().get(KEY_ID),modelList);
+    public void success(List<Model> modelList, Response response) {
+        ListView listView = (ListView) getActivity().findViewById(this.drawLayout);
+        CACHE.put((Key) getArguments().get(KEY_ID), modelList);
+        drawList(modelList,listView);
+        onTaskFinished();
+    }
+
+    @Override
+    public void failure(RetrofitError error) {
+        onTaskFinished();
+        String message = error.getMessage()!=null? error.getMessage(): getResources().getString(R.string.no_data_server);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(message)
+                .setTitle(R.string.error)
+                .setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                }).create().show();
     }
 
     @Override

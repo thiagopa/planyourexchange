@@ -30,19 +30,19 @@ public class SchoolCourseValueFragment extends AbstractBaseFragment<SchoolCourse
     }
 
     @Override
-    public List<SchoolCourseValue> callService(SchoolCourseValueKey schoolCourseValueKey) {
-        return PlanYourExchangeContext.getInstance().serverService.getServerApi().findCourseSchoolValue(schoolCourseValueKey);
+    public void callService(SchoolCourseValueKey schoolCourseValueKey) {
+        PlanYourExchangeContext.getInstance().serverService.getServerApi().findCourseSchoolValue(schoolCourseValueKey);
     }
 
     @Override
-    public void drawList(final List<SchoolCourseValue> schoolCourseValues, final Context context, ListView listView) {
+    public void drawList(final List<SchoolCourseValue> schoolCourseValues, ListView listView) {
         final SchoolCourseValueKey key = (SchoolCourseValueKey) getArguments().getSerializable(KEY_ID);
 
         // -- Handle Model rendering
-        listView.setAdapter(new ArrayAdapter<SchoolCourseValue>(context,R.layout.school_course_value_list,schoolCourseValues) {
+        listView.setAdapter(new ArrayAdapter<SchoolCourseValue>(getActivity(),R.layout.school_course_value_list,schoolCourseValues) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
-                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 View rowView = inflater.inflate(R.layout.school_course_value_list,null,true);
 
                 SchoolCourseValue schoolCourseValue = schoolCourseValues.get(position);

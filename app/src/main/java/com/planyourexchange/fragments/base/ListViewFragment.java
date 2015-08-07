@@ -1,7 +1,6 @@
 package com.planyourexchange.fragments.base;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -30,26 +29,26 @@ import java.util.List;
  * Created by thiago on 02/08/15.
  */
 // -- Base model for handling information between fragments that share enormous similarities
-public abstract class BaseFragment<Key extends Serializable, Model extends BaseModel> extends AbstractBaseFragment<Key, Model> {
+public abstract class ListViewFragment<Key extends Serializable, Model extends BaseModel> extends AbstractBaseFragment<Key, Model> {
 
     private final Fragment nextScreen;
 
     // -- Need to be called by overriding class
-    protected BaseFragment(final int titleName, final int inflateLayout, final int drawLayout, final Fragment nextScreen) {
+    protected ListViewFragment(final int titleName, final int inflateLayout, final int drawLayout, final Fragment nextScreen) {
         super(titleName,inflateLayout,drawLayout);
         this.nextScreen = nextScreen;
     }
 
     @Override
-    public void drawList(final List<Model> modelList, final Context context, ListView listView) {
-        // -- Sort Results Alphabetically
+    protected void drawList(final List<Model> modelList,ListView listView) {
+        // -- Sort Results Alphabetically by default
         Collections.sort(modelList);
 
         // -- Handle Model rendering
-        listView.setAdapter(new ArrayAdapter<Model>(context,R.layout.model_list,modelList) {
+        listView.setAdapter(new ArrayAdapter<Model>(getActivity(),R.layout.model_list,modelList) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
-                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                LayoutInflater inflater = (LayoutInflater) getLayoutInflater(null);
                 View rowView = inflater.inflate(R.layout.model_list,null,true);
 
                 Model model = modelList.get(position);
@@ -58,7 +57,7 @@ public abstract class BaseFragment<Key extends Serializable, Model extends BaseM
                 TextView textView = (TextView) rowView.findViewById(R.id.model_list_name);
 
                 ImageLoader.getInstance().displayImage(model.getIcon(), imageView);
-                textView.setText(InternationalNames.getInternationalName(context,model.getName()));
+                textView.setText(InternationalNames.getInternationalName(getContext(),model.getName()));
 
                 return rowView;
             }

@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.planyourexchange.R;
 import com.planyourexchange.app.PlanYourExchangeContext;
-import com.planyourexchange.fragments.base.BaseFragment;
+import com.planyourexchange.fragments.base.ListViewFragment;
 import com.planyourexchange.rest.model.Country;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by thiago on 31/07/15.
  */
-public class CountriesFragment extends BaseFragment<String,Country> {
+public class CountriesFragment extends ListViewFragment<String,Country> {
 
 
     public CountriesFragment() {
@@ -25,7 +25,7 @@ public class CountriesFragment extends BaseFragment<String,Country> {
 
     // -- List all countries (only english for now)
     @Override
-    public List<Country> callService(String language) {
-        return PlanYourExchangeContext.getInstance().serverService.getServerApi().listCountries();
+    public void callService(String language) {
+        PlanYourExchangeContext.getInstance().serverService.getServerApi().listCountries(this);
     }
 }

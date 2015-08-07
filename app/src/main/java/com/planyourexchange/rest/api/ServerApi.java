@@ -10,6 +10,7 @@ import com.planyourexchange.rest.model.SchoolCourseValueKey;
 
 import java.util.List;
 
+import retrofit.Callback;
 import retrofit.http.Body;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
@@ -27,7 +28,7 @@ public interface ServerApi {
     AuthToken login(@Field("username") String userName, @Field("password") String password);
 
     @GET("/countries/")
-    List<Country> listCountries();
+    void listCountries(Callback<List<Country>> callback);
 
     @GET("/countries/{id}/cities/")
     List<City> listCities(@Path("id") Integer countryId);

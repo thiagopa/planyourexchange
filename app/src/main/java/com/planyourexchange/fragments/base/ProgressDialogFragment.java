@@ -6,28 +6,22 @@ import android.content.DialogInterface;
 import android.support.v4.app.Fragment;
 
 import com.planyourexchange.R;
-import com.planyourexchange.interfaces.ProgressDialogListener;
 
 /**
  * Created by thiago on 05/08/15.
  */
 // -- Used by all fragments that need a progress dialog for rest calls
-public abstract class ProgressDialogFragment extends Fragment implements ProgressDialogListener {
+public abstract class ProgressDialogFragment extends Fragment {
 
     private ProgressDialog progressDialog;
 
-    @Override
-    public void onTaskStarted(DialogInterface.OnCancelListener onCancelListener) {
+    protected void onTaskStarted() {
         progressDialog = ProgressDialog.show(getActivity(),
                 getResources().getString(R.string.loading_title),
-                getResources().getString(R.string.loading_dialog),
-                true,
-                true,
-                onCancelListener);
+                getResources().getString(R.string.loading_dialog));
     }
 
-    @Override
-    public void onTaskFinished() {
+    protected void onTaskFinished() {
         if(progressDialog!=null) {
             progressDialog.dismiss();
         }

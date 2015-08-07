@@ -2,7 +2,7 @@ package com.planyourexchange.fragments.schoolcourse;
 
 import com.planyourexchange.R;
 import com.planyourexchange.app.PlanYourExchangeContext;
-import com.planyourexchange.fragments.base.BaseFragment;
+import com.planyourexchange.fragments.base.ListViewFragment;
 import com.planyourexchange.rest.model.School;
 import com.planyourexchange.rest.model.SchoolCourseValueKey;
 
@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by thiago on 02/08/15.
  */
-public class SchoolsFragment extends BaseFragment<Integer,School> {
+public class SchoolsFragment extends ListViewFragment<Integer,School> {
 
     public SchoolsFragment() {
         super(R.string.schools_title,R.layout.schools_fragment, R.id.schools_list_view, new SchoolCourseValueFragment());

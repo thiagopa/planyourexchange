@@ -4,12 +4,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
-import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.planyourexchange.R;
-import com.planyourexchange.interfaces.ProgressDialogListener;
-import com.planyourexchange.interfaces.ModelView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
