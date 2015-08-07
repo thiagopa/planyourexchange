@@ -80,7 +80,7 @@ public abstract class ListViewFragment<Key extends Serializable, Model extends B
                         .build());
 
                 // -- Creating transaction and adding to back stack navigation
-                getChildFragmentManager().beginTransaction()
+                getFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, nextScreen)
                         .addToBackStack(null)
                         .commit();

@@ -16,7 +16,7 @@ public class CostOfLivingFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.school_course_base_fragment, container, false);
+        View view = inflater.inflate(R.layout.cost_of_living_fragment, container, false);
         return view;
     }
 }

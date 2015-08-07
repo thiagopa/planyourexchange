@@ -1,6 +1,9 @@
 package com.planyourexchange.activities;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -18,6 +21,8 @@ import com.planyourexchange.adapters.ScreenSlidePagerAdapter;
 import com.planyourexchange.app.PlanYourExchangeContext;
 import com.planyourexchange.fragments.costofliving.CostOfLivingFragment;
 import com.planyourexchange.fragments.schoolcourse.SchoolCourseBaseFragment;
+
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -88,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             mAdView.loadAd(adRequest);
             */
         // -- View Pager Adapter
-        viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager = (ViewPager) findViewById(R.id.main_pager);
         pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(),
                 new SchoolCourseBaseFragment(),
                 new CostOfLivingFragment());
@@ -116,17 +121,6 @@ public class MainActivity extends AppCompatActivity {
         adView.setVisibility(View.GONE);
     }
     */
-
-    @Override
-    public void onBackPressed() {
-        /*if(getFragmentManager().getBackStackEntryCount() == 0) {
-            super.onBackPressed();
-        }
-        else {
-            getFragmentManager().popBackStack();
-        }
-        */
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
