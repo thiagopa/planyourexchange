@@ -1,11 +1,8 @@
 package com.planyourexchange.rest.service;
 
-import com.planyourexchange.rest.api.ServerApi;
 import com.planyourexchange.rest.model.AuthToken;
 import com.squareup.okhttp.Authenticator;
 import com.squareup.okhttp.Request;
-
-import org.apache.http.auth.AuthenticationException;
 
 import java.io.IOException;
 import java.net.Proxy;
@@ -20,8 +17,8 @@ import retrofit.client.Response;
  */
 public class TokenManager implements RequestInterceptor , Callback<AuthToken>, Authenticator {
 
-    private static final String TOKEN = "Token ";
-    private static final String AUTHORIZATION = "Authorization";
+    public static final String TOKEN = "Token ";
+    public static final String AUTHORIZATION = "Authorization";
 
     // -- Token must be acessible through multiple threads
     private volatile StringBuilder authToken = new StringBuilder();
