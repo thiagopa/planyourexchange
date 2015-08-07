@@ -25,7 +25,7 @@ public interface ServerApi {
 
     @FormUrlEncoded
     @POST("/token-auth/")
-    AuthToken login(@Field("username") String userName, @Field("password") String password);
+    void login(@Field("username") String userName, @Field("password") String password,Callback<AuthToken > callback);
 
     @GET("/countries/")
     void listCountries(Callback<List<Country>> callback);

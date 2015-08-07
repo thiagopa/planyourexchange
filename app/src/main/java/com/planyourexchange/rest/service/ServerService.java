@@ -15,11 +15,10 @@ import retrofit.converter.GsonConverter;
 public final class ServerService {
 
     private ServerApi serverApi;
-    private TokenManager tokenManager;
 
     public ServerService(String serviceUrl, String userName, String password) {
 
-        tokenManager = new TokenManager(userName,password);
+        TokenManager tokenManager = new TokenManager();
 
         // -- Saving a lot of config
         Gson gson = new GsonBuilder()
@@ -33,13 +32,12 @@ public final class ServerService {
                 .setRequestInterceptor(tokenManager).build();
 
         this.serverApi = restAdapter.create(ServerApi.class);
+
+        // -- Getting Authentication Token
+        this.serverApi.login(userName,password,tokenManager);
     }
 
     public ServerApi getServerApi() {
-
-        if(!tokenManager.isValidToken()) {
-          tokenManager.newToken(serverApi);
-        }
         return serverApi;
     }
 }

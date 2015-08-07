@@ -19,13 +19,13 @@ public final class PlanYourExchangeContext {
     public final PropertyReader propertyReader;
     public final GoogleAnalytics googleAnalytics;
     public final Tracker tracker;
-    public final ServerService serverService;
+    public final ServerApi serverApi;
 
-    public PlanYourExchangeContext(PropertyReader propertyReader, GoogleAnalytics googleAnalytics, Tracker tracker, ServerService serverService) {
+    public PlanYourExchangeContext(PropertyReader propertyReader, GoogleAnalytics googleAnalytics, Tracker tracker, ServerApi serverApi) {
         this.propertyReader = propertyReader;
         this.googleAnalytics = googleAnalytics;
         this.tracker = tracker;
-        this.serverService = serverService;
+        this.serverApi = serverApi;
 
         this.instance = this;
     }

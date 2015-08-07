@@ -1,25 +1,24 @@
 package com.planyourexchange.rest.service;
 
 import com.planyourexchange.rest.api.ServerApi;
+import com.planyourexchange.rest.model.AuthToken;
 
+import org.apache.http.auth.AuthenticationException;
+
+import retrofit.Callback;
 import retrofit.RequestInterceptor;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by thiago on 01/08/15.
  */
-public class TokenManager implements RequestInterceptor {
+public class TokenManager implements RequestInterceptor , Callback<AuthToken> {
 
     private static final String TOKEN = "Token ";
     private static final String AUTHORIZATION = "Authorization";
 
-    private final String userName;
-    private final String password;
     private String authToken;
-
-    public TokenManager(String userName, String password) {
-        this.userName = userName;
-        this.password = password;
-    }
 
     @Override
     public void intercept(RequestFacade request) {
@@ -33,8 +32,13 @@ public class TokenManager implements RequestInterceptor {
         return authToken != null;
     }
 
-    // -- Get a new token
-    public void newToken(ServerApi serverApi) {
-        this.authToken = TOKEN + serverApi.login(userName,password).getToken();
+    @Override
+    public void success(AuthToken authToken, Response response) {
+        this.authToken = TOKEN + authToken.getToken();
+    }
+
+    @Override
+    public void failure(RetrofitError error) {
+        throw new RuntimeException("Can't continue without an application token",error);
     }
 }

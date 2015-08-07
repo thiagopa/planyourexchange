@@ -12,6 +12,7 @@ import com.google.android.gms.analytics.Tracker;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.planyourexchange.R;
+import com.planyourexchange.rest.api.ServerApi;
 import com.planyourexchange.rest.service.ServerService;
 import com.planyourexchange.utils.PropertyReader;
 
@@ -56,6 +57,8 @@ public class PlanYourExchangeApplication extends Application {
                 propertyReader.getProperty("service.userName"),
                 propertyReader.getProperty("service.password"));
 
-        new PlanYourExchangeContext(propertyReader, googleAnalytics, tracker, serverService);
+        ServerApi serverApi = serverService.getServerApi();
+
+        new PlanYourExchangeContext(propertyReader, googleAnalytics, tracker, serverApi);
     }
 }
