@@ -31,7 +31,7 @@ public class SchoolCourseValueFragment extends AbstractBaseFragment<SchoolCourse
 
     @Override
     public void callService(SchoolCourseValueKey schoolCourseValueKey) {
-        PlanYourExchangeContext.getInstance().serverService.getServerApi().findCourseSchoolValue(schoolCourseValueKey,this);
+        PlanYourExchangeContext.instance.serverApi.findCourseSchoolValue(schoolCourseValueKey, this);
     }
 
     @Override

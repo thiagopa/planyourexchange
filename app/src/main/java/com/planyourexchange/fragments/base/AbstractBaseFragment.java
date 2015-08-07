@@ -52,7 +52,7 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model> exte
     public void onStart() {
         super.onStart();
         // -- Send tracking information to Google Analytics so I know which screen users are browsing
-        Tracker tracker = PlanYourExchangeContext.getInstance().tracker;
+        Tracker tracker = PlanYourExchangeContext.instance.tracker;
         tracker.setScreenName(getName());
         tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }

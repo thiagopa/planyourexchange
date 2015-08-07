@@ -14,7 +14,7 @@ import com.planyourexchange.utils.PropertyReader;
  */
 public final class PlanYourExchangeContext {
 
-    private static PlanYourExchangeContext instance;
+    public static PlanYourExchangeContext instance;
 
     public final PropertyReader propertyReader;
     public final GoogleAnalytics googleAnalytics;
@@ -28,10 +28,5 @@ public final class PlanYourExchangeContext {
         this.serverApi = serverApi;
 
         this.instance = this;
-    }
-
-
-    public static PlanYourExchangeContext getInstance() {
-        return instance;
     }
 }

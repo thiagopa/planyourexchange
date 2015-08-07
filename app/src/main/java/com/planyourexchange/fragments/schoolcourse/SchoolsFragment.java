@@ -20,7 +20,7 @@ public class SchoolsFragment extends ListViewFragment<Integer,School> {
 
     @Override
     public void callService(Integer modelId) {
-        PlanYourExchangeContext.getInstance().serverService.getServerApi().listSchools(modelId,this);
+        PlanYourExchangeContext.instance.serverApi.listSchools(modelId, this);
     }
 
     @Override

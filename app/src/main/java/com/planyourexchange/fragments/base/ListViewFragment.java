@@ -72,7 +72,7 @@ public abstract class ListViewFragment<Key extends Serializable, Model extends B
                 bundle.putSerializable(KEY_ID, createNextKey(model));
                 nextScreen.setArguments(bundle);
                 // -- Analytics click event for model
-                Tracker tracker = PlanYourExchangeContext.getInstance().tracker;
+                Tracker tracker = PlanYourExchangeContext.instance.tracker;
                 tracker.send(new HitBuilders.EventBuilder()
                         .setCategory(Constants.CATEGORY_NAVIGATION)
                         .setAction(Constants.ACTION_CLICK_ON_MODEL)

@@ -26,6 +26,6 @@ public class CountriesFragment extends ListViewFragment<String,Country> {
     // -- List all countries (only english for now)
     @Override
     public void callService(String language) {
-        PlanYourExchangeContext.getInstance().serverService.getServerApi().listCountries(this);
+        PlanYourExchangeContext.instance.serverApi.listCountries(this);
     }
 }

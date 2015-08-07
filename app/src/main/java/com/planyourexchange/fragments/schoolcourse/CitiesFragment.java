@@ -18,6 +18,6 @@ public class CitiesFragment extends ListViewFragment<Integer,City> {
 
     @Override
     public void callService(Integer modelId) {
-        PlanYourExchangeContext.getInstance().serverService.getServerApi().listCities(modelId,this);
+        PlanYourExchangeContext.instance.serverApi.listCities(modelId, this);
     }
 }
