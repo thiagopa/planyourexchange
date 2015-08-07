@@ -31,14 +31,14 @@ public interface ServerApi {
     void listCountries(Callback<List<Country>> callback);
 
     @GET("/countries/{id}/cities/")
-    List<City> listCities(@Path("id") Integer countryId,Callback<List<Country>> callback);
+    void listCities(@Path("id") Integer countryId,Callback<List<City>> callback);
 
     @GET("/cities/{id}/courses/")
-    List<Course> listCourses(@Path("id") Integer cityId,Callback<List<Country>> callback);
+    void listCourses(@Path("id") Integer cityId,Callback<List<Course>> callback);
 
     @GET("/cities/{id}/schools/")
-    List<School> listSchools(@Path("id") Integer cityId,Callback<List<Country>> callback);
+    void listSchools(@Path("id") Integer cityId,Callback<List<School>> callback);
 
     @POST("/schoolcoursevalue/find/")
-    List<SchoolCourseValue> findCourseSchoolValue(@Body SchoolCourseValueKey request,Callback<List<Country>> callback);
+    void findCourseSchoolValue(@Body SchoolCourseValueKey request,Callback<List<SchoolCourseValue>> callback);
 }
