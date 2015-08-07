@@ -60,8 +60,11 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model> exte
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(this.inflateLayout, container, false);
+        return inflater.inflate(this.inflateLayout, container, false);
+    }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         Key key = (Key) getArguments().getSerializable(KEY_ID);
         ListView listView = (ListView) getActivity().findViewById(this.drawLayout);
 
@@ -72,9 +75,8 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model> exte
             onTaskStarted();
             callService(key);
         }
-
-        return view;
     }
+
     // -- Call rest Service
     protected abstract void callService(Key key);
     // -- Draw objects

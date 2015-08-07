@@ -8,6 +8,7 @@ import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -158,5 +159,28 @@ public class MainActivity extends AppCompatActivity {
             unbindService(mServiceConn);
         }
         */
+    }
+
+    @Override
+    public void onBackPressed() {
+        SparseArray<FragmentManager> managers = new SparseArray<>();
+        traverseManagers(getSupportFragmentManager(), managers, 0);
+        if (managers.size() > 0) {
+            managers.valueAt(managers.size() - 1).popBackStackImmediate();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    private void traverseManagers(FragmentManager manager, SparseArray<FragmentManager> managers, int intent) {
+        if (manager.getBackStackEntryCount() > 0) {
+            managers.put(intent, manager);
+        }
+        if (manager.getFragments() == null) {
+            return;
+        }
+        for (Fragment fragment : manager.getFragments()) {
+            if (fragment != null) traverseManagers(fragment.getChildFragmentManager(), managers, intent + 1);
+        }
     }
 }
