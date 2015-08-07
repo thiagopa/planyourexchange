@@ -23,7 +23,7 @@ public class TokenManager implements RequestInterceptor , Callback<AuthToken>, A
     private static final String TOKEN = "Token ";
     private static final String AUTHORIZATION = "Authorization";
 
-    // -- Token
+    // -- Token must be acessible through multiple threads
     private volatile StringBuilder authToken = new StringBuilder();
 
     @Override
