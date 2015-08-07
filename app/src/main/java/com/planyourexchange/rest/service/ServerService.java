@@ -4,9 +4,11 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.planyourexchange.rest.api.ServerApi;
+import com.squareup.okhttp.OkHttpClient;
 
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
+import retrofit.client.OkClient;
 import retrofit.converter.GsonConverter;
 
 /**
@@ -24,12 +26,16 @@ public final class ServerService {
         Gson gson = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                 .create();
+        // -- For Token Authentication Purposes
+        OkHttpClient okHttpClient = new OkHttpClient();
+        okHttpClient.setAuthenticator(tokenManager);
 
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setLogLevel(RestAdapter.LogLevel.FULL)
                 .setConverter(new GsonConverter(gson))
                 .setEndpoint(serviceUrl)
-                .setRequestInterceptor(tokenManager).build();
+                .setRequestInterceptor(tokenManager)
+                .setClient(new OkClient(okHttpClient)).build();
 
         this.serverApi = restAdapter.create(ServerApi.class);
 
