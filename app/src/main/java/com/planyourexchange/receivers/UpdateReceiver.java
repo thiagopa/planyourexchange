@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.widget.Toast;
 
+import com.planyourexchange.R;
 import com.planyourexchange.activities.MainActivity;
 import com.planyourexchange.app.PlanYourExchangeApplication;
 
@@ -19,7 +20,7 @@ public class UpdateReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         if (!PlanYourExchangeApplication.isInternetAvailable(context)) {
-            Toast.makeText(context, "No Network Available", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, R.string.no_internet, Toast.LENGTH_LONG).show();
         }
     }
 }
