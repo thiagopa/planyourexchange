@@ -15,13 +15,15 @@ import retrofit.client.Response;
 /**
  * Created by thiago on 01/08/15.
  */
-public class TokenManager implements RequestInterceptor , Callback<AuthToken>, Authenticator {
+public class TokenManager implements RequestInterceptor, Callback<AuthToken>, Authenticator {
 
     public static final String TOKEN = "Token ";
     public static final String AUTHORIZATION = "Authorization";
 
     // -- Token must be acessible through multiple threads
     private volatile StringBuilder authToken = new StringBuilder();
+
+    private TokenAction tokenAction;
 
     @Override
     public void intercept(RequestFacade request) {
@@ -47,19 +49,18 @@ public class TokenManager implements RequestInterceptor , Callback<AuthToken>, A
 
     @Override
     public void failure(RetrofitError error) {
-        throw new RuntimeException("Can't continue without an application token",error);
+        throw new RuntimeException("Can't continue without an application token", error);
     }
 
     @Override
     public Request authenticate(Proxy proxy, com.squareup.okhttp.Response response) throws IOException {
-        // -- Blocks the thread until the token becomes valid
         synchronized (this.authToken) {
-            if(!isValidToken()) {
-                try {
-                    this.authToken.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            // -- Sends signal to get a new token and wait until it becomes valid
+            tokenAction.newToken();
+            try {
+                this.authToken.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
         return response.request().newBuilder().header(AUTHORIZATION, authToken.toString()).build();
@@ -68,5 +69,16 @@ public class TokenManager implements RequestInterceptor , Callback<AuthToken>, A
     @Override
     public Request authenticateProxy(Proxy proxy, com.squareup.okhttp.Response response) throws IOException {
         return null;
+    }
+
+    // -- Future Token Actions
+    // - This would easily be able to handle future expired tokens
+    public interface TokenAction {
+        // -- Getting a new Token
+        void newToken();
+    }
+
+    public void setTokenAction(TokenAction tokenAction) {
+        this.tokenAction = tokenAction;
     }
 }

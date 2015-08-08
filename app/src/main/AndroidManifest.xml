@@ -43,6 +43,12 @@
         </receiver>
         <service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
 
+        <!-- Verify Internet connectivity -->
+        <receiver android:name=".receivers.UpdateReceiver" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
 
         <activity
             android:name=".activities.MainActivity"

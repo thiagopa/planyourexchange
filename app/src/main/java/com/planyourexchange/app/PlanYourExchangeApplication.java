@@ -1,8 +1,12 @@
 package com.planyourexchange.app;
 
 import android.app.Application;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -57,8 +61,19 @@ public class PlanYourExchangeApplication extends Application {
                 propertyReader.getProperty("service.userName"),
                 propertyReader.getProperty("service.password"));
 
-        ServerApi serverApi = serverService.getServerApi();
+        ServerApi serverApi = serverService.serverApi;
 
         new PlanYourExchangeContext(propertyReader, googleAnalytics, tracker, serverApi);
+    }
+
+    public static boolean isInternetAvailable(Context context) {
+        //Getting the ConnectivityManager.
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        //Getting NetworkInfo from the Connectivity manager.
+        NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
+        //If I received an info and isConnectedOrConnecting return true then there is an Internet connection.
+        boolean isConnected = netInfo != null && netInfo.isConnectedOrConnecting();
+        // -- First verify if we have internet freely available
+        return isConnected;
     }
 }

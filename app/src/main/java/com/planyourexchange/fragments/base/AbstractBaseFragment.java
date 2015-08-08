@@ -93,6 +93,7 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model> exte
     @Override
     public void failure(RetrofitError error) {
         onTaskFinished();
+
         String message = error.getMessage()!=null? error.getMessage(): getResources().getString(R.string.no_data_server);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

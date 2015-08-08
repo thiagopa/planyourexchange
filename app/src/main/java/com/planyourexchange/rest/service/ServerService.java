@@ -16,11 +16,11 @@ import retrofit.converter.GsonConverter;
  */
 public final class ServerService {
 
-    private ServerApi serverApi;
+    public final ServerApi serverApi;
 
-    public ServerService(String serviceUrl, String userName, String password) {
+    public ServerService(String serviceUrl, final String userName, final String password) {
 
-        TokenManager tokenManager = new TokenManager();
+        final TokenManager tokenManager = new TokenManager();
 
         // -- Saving a lot of config
         Gson gson = new GsonBuilder()
@@ -39,11 +39,13 @@ public final class ServerService {
 
         this.serverApi = restAdapter.create(ServerApi.class);
 
-        // -- Getting Authentication Token
-        this.serverApi.login(userName,password,tokenManager);
-    }
-
-    public ServerApi getServerApi() {
-        return serverApi;
+        // -- Call login to get a new Token only WHEN it is needed
+        tokenManager.setTokenAction(new TokenManager.TokenAction() {
+            @Override
+            public void newToken() {
+                // -- Getting Authentication Token
+                serverApi.login(userName, password, tokenManager);
+            }
+        });
     }
 }

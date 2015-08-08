@@ -40,6 +40,21 @@ public class TokenManagerTest {
                 .build();
 
 
+        tokenManager.setTokenAction(new TokenManager.TokenAction() {
+            @Override
+            public void newToken() {
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tokenManager.success(authToken, null);
+                    }
+                }).start();
+
+            }
+        });
+
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -61,12 +76,7 @@ public class TokenManagerTest {
             }
         }).start();
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                    tokenManager.success(authToken, null);
-            }
-        }).start();
+
 
         synchronized (LOCK) {
             LOCK.wait();
