@@ -65,12 +65,6 @@ public class MainActivity extends AppCompatActivity {
     @Inject
     PropertyReader propertyReader;
 
-    public void setPropertyReader(PropertyReader propertyReader) {
-        this.propertyReader = propertyReader;
-    }
-
-    private AdView adView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,11 +84,10 @@ public class MainActivity extends AppCompatActivity {
             */
 
         // -- Create adRequest
-        adView = new AdView(this);
+        AdView adView = new AdView(this);
         adView.setAdUnitId(propertyReader.getProperty("AdUnitId"));
         adView.setAdSize(AdSize.SMART_BANNER);
         adView.setVisibility(View.VISIBLE);
-
 
         RelativeLayout.LayoutParams adParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -102,7 +95,9 @@ public class MainActivity extends AppCompatActivity {
         adParams.addRule(RelativeLayout.CENTER_VERTICAL);
         mainLayout.addView(adView, adParams);
 
-        showBanner();
+        // -- TODO should be replaced in production
+        adView.loadAd(new AdRequest.Builder()
+                .addTestDevice(propertyReader.getProperty("TestDeviceId")).build());
 
 
         // -- View Pager Adapter
@@ -112,12 +107,6 @@ public class MainActivity extends AppCompatActivity {
                 new CostOfLivingFragment());
 
         viewPager.setAdapter(pagerAdapter);
-    }
-
-    private void showBanner() {
-        // -- TODO should be replaced in production
-        adView.loadAd(new AdRequest.Builder()
-                .addTestDevice(propertyReader.getProperty("TestDeviceId")).build());
     }
 
 
@@ -186,11 +175,5 @@ public class MainActivity extends AppCompatActivity {
         for (Fragment fragment : manager.getFragments()) {
             if (fragment != null) traverseManagers(fragment.getChildFragmentManager(), managers, intent + 1);
         }
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        //showBanner();
-        super.onConfigurationChanged(newConfig);
     }
 }
