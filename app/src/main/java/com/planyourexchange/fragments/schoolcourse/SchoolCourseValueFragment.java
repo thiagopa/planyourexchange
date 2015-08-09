@@ -1,19 +1,16 @@
 package com.planyourexchange.fragments.schoolcourse;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.planyourexchange.R;
-import com.planyourexchange.app.PlanYourExchangeContext;
 import com.planyourexchange.fragments.base.AbstractBaseFragment;
 import com.planyourexchange.rest.model.SchoolCourseValue;
 import com.planyourexchange.rest.model.SchoolCourseValueKey;

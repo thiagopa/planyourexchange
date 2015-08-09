@@ -1,7 +1,6 @@
 package com.planyourexchange.fragments.base;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,7 +12,6 @@ import android.widget.ListView;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.planyourexchange.R;
-import com.planyourexchange.app.PlanYourExchangeContext;
 import com.planyourexchange.interfaces.FragmentName;
 
 import java.io.Serializable;

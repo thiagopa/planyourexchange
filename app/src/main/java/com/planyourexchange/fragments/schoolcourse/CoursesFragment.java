@@ -1,13 +1,11 @@
 package com.planyourexchange.fragments.schoolcourse;
 
 import com.planyourexchange.R;
-import com.planyourexchange.app.PlanYourExchangeContext;
 import com.planyourexchange.fragments.base.ListViewFragment;
 import com.planyourexchange.rest.model.Course;
 import com.planyourexchange.rest.model.SchoolCourseValueKey;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Copyright (C) 2015, Thiago Pagonha,

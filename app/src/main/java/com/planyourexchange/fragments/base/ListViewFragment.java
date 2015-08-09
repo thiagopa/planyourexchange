@@ -16,7 +16,6 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.planyourexchange.R;
-import com.planyourexchange.app.PlanYourExchangeContext;
 import com.planyourexchange.rest.model.BaseModel;
 import com.planyourexchange.utils.Constants;
 import com.planyourexchange.utils.InternationalNames;

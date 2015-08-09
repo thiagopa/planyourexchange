@@ -3,7 +3,6 @@ package com.planyourexchange.activities;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -19,11 +18,12 @@ import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.planyourexchange.R;
 import com.planyourexchange.adapters.ScreenSlidePagerAdapter;
-import com.planyourexchange.app.PlanYourExchangeContext;
+import com.planyourexchange.app.PlanYourExchangeApplication;
 import com.planyourexchange.fragments.costofliving.CostOfLivingFragment;
 import com.planyourexchange.fragments.schoolcourse.SchoolCourseBaseFragment;
+import com.planyourexchange.utils.PropertyReader;
 
-import java.util.List;
+import javax.inject.Inject;
 
 /**
  * Copyright (C) 2015, Thiago Pagonha,
@@ -61,16 +61,16 @@ public class MainActivity extends AppCompatActivity {
         }
     };
     */
-    // -- View Pager
-    private ViewPager viewPager;
-    private PagerAdapter pagerAdapter;
+    @Inject
+    PropertyReader propertyReader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // -- This should come first
+        // -- Inject dependecies first
+        ((PlanYourExchangeApplication)getApplication()).getPlanYourExchangeComponent().inject(this);
+        // -- This should be rendered first
         setContentView(R.layout.activity_main);
-
         // Check that the activity is using the layout version with
         // the fragment_container FrameLayout
         // However, if we're being restored from a previous state,
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
         // -- Create adRequest
         AdView adView = new AdView(this);
-        adView.setAdUnitId(PlanYourExchangeContext.instance.propertyReader.getProperty("AdUnitId"));
+        adView.setAdUnitId(propertyReader.getProperty("AdUnitId"));
         adView.setAdSize(AdSize.SMART_BANNER);
         adView.setVisibility(View.VISIBLE);
 
@@ -104,33 +104,15 @@ public class MainActivity extends AppCompatActivity {
 
         // -- TODO should be replaced in production
         adView.loadAd(new AdRequest.Builder()
-                .addTestDevice(PlanYourExchangeContext.instance.propertyReader.getProperty("TestDeviceId")).build());
-            /*
-            AdRequest adRequest = new AdRequest.Builder().build();
-            mAdView.loadAd(adRequest);
-            */
+                .addTestDevice(propertyReader.getProperty("TestDeviceId")).build());
+
         // -- View Pager Adapter
-        viewPager = (ViewPager) findViewById(R.id.main_pager);
-        pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(),
+        ViewPager viewPager = (ViewPager) findViewById(R.id.main_pager);
+        PagerAdapter pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(),
                 new SchoolCourseBaseFragment(),
                 new CostOfLivingFragment());
 
         viewPager.setAdapter(pagerAdapter);
-
-
-        // -- Fragment Manager
-        //FragmentManager fragmentManager = getFragmentManager();
-
-        // -- Changing title according to fragment
-            /*fragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
-                @Override
-                public void onBackStackChanged() {
-                    FragmentName fragment = (FragmentName) getFragmentManager().findFragmentById(R.id.fragment_container);
-                    setTitle(fragment.getName());
-                }
-            });*/
-
-
     }
 
     /* TODO -- Leave this to hide banners when donated

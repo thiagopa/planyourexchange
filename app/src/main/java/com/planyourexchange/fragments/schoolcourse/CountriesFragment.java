@@ -3,11 +3,8 @@ package com.planyourexchange.fragments.schoolcourse;
 import android.os.Bundle;
 
 import com.planyourexchange.R;
-import com.planyourexchange.app.PlanYourExchangeContext;
 import com.planyourexchange.fragments.base.ListViewFragment;
 import com.planyourexchange.rest.model.Country;
-
-import java.util.List;
 
 /**
  * Copyright (C) 2015, Thiago Pagonha,

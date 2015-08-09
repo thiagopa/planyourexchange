@@ -1,10 +1,4 @@
-package com.planyourexchange.fragments.schoolcourse;
-
-import com.planyourexchange.R;
-import com.planyourexchange.fragments.base.ListViewFragment;
-import com.planyourexchange.rest.model.City;
-
-/**
+/*
  * Copyright (C) 2015, Thiago Pagonha,
  * Plan Your Exchange, easy exchange to fit your budget
  *
@@ -21,14 +15,23 @@ import com.planyourexchange.rest.model.City;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class CitiesFragment extends ListViewFragment<Integer,City> {
 
-    public CitiesFragment() {
-        super(R.string.cities_title,R.layout.cities_fragment, R.id.cities_list_view, new CourseOrSchoolFragment());
-    }
+package com.planyourexchange.app;
 
-    @Override
-    public void callService(Integer modelId) {
-        PlanYourExchangeContext.instance.serverApi.listCities(modelId, this);
-    }
+import com.planyourexchange.activities.MainActivity;
+
+import javax.inject.Singleton;
+
+import dagger.Component;
+
+/**
+ * Pairing between module and injection targets
+ * @author Thiago Pagonha
+ * @version 09/08/15.
+ */
+@Singleton
+@Component(modules = PlanYourExchangeModule.class)
+public interface PlanYourExchangeComponent {
+    void inject(PlanYourExchangeApplication planYourExchangeApplication);
+    void inject(MainActivity mainActivity);
 }

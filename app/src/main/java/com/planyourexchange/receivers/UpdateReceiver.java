@@ -33,8 +33,20 @@ public class UpdateReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         // -- Display a simple hover message in case internet is no more :'(
-        if (!PlanYourExchangeApplication.isInternetAvailable(context)) {
+        if (isInternetAvailable(context)) {
             Toast.makeText(context, R.string.no_internet, Toast.LENGTH_LONG).show();
         }
     }
+
+    private boolean isInternetAvailable(Context context) {
+        //Getting the ConnectivityManager.
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        //Getting NetworkInfo from the Connectivity manager.
+        NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
+        //If I received an info and isConnectedOrConnecting return true then there is an Internet connection.
+        boolean isConnected = netInfo != null && netInfo.isConnectedOrConnecting();
+        // -- First verify if we have internet freely available
+        return isConnected;
+    }
+
 }
