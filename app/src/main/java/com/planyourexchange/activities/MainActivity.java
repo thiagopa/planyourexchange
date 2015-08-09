@@ -16,11 +16,13 @@ import android.widget.RelativeLayout;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.analytics.Tracker;
 import com.planyourexchange.R;
 import com.planyourexchange.adapters.ScreenSlidePagerAdapter;
 import com.planyourexchange.app.PlanYourExchangeApplication;
 import com.planyourexchange.fragments.costofliving.CostOfLivingFragment;
 import com.planyourexchange.fragments.schoolcourse.SchoolCourseBaseFragment;
+import com.planyourexchange.rest.api.ServerApi;
 import com.planyourexchange.utils.PropertyReader;
 
 import javax.inject.Inject;
@@ -63,12 +65,16 @@ public class MainActivity extends AppCompatActivity {
     */
     @Inject
     PropertyReader propertyReader;
+    @Inject
+    Tracker tracker;
+    @Inject
+    ServerApi serverApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // -- Inject dependecies first
-        ((PlanYourExchangeApplication)getApplication()).getPlanYourExchangeComponent().inject(this);
+        PlanYourExchangeApplication.getPlanYourExchangeComponent(this).inject(this);
         // -- This should be rendered first
         setContentView(R.layout.activity_main);
         // Check that the activity is using the layout version with
@@ -180,5 +186,13 @@ public class MainActivity extends AppCompatActivity {
         for (Fragment fragment : manager.getFragments()) {
             if (fragment != null) traverseManagers(fragment.getChildFragmentManager(), managers, intent + 1);
         }
+    }
+
+    public Tracker getTracker() {
+        return tracker;
+    }
+
+    public ServerApi getServerApi() {
+        return serverApi;
     }
 }

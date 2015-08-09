@@ -19,8 +19,6 @@
 package com.planyourexchange.app;
 
 import com.planyourexchange.activities.MainActivity;
-import com.planyourexchange.fragments.base.AbstractBaseFragment;
-import com.planyourexchange.fragments.base.InjectedFragment;
 
 import javax.inject.Singleton;
 
@@ -36,5 +34,4 @@ import dagger.Component;
 public interface PlanYourExchangeComponent {
     void inject(PlanYourExchangeApplication planYourExchangeApplication);
     void inject(MainActivity mainActivity);
-    void inject(InjectedFragment injectedFragment);
 }

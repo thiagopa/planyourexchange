@@ -39,13 +39,10 @@ import dagger.Provides;
  * @author Thiago Pagonha
  * @version 09/08/15.
  */
-@Module
 public class PlanYourExchangeModule {
     // -- Configs
     private static final String TAG = "PlanYourExchangeModule";
     private static final int DISPATCH_PERIOD_IN_SECONDS = 1800;
-    // -- My Application Context
-    private final PlanYourExchangeApplication planYourExchangeApplication;
     // -- All dependencies
     private PropertyReader propertyReader;
     private GoogleAnalytics googleAnalytics;
@@ -53,7 +50,6 @@ public class PlanYourExchangeModule {
     private ServerApi serverApi;
 
     public PlanYourExchangeModule(PlanYourExchangeApplication planYourExchangeApplication) {
-        this.planYourExchangeApplication = planYourExchangeApplication;
 
         // -- Initialize properties Reader
         try {
@@ -80,20 +76,14 @@ public class PlanYourExchangeModule {
         this.serverApi = serverService.serverApi;
     }
 
-    @Provides
-    @Singleton
     PropertyReader providePropertyReader() {
         return propertyReader;
     }
 
-    @Provides
-    @Singleton
     ServerApi provideServerApi() {
         return serverApi;
     }
 
-    @Provides
-    @Singleton
     Tracker provideTracker() {
         return tracker;
     }

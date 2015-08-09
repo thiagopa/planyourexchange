@@ -25,7 +25,7 @@ import com.planyourexchange.R;
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 // -- Used by all fragments that need a progress dialog for rest calls
-public abstract class ProgressDialogFragment extends InjectedFragment {
+public abstract class ProgressDialogFragment extends Fragment {
 
     private ProgressDialog progressDialog;
 

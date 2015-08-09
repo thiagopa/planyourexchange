@@ -1,6 +1,7 @@
 package com.planyourexchange.fragments.schoolcourse;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,8 +15,9 @@ import android.widget.TextView;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.planyourexchange.R;
-import com.planyourexchange.fragments.base.InjectedFragment;
+import com.planyourexchange.activities.MainActivity;
 import com.planyourexchange.interfaces.FragmentName;
+import com.planyourexchange.rest.api.ServerApi;
 import com.planyourexchange.utils.Constants;
 
 /**
@@ -35,7 +37,7 @@ import com.planyourexchange.utils.Constants;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class CourseOrSchoolFragment extends InjectedFragment implements OnClickListener, FragmentName {
+public class CourseOrSchoolFragment extends Fragment implements OnClickListener, FragmentName {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,6 +51,16 @@ public class CourseOrSchoolFragment extends InjectedFragment implements OnClickL
         bySchool.setOnClickListener(this);
 
         return view;
+    }
+
+    // -- Avoiding some weird bugs with Dagger 2 DI directly into fragments
+    protected Tracker tracker;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        MainActivity mainActivity = (MainActivity)activity;
+        this.tracker = mainActivity.getTracker();
     }
 
     @Override

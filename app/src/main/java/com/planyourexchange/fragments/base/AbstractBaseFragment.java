@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,6 +67,18 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model> exte
         this.drawLayout = drawLayout;
     }
 
+    // -- Avoiding some weird bugs with Dagger 2 DI directly into fragments
+    protected Tracker tracker;
+    protected ServerApi serverApi;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        MainActivity mainActivity = (MainActivity)activity;
+        this.tracker = mainActivity.getTracker();
+        this.serverApi = mainActivity.getServerApi();
+    }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -94,14 +107,6 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model> exte
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        Key key = (Key) getArguments().getSerializable(KEY_ID);
-        ListView listView = (ListView) getActivity().findViewById(this.drawLayout);
-        drawList(CACHE.get(key),listView);
-    }
-
     // -- Call rest Service
     protected abstract void callService(Key key);
     // -- Draw objects
@@ -109,13 +114,9 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model> exte
 
     @Override
     public void success(List<Model> modelList, Response response) {
-        Activity activity = getActivity();
-        // -- Flip bug
-        if(activity!=null) {
-            ListView listView = (ListView) activity.findViewById(this.drawLayout);
-            CACHE.put((Key) getArguments().get(KEY_ID), modelList);
-            drawList(modelList, listView);
-        }
+        ListView listView = (ListView) getActivity().findViewById(this.drawLayout);
+        CACHE.put((Key) getArguments().get(KEY_ID), modelList);
+        drawList(modelList, listView);
         onTaskFinished();
     }
 
