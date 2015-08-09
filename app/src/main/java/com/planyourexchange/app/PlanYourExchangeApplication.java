@@ -37,7 +37,8 @@ public class PlanYourExchangeApplication extends Application {
         ImageLoader.getInstance().init(config);
 
         // -- Create the dependencies injector
-        planYourExchangeComponent =
+        //planYourExchangeComponent =
+
     }
 
     public static PlanYourExchangeComponent getPlanYourExchangeComponent(@NonNull Context context) {

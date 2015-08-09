@@ -29,12 +29,18 @@ import com.planyourexchange.utils.PropertyReader;
 
 import java.io.IOException;
 
+import javax.inject.Singleton;
+
+import dagger.Module;
+import dagger.Provides;
+
 
 /**
  * Application-wide dependencies
  * @author Thiago Pagonha
  * @version 09/08/15.
  */
+@Module
 public class PlanYourExchangeModule {
     // -- Configs
     private static final String TAG = "PlanYourExchangeModule";
@@ -72,15 +78,15 @@ public class PlanYourExchangeModule {
         this.serverApi = serverService.serverApi;
     }
 
-    PropertyReader providePropertyReader() {
+    @Provides @Singleton PropertyReader providePropertyReader() {
         return propertyReader;
     }
 
-    ServerApi provideServerApi() {
+    @Provides @Singleton ServerApi provideServerApi() {
         return serverApi;
     }
 
-    Tracker provideTracker() {
+    @Provides @Singleton Tracker provideTracker() {
         return tracker;
     }
 }

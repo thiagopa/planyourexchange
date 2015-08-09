@@ -22,14 +22,20 @@ import com.planyourexchange.activities.MainActivity;
 import com.planyourexchange.fragments.base.AbstractBaseFragment;
 import com.planyourexchange.fragments.schoolcourse.CourseOrSchoolFragment;
 
+import java.io.Serializable;
+
+import javax.inject.Singleton;
+
+import dagger.Component;
+
 /**
  * Pairing between module and injection targets
  * @author Thiago Pagonha
  * @version 09/08/15.
  */
-
+@Singleton
+@Component(modules = {PlanYourExchangeModule.class})
 public interface PlanYourExchangeComponent {
     void inject(MainActivity mainActivity);
-    void inject(AbstractBaseFragment abstractBaseFragment);
-    void inject(CourseOrSchoolFragment courseOrSchoolFragment);
+    void inject(InjectedFragment injectFragment);
 }
