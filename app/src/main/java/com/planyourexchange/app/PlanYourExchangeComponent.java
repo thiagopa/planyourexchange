@@ -27,6 +27,7 @@ import com.planyourexchange.fragments.schoolcourse.CourseOrSchoolFragment;
  * @author Thiago Pagonha
  * @version 09/08/15.
  */
+
 public interface PlanYourExchangeComponent {
     void inject(MainActivity mainActivity);
     void inject(AbstractBaseFragment abstractBaseFragment);
