@@ -1,5 +1,6 @@
 package com.planyourexchange.fragments.base;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.ListView;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.planyourexchange.R;
+import com.planyourexchange.activities.MainActivity;
 import com.planyourexchange.app.PlanYourExchangeApplication;
 import com.planyourexchange.interfaces.FragmentName;
 import com.planyourexchange.rest.api.ServerApi;
@@ -92,6 +94,14 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model> exte
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Key key = (Key) getArguments().getSerializable(KEY_ID);
+        ListView listView = (ListView) getActivity().findViewById(this.drawLayout);
+        drawList(CACHE.get(key),listView);
+    }
+
     // -- Call rest Service
     protected abstract void callService(Key key);
     // -- Draw objects
@@ -99,9 +109,13 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model> exte
 
     @Override
     public void success(List<Model> modelList, Response response) {
-        ListView listView = (ListView) getActivity().findViewById(this.drawLayout);
-        CACHE.put((Key) getArguments().get(KEY_ID), modelList);
-        drawList(modelList,listView);
+        Activity activity = getActivity();
+        // -- Flip bug
+        if(activity!=null) {
+            ListView listView = (ListView) activity.findViewById(this.drawLayout);
+            CACHE.put((Key) getArguments().get(KEY_ID), modelList);
+            drawList(modelList, listView);
+        }
         onTaskFinished();
     }
 

@@ -42,6 +42,6 @@ public class InjectedFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // -- DI First
-        ((PlanYourExchangeApplication)getActivity().getApplication()).getPlanYourExchangeComponent().inject(this);
+        PlanYourExchangeApplication.getPlanYourExchangeComponent(getActivity()).inject(this);
     }
 }

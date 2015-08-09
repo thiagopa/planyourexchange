@@ -1,6 +1,8 @@
 package com.planyourexchange.app;
 
 import android.app.Application;
+import android.content.Context;
+import android.support.annotation.NonNull;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -42,7 +44,9 @@ public class PlanYourExchangeApplication extends Application {
         planYourExchangeComponent.inject(this);
     }
 
-    public PlanYourExchangeComponent getPlanYourExchangeComponent() {
-        return planYourExchangeComponent;
+    public static PlanYourExchangeComponent getPlanYourExchangeComponent(@NonNull Context context) {
+        return ((PlanYourExchangeApplication) context.getApplicationContext()).planYourExchangeComponent;
     }
+
+
 }
