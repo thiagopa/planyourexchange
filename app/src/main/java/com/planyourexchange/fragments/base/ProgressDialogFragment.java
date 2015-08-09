@@ -44,6 +44,7 @@ public class ProgressDialogFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         PlanYourExchangeApplication.getPlanYourExchangeComponent(getActivity()).inject(this);
     }
 

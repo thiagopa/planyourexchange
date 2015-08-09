@@ -47,6 +47,7 @@ public class CourseOrSchoolFragment extends Fragment implements OnClickListener,
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         PlanYourExchangeApplication.getPlanYourExchangeComponent(getActivity()).inject(this);
     }
 
