@@ -29,10 +29,6 @@ import com.planyourexchange.utils.PropertyReader;
 
 import java.io.IOException;
 
-import javax.inject.Singleton;
-
-import dagger.Module;
-import dagger.Provides;
 
 /**
  * Application-wide dependencies

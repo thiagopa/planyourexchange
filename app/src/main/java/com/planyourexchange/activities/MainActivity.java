@@ -16,16 +16,12 @@ import android.widget.RelativeLayout;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.analytics.Tracker;
 import com.planyourexchange.R;
 import com.planyourexchange.adapters.ScreenSlidePagerAdapter;
 import com.planyourexchange.app.PlanYourExchangeApplication;
 import com.planyourexchange.fragments.costofliving.CostOfLivingFragment;
 import com.planyourexchange.fragments.schoolcourse.SchoolCourseBaseFragment;
-import com.planyourexchange.rest.api.ServerApi;
 import com.planyourexchange.utils.PropertyReader;
-
-import javax.inject.Inject;
 
 /**
  * Copyright (C) 2015, Thiago Pagonha,
@@ -63,12 +59,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
     */
-    @Inject
-    PropertyReader propertyReader;
-    @Inject
-    Tracker tracker;
-    @Inject
-    ServerApi serverApi;
+    private PropertyReader propertyReader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -188,11 +179,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public Tracker getTracker() {
-        return tracker;
-    }
-
-    public ServerApi getServerApi() {
-        return serverApi;
+    public void setPropertyReader(PropertyReader propertyReader) {
+        this.propertyReader = propertyReader;
     }
 }

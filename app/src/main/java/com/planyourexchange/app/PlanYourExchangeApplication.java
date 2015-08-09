@@ -26,7 +26,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
  */
 public class PlanYourExchangeApplication extends Application {
 
-    private PlanYourExchangeComponent planYourExchangeComponent;
+    PlanYourExchangeComponent planYourExchangeComponent;
 
     // -- Method used to initialize all components the app needs
     public void onCreate() {
@@ -36,12 +36,8 @@ public class PlanYourExchangeApplication extends Application {
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
         ImageLoader.getInstance().init(config);
 
-        // -- Inject the application dependency through Generated Dagger
-        planYourExchangeComponent = DaggerPlanYourExchangeComponent.builder()
-                .planYourExchangeModule(new PlanYourExchangeModule(this))
-                .build();
-
-        planYourExchangeComponent.inject(this);
+        // -- Create the dependencies injector
+        planYourExchangeComponent = new PlanYourExchangeComponentInjector(this);
     }
 
     public static PlanYourExchangeComponent getPlanYourExchangeComponent(@NonNull Context context) {

@@ -16,6 +16,7 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.planyourexchange.R;
 import com.planyourexchange.activities.MainActivity;
+import com.planyourexchange.app.PlanYourExchangeApplication;
 import com.planyourexchange.interfaces.FragmentName;
 import com.planyourexchange.rest.api.ServerApi;
 import com.planyourexchange.utils.Constants;
@@ -41,6 +42,9 @@ public class CourseOrSchoolFragment extends Fragment implements OnClickListener,
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // -- Dependency Injection
+        PlanYourExchangeApplication.getPlanYourExchangeComponent(getActivity()).inject(this);
+
         View view = inflater.inflate(R.layout.course_or_school_fragment, container, false);
 
         // -- Instructing buttons to performe action logic in this fragment
@@ -56,11 +60,8 @@ public class CourseOrSchoolFragment extends Fragment implements OnClickListener,
     // -- Avoiding some weird bugs with Dagger 2 DI directly into fragments
     protected Tracker tracker;
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        MainActivity mainActivity = (MainActivity)activity;
-        this.tracker = mainActivity.getTracker();
+    public void setTracker(Tracker tracker) {
+        this.tracker = tracker;
     }
 
     @Override

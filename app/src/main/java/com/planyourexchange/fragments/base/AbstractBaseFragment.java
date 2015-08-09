@@ -1,11 +1,9 @@
 package com.planyourexchange.fragments.base;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +12,6 @@ import android.widget.ListView;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.planyourexchange.R;
-import com.planyourexchange.activities.MainActivity;
 import com.planyourexchange.app.PlanYourExchangeApplication;
 import com.planyourexchange.interfaces.FragmentName;
 import com.planyourexchange.rest.api.ServerApi;
@@ -23,8 +20,6 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.inject.Inject;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -71,12 +66,12 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model> exte
     protected Tracker tracker;
     protected ServerApi serverApi;
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        MainActivity mainActivity = (MainActivity)activity;
-        this.tracker = mainActivity.getTracker();
-        this.serverApi = mainActivity.getServerApi();
+    public void setTracker(Tracker tracker) {
+        this.tracker = tracker;
+    }
+
+    public void setServerApi(ServerApi serverApi) {
+        this.serverApi = serverApi;
     }
 
     @Override
@@ -90,6 +85,8 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model> exte
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // -- Dependency Injection
+        PlanYourExchangeApplication.getPlanYourExchangeComponent(getActivity()).inject(this);
         return inflater.inflate(this.inflateLayout, container, false);
     }
 

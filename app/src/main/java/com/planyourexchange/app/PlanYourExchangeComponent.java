@@ -19,19 +19,16 @@
 package com.planyourexchange.app;
 
 import com.planyourexchange.activities.MainActivity;
-
-import javax.inject.Singleton;
-
-import dagger.Component;
+import com.planyourexchange.fragments.base.AbstractBaseFragment;
+import com.planyourexchange.fragments.schoolcourse.CourseOrSchoolFragment;
 
 /**
  * Pairing between module and injection targets
  * @author Thiago Pagonha
  * @version 09/08/15.
  */
-@Singleton
-@Component(modules = PlanYourExchangeModule.class)
 public interface PlanYourExchangeComponent {
-    void inject(PlanYourExchangeApplication planYourExchangeApplication);
     void inject(MainActivity mainActivity);
+    void inject(AbstractBaseFragment abstractBaseFragment);
+    void inject(CourseOrSchoolFragment courseOrSchoolFragment);
 }
