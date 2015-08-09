@@ -20,7 +20,9 @@ package com.planyourexchange.app;
 
 import com.planyourexchange.activities.MainActivity;
 import com.planyourexchange.fragments.base.AbstractBaseFragment;
+import com.planyourexchange.fragments.base.ProgressDialogFragment;
 import com.planyourexchange.fragments.schoolcourse.CourseOrSchoolFragment;
+import com.planyourexchange.fragments.schoolcourse.SchoolCourseValueFragment;
 
 import java.io.Serializable;
 
@@ -37,5 +39,6 @@ import dagger.Component;
 @Component(modules = {PlanYourExchangeModule.class})
 public interface PlanYourExchangeComponent {
     void inject(MainActivity mainActivity);
-    void inject(InjectedFragment injectFragment);
+    void inject(ProgressDialogFragment progressDialogFragment);
+    void inject(CourseOrSchoolFragment courseOrSchoolFragment);
 }

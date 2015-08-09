@@ -21,6 +21,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -62,17 +64,6 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model> exte
         this.drawLayout = drawLayout;
     }
 
-    // -- Avoiding some weird bugs with Dagger 2 DI directly into fragments
-    protected Tracker tracker;
-    protected ServerApi serverApi;
-
-    public void setTracker(Tracker tracker) {
-        this.tracker = tracker;
-    }
-
-    public void setServerApi(ServerApi serverApi) {
-        this.serverApi = serverApi;
-    }
 
     @Override
     public void onStart() {
@@ -86,7 +77,6 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model> exte
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // -- Dependency Injection
-        PlanYourExchangeApplication.getPlanYourExchangeComponent(getActivity()).inject(this);
         return inflater.inflate(this.inflateLayout, container, false);
     }
 

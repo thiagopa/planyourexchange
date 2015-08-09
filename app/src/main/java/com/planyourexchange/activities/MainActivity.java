@@ -1,5 +1,6 @@
 package com.planyourexchange.activities;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -22,6 +23,8 @@ import com.planyourexchange.app.PlanYourExchangeApplication;
 import com.planyourexchange.fragments.costofliving.CostOfLivingFragment;
 import com.planyourexchange.fragments.schoolcourse.SchoolCourseBaseFragment;
 import com.planyourexchange.utils.PropertyReader;
+
+import javax.inject.Inject;
 
 /**
  * Copyright (C) 2015, Thiago Pagonha,
@@ -59,7 +62,10 @@ public class MainActivity extends AppCompatActivity {
         }
     };
     */
-    private PropertyReader propertyReader;
+    @Inject
+    PropertyReader propertyReader;
+
+    private AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,10 +94,11 @@ public class MainActivity extends AppCompatActivity {
             */
 
         // -- Create adRequest
-        AdView adView = new AdView(this);
+        adView = new AdView(this);
         adView.setAdUnitId(propertyReader.getProperty("AdUnitId"));
         adView.setAdSize(AdSize.SMART_BANNER);
         adView.setVisibility(View.VISIBLE);
+
 
         RelativeLayout.LayoutParams adParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -99,9 +106,8 @@ public class MainActivity extends AppCompatActivity {
         adParams.addRule(RelativeLayout.CENTER_VERTICAL);
         mainLayout.addView(adView, adParams);
 
-        // -- TODO should be replaced in production
-        adView.loadAd(new AdRequest.Builder()
-                .addTestDevice(propertyReader.getProperty("TestDeviceId")).build());
+        showBanner();
+
 
         // -- View Pager Adapter
         ViewPager viewPager = (ViewPager) findViewById(R.id.main_pager);
@@ -111,6 +117,13 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager.setAdapter(pagerAdapter);
     }
+
+    private void showBanner() {
+        // -- TODO should be replaced in production
+        adView.loadAd(new AdRequest.Builder()
+                .addTestDevice(propertyReader.getProperty("TestDeviceId")).build());
+    }
+
 
     /* TODO -- Leave this to hide banners when donated
     private void hideBanner() {
@@ -179,7 +192,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void setPropertyReader(PropertyReader propertyReader) {
-        this.propertyReader = propertyReader;
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        showBanner();
     }
 }

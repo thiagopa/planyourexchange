@@ -3,9 +3,19 @@ package com.planyourexchange.fragments.base;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
+import com.google.android.gms.analytics.Tracker;
 import com.planyourexchange.R;
+import com.planyourexchange.app.PlanYourExchangeApplication;
+import com.planyourexchange.rest.api.ServerApi;
+
+import javax.inject.Inject;
 
 /**
  * Copyright (C) 2015, Thiago Pagonha,
@@ -25,7 +35,17 @@ import com.planyourexchange.R;
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 // -- Used by all fragments that need a progress dialog for rest calls
-public abstract class ProgressDialogFragment extends Fragment {
+public class ProgressDialogFragment extends Fragment {
+
+    @Inject
+    protected Tracker tracker;
+    @Inject
+    protected ServerApi serverApi;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        PlanYourExchangeApplication.getPlanYourExchangeComponent(getActivity()).inject(this);
+    }
 
     private ProgressDialog progressDialog;
 

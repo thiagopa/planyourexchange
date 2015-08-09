@@ -21,6 +21,8 @@ import com.planyourexchange.interfaces.FragmentName;
 import com.planyourexchange.rest.api.ServerApi;
 import com.planyourexchange.utils.Constants;
 
+import javax.inject.Inject;
+
 /**
  * Copyright (C) 2015, Thiago Pagonha,
  * Plan Your Exchange, easy exchange to fit your budget
@@ -39,12 +41,18 @@ import com.planyourexchange.utils.Constants;
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 public class CourseOrSchoolFragment extends Fragment implements OnClickListener, FragmentName {
+
+    @Inject
+    Tracker tracker;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        PlanYourExchangeApplication.getPlanYourExchangeComponent(getActivity()).inject(this);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // -- Dependency Injection
-        PlanYourExchangeApplication.getPlanYourExchangeComponent(getActivity()).inject(this);
-
         View view = inflater.inflate(R.layout.course_or_school_fragment, container, false);
 
         // -- Instructing buttons to performe action logic in this fragment
@@ -55,13 +63,6 @@ public class CourseOrSchoolFragment extends Fragment implements OnClickListener,
         bySchool.setOnClickListener(this);
 
         return view;
-    }
-
-    // -- Avoiding some weird bugs with Dagger 2 DI directly into fragments
-    protected Tracker tracker;
-
-    public void setTracker(Tracker tracker) {
-        this.tracker = tracker;
     }
 
     @Override
