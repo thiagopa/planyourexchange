@@ -29,6 +29,6 @@ public class CitiesFragment extends ListViewFragment<Integer,City> {
 
     @Override
     public void callService(Integer modelId) {
-        PlanYourExchangeContext.instance.serverApi.listCities(modelId, this);
+        serverApi.listCities(modelId, this);
     }
 }

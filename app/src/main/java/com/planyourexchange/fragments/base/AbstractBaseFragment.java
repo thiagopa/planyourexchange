@@ -12,12 +12,16 @@ import android.widget.ListView;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.planyourexchange.R;
+import com.planyourexchange.app.PlanYourExchangeApplication;
 import com.planyourexchange.interfaces.FragmentName;
+import com.planyourexchange.rest.api.ServerApi;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.inject.Inject;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -64,7 +68,6 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model> exte
     public void onStart() {
         super.onStart();
         // -- Send tracking information to Google Analytics so I know which screen users are browsing
-        Tracker tracker = PlanYourExchangeContext.instance.tracker;
         tracker.setScreenName(getName());
         tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }

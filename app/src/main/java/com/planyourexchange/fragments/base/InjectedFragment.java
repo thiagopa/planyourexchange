@@ -1,12 +1,4 @@
-package com.planyourexchange.fragments.schoolcourse;
-
-import android.os.Bundle;
-
-import com.planyourexchange.R;
-import com.planyourexchange.fragments.base.ListViewFragment;
-import com.planyourexchange.rest.model.Country;
-
-/**
+/*
  * Copyright (C) 2015, Thiago Pagonha,
  * Plan Your Exchange, easy exchange to fit your budget
  *
@@ -23,20 +15,33 @@ import com.planyourexchange.rest.model.Country;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class CountriesFragment extends ListViewFragment<String,Country> {
 
+package com.planyourexchange.fragments.base;
 
-    public CountriesFragment() {
-        super(R.string.countries_title,R.layout.countries_fragment, R.id.countries_list_view, new CitiesFragment());
-        // -- Hard Coding English Language for now
-        Bundle bundle = new Bundle();
-        bundle.putString(KEY_ID,"English");
-        setArguments(bundle);
-    }
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 
-    // -- List all countries (only english for now)
+import com.google.android.gms.analytics.Tracker;
+import com.planyourexchange.app.PlanYourExchangeApplication;
+import com.planyourexchange.rest.api.ServerApi;
+
+import javax.inject.Inject;
+
+/**
+ * @author Thiago Pagonha
+ * @version 09/08/15.
+ */
+public class InjectedFragment extends Fragment {
+
+    @Inject
+    protected Tracker tracker;
+    @Inject
+    protected ServerApi serverApi;
+
     @Override
-    public void callService(String language) {
-        serverApi.listCountries(this);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // -- DI First
+        ((PlanYourExchangeApplication)getActivity().getApplication()).getPlanYourExchangeComponent().inject(this);
     }
 }

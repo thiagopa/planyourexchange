@@ -32,7 +32,7 @@ public class CoursesFragment extends ListViewFragment<Integer,Course> {
 
     @Override
     public void callService(Integer modelId) {
-        PlanYourExchangeContext.instance.serverApi.listCourses(modelId, this);
+        serverApi.listCourses(modelId, this);
     }
 
     @Override

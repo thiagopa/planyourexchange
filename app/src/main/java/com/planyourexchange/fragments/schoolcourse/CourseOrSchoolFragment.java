@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.planyourexchange.R;
+import com.planyourexchange.fragments.base.InjectedFragment;
 import com.planyourexchange.interfaces.FragmentName;
 import com.planyourexchange.utils.Constants;
 
@@ -34,7 +35,7 @@ import com.planyourexchange.utils.Constants;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class CourseOrSchoolFragment extends Fragment implements OnClickListener, FragmentName {
+public class CourseOrSchoolFragment extends InjectedFragment implements OnClickListener, FragmentName {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,7 +55,6 @@ public class CourseOrSchoolFragment extends Fragment implements OnClickListener,
     public void onStart() {
         super.onStart();
         // -- Send tracking information to Google Analytics so I know which screen users are browsing
-        Tracker tracker = PlanYourExchangeContext.instance.tracker;
         tracker.setScreenName(getName());
         tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
@@ -78,7 +78,6 @@ public class CourseOrSchoolFragment extends Fragment implements OnClickListener,
         }
 
         // -- Analytics click event for model
-        Tracker tracker = PlanYourExchangeContext.instance.tracker;
         tracker.send(new HitBuilders.EventBuilder()
                 .setCategory(Constants.CATEGORY_NAVIGATION)
                 .setAction(Constants.ACTION_CLICK_ON_CHOICE)
