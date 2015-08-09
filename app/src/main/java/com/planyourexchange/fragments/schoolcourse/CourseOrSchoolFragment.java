@@ -45,6 +45,10 @@ public class CourseOrSchoolFragment extends Fragment implements OnClickListener,
     @Inject
     Tracker tracker;
 
+    public void setTracker(Tracker tracker) {
+        this.tracker = tracker;
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

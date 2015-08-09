@@ -42,6 +42,14 @@ public class ProgressDialogFragment extends Fragment {
     @Inject
     protected ServerApi serverApi;
 
+    public void setTracker(Tracker tracker) {
+        this.tracker = tracker;
+    }
+
+    public void setServerApi(ServerApi serverApi) {
+        this.serverApi = serverApi;
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -65,6 +65,10 @@ public class MainActivity extends AppCompatActivity {
     @Inject
     PropertyReader propertyReader;
 
+    public void setPropertyReader(PropertyReader propertyReader) {
+        this.propertyReader = propertyReader;
+    }
+
     private AdView adView;
 
     @Override
@@ -74,14 +78,6 @@ public class MainActivity extends AppCompatActivity {
         PlanYourExchangeApplication.getPlanYourExchangeComponent(this).inject(this);
         // -- This should be rendered first
         setContentView(R.layout.activity_main);
-        // Check that the activity is using the layout version with
-        // the fragment_container FrameLayout
-        // However, if we're being restored from a previous state,
-        // then we don't need to do anything and should return or else
-        // we could end up with overlapping fragments.
-        if (savedInstanceState != null) {
-            return;
-        }
         // -- Relative Layout manipulation
         RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
 
@@ -194,6 +190,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-        showBanner();
+        //showBanner();
+        super.onConfigurationChanged(newConfig);
     }
 }
