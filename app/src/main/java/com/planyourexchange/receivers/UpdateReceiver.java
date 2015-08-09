@@ -18,7 +18,7 @@ public class UpdateReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
+        // -- Display a simple hover message in case internet is no more :'(
         if (!PlanYourExchangeApplication.isInternetAvailable(context)) {
             Toast.makeText(context, R.string.no_internet, Toast.LENGTH_LONG).show();
         }
