@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
     @Inject
     PropertyReader propertyReader;
 
+    private AdView adView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,8 +74,6 @@ public class MainActivity extends AppCompatActivity {
         PlanYourExchangeApplication.getPlanYourExchangeComponent(this).inject(this);
         // -- This should be rendered first
         setContentView(R.layout.activity_main);
-        // -- Relative Layout manipulation
-        RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
 
         // Create In-app purchases
             /*
@@ -82,9 +82,26 @@ public class MainActivity extends AppCompatActivity {
             serviceIntent.setPackage("com.android.vending");
             bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
             */
+        // -- create a new Ad
+        newAdView();
+        // -- View Pager Adapter
+        ViewPager viewPager = (ViewPager) findViewById(R.id.main_pager);
+        PagerAdapter pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(),
+                new SchoolCourseBaseFragment(),
+                new CostOfLivingFragment());
 
+        viewPager.setAdapter(pagerAdapter);
+    }
+
+    private void newAdView() {
+        // -- Relative Layout manipulation
+        RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
+
+        if(adView!=null) {
+            mainLayout.removeView(adView);
+        }
         // -- Create adRequest
-        AdView adView = new AdView(this);
+        adView = new AdView(this);
         adView.setAdUnitId(propertyReader.getProperty("AdUnitId"));
         adView.setAdSize(AdSize.SMART_BANNER);
         adView.setVisibility(View.VISIBLE);
@@ -94,19 +111,11 @@ public class MainActivity extends AppCompatActivity {
         adParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         adParams.addRule(RelativeLayout.CENTER_VERTICAL);
         mainLayout.addView(adView, adParams);
+        // -- Request a new Ad to be loaded
 
         // -- TODO should be replaced in production
         adView.loadAd(new AdRequest.Builder()
                 .addTestDevice(propertyReader.getProperty("TestDeviceId")).build());
-
-
-        // -- View Pager Adapter
-        ViewPager viewPager = (ViewPager) findViewById(R.id.main_pager);
-        PagerAdapter pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(),
-                new SchoolCourseBaseFragment(),
-                new CostOfLivingFragment());
-
-        viewPager.setAdapter(pagerAdapter);
     }
 
 
@@ -175,5 +184,11 @@ public class MainActivity extends AppCompatActivity {
         for (Fragment fragment : manager.getFragments()) {
             if (fragment != null) traverseManagers(fragment.getChildFragmentManager(), managers, intent + 1);
         }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        newAdView();
     }
 }
