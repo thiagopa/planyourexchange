@@ -42,7 +42,7 @@ import java.util.List;
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 // -- Base model for handling information between fragments that share enormous similarities
-public abstract class ListViewFragment<Key extends Serializable, Model extends BaseModel> extends AbstractBaseFragment<Key, Model> {
+public abstract class ListViewFragment<Key extends Serializable, Model extends List<BaseModel>, ModelView extends ListView> extends AbstractBaseFragment<Key, Model, ModelView> {
 
     private final Fragment nextScreen;
 
@@ -53,18 +53,18 @@ public abstract class ListViewFragment<Key extends Serializable, Model extends B
     }
 
     @Override
-    protected void drawList(final List<Model> modelList,ListView listView) {
+    protected void drawModel(final Model modelList, ModelView modelView) {
         // -- Sort Results Alphabetically by default
         Collections.sort(modelList);
 
         // -- Handle Model rendering
-        listView.setAdapter(new ArrayAdapter<Model>(getActivity(),R.layout.model_list,modelList) {
+        modelView.setAdapter(new ArrayAdapter<BaseModel>(getActivity(),R.layout.model_list,modelList) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 LayoutInflater inflater = (LayoutInflater) getLayoutInflater(null);
                 View rowView = inflater.inflate(R.layout.model_list,null,true);
 
-                Model model = modelList.get(position);
+                BaseModel model = modelList.get(position);
 
                 ImageView imageView = (ImageView) rowView.findViewById(R.id.model_list_icon);
                 TextView textView = (TextView) rowView.findViewById(R.id.model_list_name);
@@ -76,10 +76,10 @@ public abstract class ListViewFragment<Key extends Serializable, Model extends B
             }
         });
         // -- Handle onClick events
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        modelView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Model model = modelList.get(position);
+                BaseModel model = modelList.get(position);
 
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(KEY_ID, createNextKey(model));
@@ -103,7 +103,7 @@ public abstract class ListViewFragment<Key extends Serializable, Model extends B
             }
         });
         // -- Notify that new data has arrived
-        listView.deferNotifyDataSetChanged();
+        modelView.deferNotifyDataSetChanged();
     }
 
     // -- Defaults to NO ACTION
@@ -111,7 +111,7 @@ public abstract class ListViewFragment<Key extends Serializable, Model extends B
     }
 
     // -- Default is the model id as key
-    protected Serializable createNextKey(Model model) {
+    protected Serializable createNextKey(BaseModel model) {
         return model.getId();
     }
 }
