@@ -24,6 +24,9 @@ import com.planyourexchange.utils.Constants;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * Copyright (C) 2015, Thiago Pagonha,
  * Plan Your Exchange, easy exchange to fit your budget
@@ -41,7 +44,7 @@ import javax.inject.Inject;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class CourseOrSchoolFragment extends GenericFragment implements OnClickListener {
+public class CourseOrSchoolFragment extends GenericFragment {
 
     public CourseOrSchoolFragment() {
         super(R.string.course_or_school_title);
@@ -51,40 +54,27 @@ public class CourseOrSchoolFragment extends GenericFragment implements OnClickLi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.course_or_school_fragment, container, false);
-
-        // -- Instructing buttons to performe action logic in this fragment
-        Button byCourse = (Button) view.findViewById(R.id.button_by_course);
-        Button bySchool = (Button) view.findViewById(R.id.button_by_school);
-
-        byCourse.setOnClickListener(this);
-        bySchool.setOnClickListener(this);
-
+        ButterKnife.bind(this,view);
         return view;
     }
 
-    @Override
-    public void onClick(View v) {
+    @OnClick(R.id.button_by_course)
+    public void byCourse(View view) {
+        onClick(view,new CoursesFragment());
+    }
 
-        Fragment fragment = null;
+    @OnClick(R.id.button_by_school)
+    public void bySchool(View view) {
+        onClick(view,new SchoolsFragment());
+    }
 
-        // -- I could have used a nested if expression, but...
-        switch (v.getId()) {
-            // -- Load Courses List for given City
-            case R.id.button_by_course:
-                fragment = new CoursesFragment();
-                break;
-            // -- Load Schools List for given City
-            case R.id.button_by_school:
-                fragment = new SchoolsFragment();
-                break;
-
-        }
+    private void onClick(View view, Fragment fragment) {
 
         // -- Analytics click event for model
         tracker.send(new HitBuilders.EventBuilder()
                 .setCategory(Constants.CATEGORY_NAVIGATION)
                 .setAction(Constants.ACTION_CLICK_ON_CHOICE)
-                .setLabel( ((TextView)v).getText().toString() )
+                .setLabel( ((TextView)view).getText().toString() )
                 .build());
 
         fragment.setArguments(new Bundle(getArguments()));
