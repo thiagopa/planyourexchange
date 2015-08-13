@@ -34,7 +34,7 @@ import java.util.List;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class SchoolCourseValueFragment extends AbstractBaseFragment<SchoolCourseValueKey,SchoolCourseValue> {
+public class SchoolCourseValueFragment extends AbstractBaseFragment<SchoolCourseValueKey,List<SchoolCourseValue>,ListView> {
 
     public SchoolCourseValueFragment() {
         super(R.string.school_course_value_title,R.layout.school_course_value_fragment, R.id.school_course_value_list_view);
@@ -46,7 +46,7 @@ public class SchoolCourseValueFragment extends AbstractBaseFragment<SchoolCourse
     }
 
     @Override
-    public void drawList(final List<SchoolCourseValue> schoolCourseValues, ListView listView) {
+    public void drawModel(final List<SchoolCourseValue> schoolCourseValues, ListView listView) {
         final SchoolCourseValueKey key = (SchoolCourseValueKey) getArguments().getSerializable(KEY_ID);
 
         // -- Handle Model rendering
