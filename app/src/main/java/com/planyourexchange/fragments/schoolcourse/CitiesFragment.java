@@ -2,12 +2,15 @@ package com.planyourexchange.fragments.schoolcourse;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.widget.ListView;
 
 import com.planyourexchange.R;
 import com.planyourexchange.app.PlanYourExchangeApplication;
 import com.planyourexchange.fragments.base.ListViewFragment;
 import com.planyourexchange.interfaces.OnChangeListener;
 import com.planyourexchange.rest.model.City;
+
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -29,7 +32,7 @@ import javax.inject.Named;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class CitiesFragment extends ListViewFragment<Integer,City> {
+public class CitiesFragment extends ListViewFragment<Integer,List<City>,ListView> {
 
     @Inject
     @Named("CostOfLiving")
