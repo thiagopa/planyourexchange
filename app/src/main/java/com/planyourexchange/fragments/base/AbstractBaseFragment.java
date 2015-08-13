@@ -39,10 +39,10 @@ import retrofit.client.Response;
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 // -- Base model for handling information between fragments that share enormous similarities
-public abstract class AbstractBaseFragment<Key extends Serializable, Model> extends GenericFragment implements FragmentName, Callback<List<Model>> {
+public abstract class AbstractBaseFragment<Key extends Serializable, Model, ModelView extends View> extends GenericFragment implements FragmentName, Callback<Model> {
 
     // -- Cache of information
-    private final Map<Key, List<Model>> CACHE = new HashMap<Key, List<Model>>();
+    private final Map<Key, Model> CACHE = new HashMap<Key, Model>();
 
     protected static final String KEY_ID = "keyId";
 
@@ -66,11 +66,11 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model> exte
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         Key key = (Key) getArguments().getSerializable(KEY_ID);
-        ListView listView = (ListView) getActivity().findViewById(this.drawLayout);
+        ModelView modelView = (ModelView) getActivity().findViewById(this.drawLayout);
 
         // -- Dispatch task to load resources if not cached
         if (CACHE.containsKey(key)) {
-            drawList(CACHE.get(key),listView);
+            drawModel(CACHE.get(key),modelView);
         } else {
             onTaskStarted();
             callService(key);
@@ -80,13 +80,13 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model> exte
     // -- Call rest Service
     protected abstract void callService(Key key);
     // -- Draw objects
-    protected abstract void drawList(List<Model> modelList, ListView listView);
+    protected abstract void drawModel(Model modelList, ModelView modelView);
 
     @Override
-    public void success(List<Model> modelList, Response response) {
-        ListView listView = (ListView) getActivity().findViewById(this.drawLayout);
-        CACHE.put((Key) getArguments().get(KEY_ID), modelList);
-        drawList(modelList, listView);
+    public void success(Model model, Response response) {
+        ModelView modelView = (ModelView) getActivity().findViewById(this.drawLayout);
+        CACHE.put((Key) getArguments().get(KEY_ID), model);
+        drawModel(model, modelView);
         onTaskFinished();
     }
 
