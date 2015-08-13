@@ -21,4 +21,6 @@
     <string name="no_data_server">No data was found on server</string>
     <string name="error">Error</string>
     <string name="no_internet">No network connection</string>
+    <string name="cost_of_living_fragment">Please choose a city first</string>
+    <string name="cost_of_living_title">Cost of Living</string>
 </resources>

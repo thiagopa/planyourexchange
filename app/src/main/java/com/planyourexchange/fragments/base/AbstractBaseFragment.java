@@ -9,19 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
 import com.planyourexchange.R;
-import com.planyourexchange.app.PlanYourExchangeApplication;
 import com.planyourexchange.interfaces.FragmentName;
-import com.planyourexchange.rest.api.ServerApi;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.inject.Inject;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -45,7 +39,7 @@ import retrofit.client.Response;
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 // -- Base model for handling information between fragments that share enormous similarities
-public abstract class AbstractBaseFragment<Key extends Serializable, Model> extends ProgressDialogFragment implements FragmentName, Callback<List<Model>> {
+public abstract class AbstractBaseFragment<Key extends Serializable, Model> extends GenericFragment implements FragmentName, Callback<List<Model>> {
 
     // -- Cache of information
     private final Map<Key, List<Model>> CACHE = new HashMap<Key, List<Model>>();
@@ -54,29 +48,18 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model> exte
 
     // -- Base properties
     private final int inflateLayout;
-    private final int titleName;
     private final int drawLayout;
 
     // -- Need to be called by overriding class
     protected AbstractBaseFragment(final int titleName, final int inflateLayout, int drawLayout) {
-        this.titleName = titleName;
+        super(titleName);
         this.inflateLayout = inflateLayout;
         this.drawLayout = drawLayout;
-    }
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        // -- Send tracking information to Google Analytics so I know which screen users are browsing
-        tracker.setScreenName(getName());
-        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // -- Dependency Injection
         return inflater.inflate(this.inflateLayout, container, false);
     }
 
@@ -121,10 +104,5 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model> exte
                         dialog.cancel();
                     }
                 }).create().show();
-    }
-
-    @Override
-    public String getName() {
-        return getResources().getString(titleName);
     }
 }

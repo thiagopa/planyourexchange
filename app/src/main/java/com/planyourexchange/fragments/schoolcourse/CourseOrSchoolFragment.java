@@ -17,6 +17,7 @@ import com.google.android.gms.analytics.Tracker;
 import com.planyourexchange.R;
 import com.planyourexchange.activities.MainActivity;
 import com.planyourexchange.app.PlanYourExchangeApplication;
+import com.planyourexchange.fragments.base.GenericFragment;
 import com.planyourexchange.interfaces.FragmentName;
 import com.planyourexchange.rest.api.ServerApi;
 import com.planyourexchange.utils.Constants;
@@ -40,15 +41,10 @@ import javax.inject.Inject;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class CourseOrSchoolFragment extends Fragment implements OnClickListener, FragmentName {
+public class CourseOrSchoolFragment extends GenericFragment implements OnClickListener {
 
-    @Inject
-    Tracker tracker;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        PlanYourExchangeApplication.getPlanYourExchangeComponent(getActivity()).inject(this);
+    public CourseOrSchoolFragment() {
+        super(R.string.course_or_school_title);
     }
 
     @Nullable
@@ -64,14 +60,6 @@ public class CourseOrSchoolFragment extends Fragment implements OnClickListener,
         bySchool.setOnClickListener(this);
 
         return view;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        // -- Send tracking information to Google Analytics so I know which screen users are browsing
-        tracker.setScreenName(getName());
-        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override
@@ -107,9 +95,5 @@ public class CourseOrSchoolFragment extends Fragment implements OnClickListener,
                 .commit();
 
     }
-
-    @Override
-    public String getName() {
-        return getResources().getString(R.string.course_or_school_title);
-    }
 }
+

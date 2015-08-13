@@ -2,12 +2,13 @@ package com.planyourexchange.fragments.costofliving;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.planyourexchange.R;
+import com.planyourexchange.fragments.base.GenericFragment;
+import com.planyourexchange.interfaces.OnChangeListener;
 
 /**
  * Copyright (C) 2015, Thiago Pagonha,
@@ -26,11 +27,20 @@ import com.planyourexchange.R;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class CostOfLivingFragment extends Fragment {
+public class CostOfLivingFragment extends GenericFragment implements OnChangeListener {
+
+    public CostOfLivingFragment() {
+        super(R.string.cost_of_living_title);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.cost_of_living_fragment, container, false);
-        return view;
+        return inflater.inflate(R.layout.cost_of_living_fragment, container, false);
+    }
+
+    @Override
+    public void updateView(Bundle bundle) {
+        
     }
 }

@@ -84,6 +84,10 @@ public abstract class ListViewFragment<Key extends Serializable, Model extends B
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(KEY_ID, createNextKey(model));
                 nextScreen.setArguments(bundle);
+
+                // -- Notify any Listener attached
+                notifyListener(bundle);
+
                 // -- Analytics click event for model
                 tracker.send(new HitBuilders.EventBuilder()
                         .setCategory(Constants.CATEGORY_NAVIGATION)
@@ -101,6 +105,11 @@ public abstract class ListViewFragment<Key extends Serializable, Model extends B
         // -- Notify that new data has arrived
         listView.deferNotifyDataSetChanged();
     }
+
+    // -- Defaults to NO ACTION
+    protected void notifyListener(Bundle bundle) {
+    }
+
     // -- Default is the model id as key
     protected Serializable createNextKey(Model model) {
         return model.getId();

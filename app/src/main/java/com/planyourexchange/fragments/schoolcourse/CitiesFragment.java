@@ -1,8 +1,16 @@
 package com.planyourexchange.fragments.schoolcourse;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+
 import com.planyourexchange.R;
+import com.planyourexchange.app.PlanYourExchangeApplication;
 import com.planyourexchange.fragments.base.ListViewFragment;
+import com.planyourexchange.interfaces.OnChangeListener;
 import com.planyourexchange.rest.model.City;
+
+import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  * Copyright (C) 2015, Thiago Pagonha,
@@ -23,12 +31,27 @@ import com.planyourexchange.rest.model.City;
  */
 public class CitiesFragment extends ListViewFragment<Integer,City> {
 
+    @Inject
+    @Named("CostOfLiving")
+    OnChangeListener onChangeListener;
+
     public CitiesFragment() {
         super(R.string.cities_title,R.layout.cities_fragment, R.id.cities_list_view, new CourseOrSchoolFragment());
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        PlanYourExchangeApplication.getPlanYourExchangeComponent(getActivity()).inject(this);
+    }
+
+    @Override
     public void callService(Integer modelId) {
         serverApi.listCities(modelId, this);
+    }
+
+    @Override
+    protected void notifyListener(Bundle bundle) {
+        onChangeListener.updateView(bundle);
     }
 }

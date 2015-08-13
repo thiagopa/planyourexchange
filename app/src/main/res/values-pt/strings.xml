@@ -29,4 +29,6 @@
     <string name="no_data_server">Nenhum dado foi encontrado no servidor</string>
     <string name="error">Erro</string>
     <string name="no_internet">Sem internet!!!</string>
+    <string name="cost_of_living_fragment">Escolha uma cidade</string>
+    <string name="cost_of_living_title">Custo de Vida</string>
 </resources>

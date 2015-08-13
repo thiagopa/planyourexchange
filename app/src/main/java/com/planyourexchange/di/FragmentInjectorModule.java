@@ -16,31 +16,46 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.planyourexchange.app;
+package com.planyourexchange.di;
 
-import com.planyourexchange.activities.MainActivity;
-import com.planyourexchange.di.FragmentInjectorModule;
-import com.planyourexchange.fragments.base.GenericFragment;
+
+import android.support.v4.app.Fragment;
+
+import com.planyourexchange.fragments.costofliving.CostOfLivingFragment;
 import com.planyourexchange.fragments.schoolcourse.CitiesFragment;
 import com.planyourexchange.fragments.schoolcourse.CountriesFragment;
-import com.planyourexchange.fragments.schoolcourse.CourseOrSchoolFragment;
+import com.planyourexchange.fragments.schoolcourse.SchoolCourseBaseFragment;
+import com.planyourexchange.interfaces.OnChangeListener;
+import com.planyourexchange.rest.api.ServerApi;
+import com.planyourexchange.utils.PropertyReader;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 
-import dagger.Component;
+import dagger.Module;
+import dagger.Provides;
 
 /**
- * Pairing between module and injection targets
  * @author Thiago Pagonha
- * @version 09/08/15.
+ * @version 13/08/15.
  */
-@Singleton
-@Component(modules = {PlanYourExchangeModule.class,
-                      FragmentInjectorModule.class})
-public interface PlanYourExchangeComponent {
-    void inject(MainActivity mainActivity);
+@Module
+public class FragmentInjectorModule {
 
-    void inject(GenericFragment genericFragment);
-    void inject(CitiesFragment citiesFragment);
-    void inject(CountriesFragment countriesFragment);
+    private final CostOfLivingFragment costOfLivingFragment = new CostOfLivingFragment();
+
+    @Provides
+    @Named("CostOfLiving")
+    OnChangeListener provideCostOfLivingOnChangeListener() {
+        return costOfLivingFragment;
+    }
+
+    @Provides
+    Fragment[] providePageableFragments() {
+        return new Fragment[] {
+                new SchoolCourseBaseFragment(),
+                costOfLivingFragment
+        };
+    }
 }
+

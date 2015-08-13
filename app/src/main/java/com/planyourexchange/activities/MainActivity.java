@@ -65,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
     @Inject
     PropertyReader propertyReader;
 
+    @Inject
+    Fragment pageableFragments[];
+
     private AdView adView;
 
     @Override
@@ -86,9 +89,7 @@ public class MainActivity extends AppCompatActivity {
         newAdView();
         // -- View Pager Adapter
         ViewPager viewPager = (ViewPager) findViewById(R.id.main_pager);
-        PagerAdapter pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(),
-                new SchoolCourseBaseFragment(),
-                new CostOfLivingFragment());
+        PagerAdapter pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(),pageableFragments);
 
         viewPager.setAdapter(pagerAdapter);
     }
