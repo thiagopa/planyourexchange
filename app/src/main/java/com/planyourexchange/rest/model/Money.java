@@ -1,6 +1,4 @@
-package com.planyourexchange.rest.model;
-
-/**
+/*
  * Copyright (C) 2015, Thiago Pagonha,
  * Plan Your Exchange, easy exchange to fit your budget
  *
@@ -17,23 +15,21 @@ package com.planyourexchange.rest.model;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class Country extends BaseModel {
-    private Money visaFee;
-    private String defaultCurrency;
 
-    public Money getVisaFee() {
-        return visaFee;
-    }
+package com.planyourexchange.rest.model;
 
-    public void setVisaFee(Money visaFee) {
-        this.visaFee = visaFee;
-    }
+import java.math.BigDecimal;
 
-    public String getDefaultCurrency() {
-        return defaultCurrency;
-    }
+/**
+ * @author Thiago Pagonha
+ * @version 13/08/15.
+ */
+public class Money {
+    public final BigDecimal amount;
+    public final String currency;
 
-    public void setDefaultCurrency(String defaultCurrency) {
-        this.defaultCurrency = defaultCurrency;
+    public Money(BigDecimal amount, String currency) {
+        this.amount = amount;
+        this.currency = currency;
     }
 }

@@ -5,10 +5,13 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.planyourexchange.R;
+import com.planyourexchange.fragments.base.AbstractBaseFragment;
 import com.planyourexchange.fragments.base.GenericFragment;
 import com.planyourexchange.interfaces.OnChangeListener;
+import com.planyourexchange.rest.model.CostOfLiving;
 
 /**
  * Copyright (C) 2015, Thiago Pagonha,
@@ -27,20 +30,24 @@ import com.planyourexchange.interfaces.OnChangeListener;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class CostOfLivingFragment extends GenericFragment implements OnChangeListener {
+public class CostOfLivingFragment extends AbstractBaseFragment<Integer,CostOfLiving,LinearLayout> implements OnChangeListener {
 
     public CostOfLivingFragment() {
-        super(R.string.cost_of_living_title);
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.cost_of_living_fragment, container, false);
+        super(R.string.cost_of_living_title,R.layout.cost_of_living_fragment,R.id.cost_of_living_linear_layout);
     }
 
     @Override
     public void updateView(Bundle bundle) {
         
+    }
+
+    @Override
+    protected void callService(Integer integer) {
+
+    }
+
+    @Override
+    protected void drawModel(CostOfLiving modelList, LinearLayout linearLayout) {
+
     }
 }
