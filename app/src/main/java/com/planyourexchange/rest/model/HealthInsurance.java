@@ -31,12 +31,9 @@ public class HealthInsurance {
     private String companyName;
     private String companyWebsite;
 
-    private BigDecimal singlePricePerMonth;
-    private String singlePricePerMonthCurrency;
-    private BigDecimal couplePricePerMonth;
-    private String couplePricePerMonthCurrency;
-    private BigDecimal famillyPricePerMonth;
-    private String famillyPricePerMonthCurrency;
+    private Money singlePricePerMonth;
+    private Money couplePricePerMonth;
+    private Money famillyPricePerMonth;
 
     public Integer getId() {
         return id;
@@ -70,51 +67,27 @@ public class HealthInsurance {
         this.companyWebsite = companyWebsite;
     }
 
-    public BigDecimal getSinglePricePerMonth() {
+    public Money getSinglePricePerMonth() {
         return singlePricePerMonth;
     }
 
-    public void setSinglePricePerMonth(BigDecimal singlePricePerMonth) {
+    public void setSinglePricePerMonth(Money singlePricePerMonth) {
         this.singlePricePerMonth = singlePricePerMonth;
     }
 
-    public BigDecimal getCouplePricePerMonth() {
+    public Money getCouplePricePerMonth() {
         return couplePricePerMonth;
     }
 
-    public void setCouplePricePerMonth(BigDecimal couplePricePerMonth) {
+    public void setCouplePricePerMonth(Money couplePricePerMonth) {
         this.couplePricePerMonth = couplePricePerMonth;
     }
 
-    public BigDecimal getFamillyPricePerMonth() {
+    public Money getFamillyPricePerMonth() {
         return famillyPricePerMonth;
     }
 
-    public void setFamillyPricePerMonth(BigDecimal famillyPricePerMonth) {
+    public void setFamillyPricePerMonth(Money famillyPricePerMonth) {
         this.famillyPricePerMonth = famillyPricePerMonth;
-    }
-
-    public String getSinglePricePerMonthCurrency() {
-        return singlePricePerMonthCurrency;
-    }
-
-    public void setSinglePricePerMonthCurrency(String singlePricePerMonthCurrency) {
-        this.singlePricePerMonthCurrency = singlePricePerMonthCurrency;
-    }
-
-    public String getCouplePricePerMonthCurrency() {
-        return couplePricePerMonthCurrency;
-    }
-
-    public void setCouplePricePerMonthCurrency(String couplePricePerMonthCurrency) {
-        this.couplePricePerMonthCurrency = couplePricePerMonthCurrency;
-    }
-
-    public String getFamillyPricePerMonthCurrency() {
-        return famillyPricePerMonthCurrency;
-    }
-
-    public void setFamillyPricePerMonthCurrency(String famillyPricePerMonthCurrency) {
-        this.famillyPricePerMonthCurrency = famillyPricePerMonthCurrency;
     }
 }

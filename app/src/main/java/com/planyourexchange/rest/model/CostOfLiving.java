@@ -29,13 +29,11 @@ public class CostOfLiving {
 
     private City city;
 
-    private BigDecimal restaurantAveragePerMeal;
-    private String restaurantAveragePerMealCurrency;
-    private BigDecimal superMarketAveragePerMonth;
-    private String superMarketAveragePerMonthCurrency;
-    private BigDecimal publicTransportMonthly;
-    private BigDecimal rentAverageMonthly;
-    private BigDecimal utilitesAverageMonthly;
+    private Money restaurantAveragePerMeal;
+    private Money superMarketAveragePerMonth;
+    private Money publicTransportMonthly;
+    private Money rentAverageMonthly;
+    private Money utilitesAverageMonthly;
 
     public Integer getId() {
         return id;
@@ -53,43 +51,43 @@ public class CostOfLiving {
         this.city = city;
     }
 
-    public BigDecimal getRestaurantAveragePerMeal() {
+    public Money getRestaurantAveragePerMeal() {
         return restaurantAveragePerMeal;
     }
 
-    public void setRestaurantAveragePerMeal(BigDecimal restaurantAveragePerMeal) {
+    public void setRestaurantAveragePerMeal(Money restaurantAveragePerMeal) {
         this.restaurantAveragePerMeal = restaurantAveragePerMeal;
     }
 
-    public BigDecimal getSuperMarketAveragePerMonth() {
+    public Money getSuperMarketAveragePerMonth() {
         return superMarketAveragePerMonth;
     }
 
-    public void setSuperMarketAveragePerMonth(BigDecimal superMarketAveragePerMonth) {
+    public void setSuperMarketAveragePerMonth(Money superMarketAveragePerMonth) {
         this.superMarketAveragePerMonth = superMarketAveragePerMonth;
     }
 
-    public BigDecimal getPublicTransportMonthly() {
+    public Money getPublicTransportMonthly() {
         return publicTransportMonthly;
     }
 
-    public void setPublicTransportMonthly(BigDecimal publicTransportMonthly) {
+    public void setPublicTransportMonthly(Money publicTransportMonthly) {
         this.publicTransportMonthly = publicTransportMonthly;
     }
 
-    public BigDecimal getRentAverageMonthly() {
+    public Money getRentAverageMonthly() {
         return rentAverageMonthly;
     }
 
-    public void setRentAverageMonthly(BigDecimal rentAverageMonthly) {
+    public void setRentAverageMonthly(Money rentAverageMonthly) {
         this.rentAverageMonthly = rentAverageMonthly;
     }
 
-    public BigDecimal getUtilitesAverageMonthly() {
+    public Money getUtilitesAverageMonthly() {
         return utilitesAverageMonthly;
     }
 
-    public void setUtilitesAverageMonthly(BigDecimal utilitesAverageMonthly) {
+    public void setUtilitesAverageMonthly(Money utilitesAverageMonthly) {
         this.utilitesAverageMonthly = utilitesAverageMonthly;
     }
 }

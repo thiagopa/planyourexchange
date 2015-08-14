@@ -20,11 +20,58 @@ package com.planyourexchange.rest.model;
 public class School extends BaseModel {
     private City city;
 
+    private Money enrolmentFee;
+    private Money booksFee;
+
+    private String addressLine;
+    private String suburb;
+    private Integer zipCode;
+
     public City getCity() {
         return city;
     }
 
     public void setCity(City city) {
         this.city = city;
+    }
+
+    public Money getEnrolmentFee() {
+        return enrolmentFee;
+    }
+
+    public void setEnrolmentFee(Money enrolmentFee) {
+        this.enrolmentFee = enrolmentFee;
+    }
+
+    public Money getBooksFee() {
+        return booksFee;
+    }
+
+    public void setBooksFee(Money booksFee) {
+        this.booksFee = booksFee;
+    }
+
+    public String getAddressLine() {
+        return addressLine;
+    }
+
+    public void setAddressLine(String addressLine) {
+        this.addressLine = addressLine;
+    }
+
+    public String getSuburb() {
+        return suburb;
+    }
+
+    public void setSuburb(String suburb) {
+        this.suburb = suburb;
+    }
+
+    public Integer getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(Integer zipCode) {
+        this.zipCode = zipCode;
     }
 }

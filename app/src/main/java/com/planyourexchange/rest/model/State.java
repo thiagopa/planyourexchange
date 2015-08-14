@@ -1,6 +1,4 @@
-package com.planyourexchange.rest.model;
-
-/**
+/*
  * Copyright (C) 2015, Thiago Pagonha,
  * Plan Your Exchange, easy exchange to fit your budget
  *
@@ -17,24 +15,30 @@ package com.planyourexchange.rest.model;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class City extends BaseModel {
 
-    private Country country;
-    private State state;
+package com.planyourexchange.rest.model;
 
-    public Country getCountry() {
-        return country;
+/**
+ * @author Thiago Pagonha
+ * @version 13/08/15.
+ */
+public class State {
+    private String name;
+    private String abbreviation;
+
+    public String getName() {
+        return name;
     }
 
-    public void setCountry(Country country) {
-        this.country = country;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public State getState() {
-        return state;
+    public String getAbbreviation() {
+        return abbreviation;
     }
 
-    public void setState(State state) {
-        this.state = state;
+    public void setAbbreviation(String abbreviation) {
+        this.abbreviation = abbreviation;
     }
 }

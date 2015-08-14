@@ -32,4 +32,10 @@ public class Money {
         this.amount = amount;
         this.currency = currency;
     }
+
+    @Override
+    public String toString() {
+        return new StringBuilder().append(currency).append(" ").append(amount).toString();
+
+    }
 }

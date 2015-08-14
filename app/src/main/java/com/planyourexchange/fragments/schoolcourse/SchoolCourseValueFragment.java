@@ -78,7 +78,7 @@ public class SchoolCourseValueFragment extends AbstractBaseFragment<SchoolCourse
                 ImageLoader.getInstance().displayImage(iconUrl, imageView);
 
                 nameView.setText(name);
-                valueView.setText(schoolCourseValue.getWeekPriceCurrency() + " " + schoolCourseValue.getWeekPrice());
+                valueView.setText(schoolCourseValue.getWeekPrice().toString());
 
                 return rowView;
             }
