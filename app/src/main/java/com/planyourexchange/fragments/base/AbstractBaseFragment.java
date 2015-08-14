@@ -67,7 +67,7 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model, Mode
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 
-        if(!getArguments().isEmpty()) {
+        if(getArguments() != null) {
             updateView(getArguments());
         }
 
