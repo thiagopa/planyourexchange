@@ -93,7 +93,7 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model, Mode
     // -- Call rest Service
     protected abstract void callService(Key key);
     // -- Draw objects
-    protected abstract void drawModel(Model modelList, ModelView modelView);
+    protected abstract void drawModel(Model model, ModelView modelView);
 
     @Override
     public void success(Model model, Response response) {

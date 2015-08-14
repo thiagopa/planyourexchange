@@ -90,4 +90,5 @@ public class CostOfLiving {
     public void setUtilitesAverageMonthly(Money utilitesAverageMonthly) {
         this.utilitesAverageMonthly = utilitesAverageMonthly;
     }
+
 }

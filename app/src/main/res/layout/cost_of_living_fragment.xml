@@ -18,10 +18,168 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-<LinearLayout
+<RelativeLayout
     android:id="@+id/cost_of_living_linear_layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="horizontal" >
-</LinearLayout>
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/cost_of_living_init_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:paddingTop="5dp"
+        android:text="@string/cost_of_living_fragment"
+        android:gravity="center"
+        />
+
+    <TextView
+        android:id="@+id/cost_of_living_food_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:paddingTop="5dp"
+        android:text="Food"
+        android:textStyle="bold"
+        android:layout_below="@+id/cost_of_living_init_text"/>
+
+    <View style="@style/Divider" android:id="@+id/food_text_divider" android:layout_below="@+id/cost_of_living_food_text"/>
+
+    <TextView
+        android:id="@+id/cost_of_living_restaurant_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:paddingTop="5dp"
+        android:text="Average Meal in Restaurant :"
+        android:layout_below="@+id/food_text_divider"/>
+
+    <TextView
+        android:id="@+id/cost_of_living_restaurant_value"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:paddingTop="5dp"
+        android:text=""
+        android:layout_below="@+id/food_text_divider"
+        android:layout_toRightOf="@+id/cost_of_living_restaurant_text"
+        android:gravity="right"/>
+
+    <TextView
+        android:id="@+id/cost_of_living_supermarket_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:paddingTop="5dp"
+        android:text="Average Supermarket per Month :"
+        android:layout_below="@+id/cost_of_living_restaurant_text"/>
+
+    <TextView
+        android:id="@+id/cost_of_living_supermarket_value"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:paddingTop="5dp"
+        android:text=""
+        android:layout_below="@+id/cost_of_living_restaurant_text"
+        android:layout_toRightOf="@+id/cost_of_living_supermarket_text"
+        android:gravity="right"/>
+
+    <TextView
+        android:id="@+id/cost_of_living_transport_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:paddingTop="5dp"
+        android:text="Transport"
+        android:textStyle="bold"
+        android:layout_below="@+id/cost_of_living_supermarket_value"/>
+
+
+    <View style="@style/Divider" android:id="@+id/transport_text_divider"  android:layout_below="@+id/cost_of_living_transport_text"/>
+
+    <TextView
+        android:id="@+id/cost_of_living_transport_ticket_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:paddingTop="5dp"
+        android:text="Monthly Public Transport ticket :"
+        android:layout_below="@+id/transport_text_divider"
+        />
+
+
+    <TextView
+        android:id="@+id/cost_of_living_transport_ticket_value"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:paddingTop="5dp"
+        android:text=""
+        android:layout_below="@+id/transport_text_divider"
+        android:layout_toRightOf="@+id/cost_of_living_transport_ticket_text"
+        android:gravity="right"/>
+
+    <TextView
+        android:id="@+id/cost_of_living_housing_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:paddingTop="5dp"
+        android:text="Housing"
+        android:textStyle="bold"
+        android:layout_below="@+id/cost_of_living_transport_ticket_text"/>
+
+
+    <View style="@style/Divider" android:id="@+id/housing_text_divider"  android:layout_below="@+id/cost_of_living_housing_text"/>
+
+    <TextView
+        android:id="@+id/cost_of_living_rent_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:paddingTop="5dp"
+        android:text="Average Rent per Month :"
+        android:layout_below="@+id/housing_text_divider"
+        />
+
+
+    <TextView
+        android:id="@+id/cost_of_living_rent_value"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:paddingTop="5dp"
+        android:text=""
+        android:layout_below="@+id/housing_text_divider"
+        android:layout_toRightOf="@+id/cost_of_living_rent_text"
+        android:gravity="right"/>
+
+    <TextView
+        android:id="@+id/cost_of_living_utilities_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:paddingTop="5dp"
+        android:text="Average Utilites per Month :"
+        android:layout_below="@+id/cost_of_living_rent_text"
+        />
+
+
+    <TextView
+        android:id="@+id/cost_of_living_utilities_value"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:paddingTop="5dp"
+        android:text=""
+        android:layout_below="@+id/cost_of_living_rent_text"
+        android:layout_toRightOf="@+id/cost_of_living_utilities_text"
+        android:gravity="right"/>
+
+
+
+</RelativeLayout>
 </ScrollView>

@@ -37,4 +37,13 @@ public class City extends BaseModel {
     public void setState(State state) {
         this.state = state;
     }
+
+    @Override
+    public String toString() {
+        return new StringBuilder().append(getName())
+                .append(",")
+                .append(state.getAbbreviation())
+                .append(",")
+                .append(getCountry().getName()).toString();
+    }
 }
