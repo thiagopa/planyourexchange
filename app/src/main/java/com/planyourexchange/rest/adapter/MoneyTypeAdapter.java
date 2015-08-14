@@ -24,6 +24,7 @@ import com.google.gson.stream.JsonWriter;
 import com.planyourexchange.rest.model.Money;
 
 import java.io.IOException;
+import java.io.StringReader;
 import java.math.BigDecimal;
 
 /**
@@ -39,14 +40,16 @@ public class MoneyTypeAdapter extends TypeAdapter<Money> {
     @Override
     public Money read(JsonReader in) throws IOException {
 
-        String amountpath = in.getPath();
-        String currencyPath = amountpath.substring(amountpath.indexOf(".") + 1,amountpath.length()) + "_currency";
+        String amountPath = in.getPath();
+        String currencyPath = amountPath.substring(amountPath.indexOf(".") + 1, amountPath.length()) + "_currency";
 
         BigDecimal amount = new BigDecimal(in.nextDouble());
 
         while(in.hasNext()) {
             if(in.nextName().equals(currencyPath)) {
-                return new Money(amount, in.nextString());
+                String currency = in.nextString();
+
+                return new Money(amount, currency);
             }
             in.skipValue();
         }

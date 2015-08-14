@@ -56,5 +56,9 @@ public class MoneyTypeAdapterTest {
 
         assertEquals(new BigDecimal("1"), money.amount);
         assertEquals("NZD", money.currency);
+        assertEquals(new Integer(14), country.getId());
+        assertEquals("New Zealand", country.getName());
+        assertEquals("https://amazon.s3.com/icons/220px-Flag_of_New_Zealand.svg.png", country.getIcon());
+        assertEquals("NZD", country.getDefaultCurrency());
     }
  }
