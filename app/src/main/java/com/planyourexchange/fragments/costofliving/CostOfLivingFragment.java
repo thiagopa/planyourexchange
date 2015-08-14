@@ -54,8 +54,8 @@ public class CostOfLivingFragment extends AbstractBaseFragment<Integer,CostOfLiv
     }
 
     @Override
-    protected void callService(Integer integer) {
-        serverApi.getCostOfLiving(integer,this);
+    protected void callService(Integer cityId) {
+        serverApi.getCostOfLiving(cityId,this);
     }
 
     @Override
