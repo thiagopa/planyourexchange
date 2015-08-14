@@ -30,15 +30,10 @@ import com.planyourexchange.rest.model.CostOfLiving;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class CostOfLivingFragment extends AbstractBaseFragment<Integer,CostOfLiving,LinearLayout> implements OnChangeListener {
+public class CostOfLivingFragment extends AbstractBaseFragment<Integer,CostOfLiving,LinearLayout> {
 
     public CostOfLivingFragment() {
         super(R.string.cost_of_living_title,R.layout.cost_of_living_fragment,R.id.cost_of_living_linear_layout);
-    }
-
-    @Override
-    public void updateView(Bundle bundle) {
-        
     }
 
     @Override

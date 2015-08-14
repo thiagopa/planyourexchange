@@ -37,12 +37,11 @@ public class SchoolCourseBaseFragment extends Fragment  {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.school_course_base_fragment, container, false);
-        return view;
+        return inflater.inflate(R.layout.school_course_base_fragment, container, false);
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         // -- Initializing first fragment and setting screen title
         CountriesFragment fragment = new CountriesFragment();
         getActivity().setTitle(R.string.countries_title);
@@ -60,6 +59,8 @@ public class SchoolCourseBaseFragment extends Fragment  {
         fragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .commit();
+
+        super.onActivityCreated(savedInstanceState);
     }
 
 

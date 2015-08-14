@@ -47,7 +47,6 @@ public abstract class GenericFragment extends Fragment implements FragmentName {
 
     private ProgressDialog progressDialog;
 
-
     public GenericFragment(int titleName) {
         this.titleName = titleName;
     }

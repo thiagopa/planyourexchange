@@ -11,6 +11,7 @@ import android.widget.ListView;
 
 import com.planyourexchange.R;
 import com.planyourexchange.interfaces.FragmentName;
+import com.planyourexchange.interfaces.OnChangeListener;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -39,7 +40,7 @@ import retrofit.client.Response;
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 // -- Base model for handling information between fragments that share enormous similarities
-public abstract class AbstractBaseFragment<Key extends Serializable, Model, ModelView extends View> extends GenericFragment implements FragmentName, Callback<Model> {
+public abstract class AbstractBaseFragment<Key extends Serializable, Model, ModelView extends View> extends GenericFragment implements FragmentName, Callback<Model>, OnChangeListener {
 
     // -- Cache of information
     private final Map<Key, Model> CACHE = new HashMap<Key, Model>();
@@ -64,8 +65,18 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model, Mode
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        Key key = (Key) getArguments().getSerializable(KEY_ID);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+
+        if(!getArguments().isEmpty()) {
+            updateView(getArguments());
+        }
+
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void updateView(Bundle bundle) {
+        Key key = (Key) bundle.getSerializable(KEY_ID);
         ModelView modelView = (ModelView) getActivity().findViewById(this.drawLayout);
 
         // -- Dispatch task to load resources if not cached
