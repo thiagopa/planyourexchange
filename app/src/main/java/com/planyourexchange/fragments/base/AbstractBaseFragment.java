@@ -67,8 +67,10 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model, Mode
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 
-        if(getArguments() != null) {
-            updateView(getArguments());
+        Bundle bundle = getArguments();
+
+        if(bundle != null && bundle.containsKey(KEY_ID)) {
+            updateView(bundle);
         }
 
         super.onActivityCreated(savedInstanceState);

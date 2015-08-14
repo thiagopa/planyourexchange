@@ -18,14 +18,19 @@
 
 package com.planyourexchange.utils;
 
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
-import com.google.gson.TypeAdapterFactory;
-import com.google.gson.reflect.TypeToken;
-import com.planyourexchange.rest.adapter.MoneyTypeAdapterFactory;
+import com.google.gson.GsonBuilder;
+import com.planyourexchange.rest.adapter.MoneyTypeAdapter;
 import com.planyourexchange.rest.model.Country;
+import com.planyourexchange.rest.model.Money;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import java.math.BigDecimal;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Thiago Pagonha
@@ -37,13 +42,19 @@ public class MoneyTypeAdapterTest {
 
     @Before
     public void setUp() {
-
+        gson = new GsonBuilder()
+                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                .registerTypeAdapter(Money.class, new MoneyTypeAdapter())
+                .create();
     }
 
     @Test
-    public void testMoneyInside() {
-        TypeAdapterFactory typeAdapterFactory = new MoneyTypeAdapterFactory();
+    public void test_serialize() {
+        Country country = gson.fromJson("{\"id\":14,\"visa_fee\":1.0,\"name\":\"New Zealand\",\"icon\":\"https://planyourexchange.s3.amazonaws.com/icons/220px-Flag_of_New_Zealand.svg.png\",\"visa_fee_currency\":\"NZD\",\"default_currency\":\"NZD\"}", Country.class);
 
-        typeAdapterFactory.create(gson,TypeToken.get(Country.class));
+        Money money = country.getVisaFee();
+
+        assertEquals(new BigDecimal("1"), money.amount);
+        assertEquals("NZD", money.currency);
     }
  }
