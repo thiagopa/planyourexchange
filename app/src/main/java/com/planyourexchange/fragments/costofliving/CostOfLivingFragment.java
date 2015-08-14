@@ -38,11 +38,11 @@ public class CostOfLivingFragment extends AbstractBaseFragment<Integer,CostOfLiv
 
     @Override
     protected void callService(Integer integer) {
-
+        serverApi.getCostOfLiving(integer,this);
     }
 
     @Override
     protected void drawModel(CostOfLiving modelList, LinearLayout linearLayout) {
-
+        linearLayout.addView();
     }
 }
