@@ -2,8 +2,10 @@ package com.planyourexchange.rest.api;
 
 import com.planyourexchange.rest.model.AuthToken;
 import com.planyourexchange.rest.model.City;
+import com.planyourexchange.rest.model.CostOfLiving;
 import com.planyourexchange.rest.model.Country;
 import com.planyourexchange.rest.model.Course;
+import com.planyourexchange.rest.model.HealthInsurance;
 import com.planyourexchange.rest.model.School;
 import com.planyourexchange.rest.model.SchoolCourseValue;
 import com.planyourexchange.rest.model.SchoolCourseValueKey;
@@ -47,11 +49,17 @@ public interface ServerApi {
     @GET("/countries/{id}/cities/")
     void listCities(@Path("id") Integer countryId,Callback<List<City>> callback);
 
+    @GET("/countries/{id}/healthinsurances/")
+    void listHealthInsurances(@Path("id") Integer countryId,Callback<List<HealthInsurance>> callback);
+
     @GET("/cities/{id}/courses/")
     void listCourses(@Path("id") Integer cityId,Callback<List<Course>> callback);
 
     @GET("/cities/{id}/schools/")
     void listSchools(@Path("id") Integer cityId,Callback<List<School>> callback);
+
+    @GET("/cities/{id}/costofliving/")
+    void getCostOfLiving(@Path("id") Integer cityId,Callback<CostOfLiving> callback);
 
     @POST("/schoolcoursevalue/find/")
     void findCourseSchoolValue(@Body SchoolCourseValueKey request,Callback<List<SchoolCourseValue>> callback);
