@@ -24,8 +24,7 @@ import java.math.BigDecimal;
  * @author Thiago Pagonha
  * @version 13/08/15.
  */
-public class HealthInsurance {
-    private Integer id;
+public class HealthInsurance extends BaseModel {
     private Country country;
 
     private String companyName;
@@ -34,14 +33,6 @@ public class HealthInsurance {
     private BigDecimal singlePricePerMonth;
     private BigDecimal couplePricePerMonth;
     private BigDecimal famillyPricePerMonth;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Country getCountry() {
         return country;

@@ -27,7 +27,7 @@ public class CountriesFragment extends ListViewFragment<String,Country> {
 
 
     public CountriesFragment() {
-        super(R.string.countries_title,R.layout.countries_fragment, R.id.countries_list_view, new CitiesFragment());
+        super(R.string.countries_title,R.string.choose_country,new CitiesFragment());
         // -- Hard Coding English Language for now
         Bundle bundle = new Bundle();
         bundle.putString(KEY_ID,"English");

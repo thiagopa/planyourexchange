@@ -18,9 +18,26 @@
 
 package com.planyourexchange.fragments.healthinsurance;
 
+import android.os.Bundle;
+
+import com.planyourexchange.R;
+import com.planyourexchange.fragments.base.ListViewFragment;
+import com.planyourexchange.fragments.schoolcourse.CitiesFragment;
+import com.planyourexchange.rest.model.HealthInsurance;
+
 /**
  * @author Thiago Pagonha
  * @version 15/08/15.
  */
-public class HealthInsuranceListFragment {
+public class HealthInsurancesFragment extends ListViewFragment<Integer,HealthInsurance> {
+    public HealthInsurancesFragment() {
+        super(R.string.health_insurances_title,R.string.health_insurances_header, new HealthInsuranceFragment());
+    }
+
+    // -- List all countries (only english for now)
+    @Override
+    public void callService(Integer countryId) {
+        serverApi.listHealthInsurances(countryId,this);
+    }
+
 }

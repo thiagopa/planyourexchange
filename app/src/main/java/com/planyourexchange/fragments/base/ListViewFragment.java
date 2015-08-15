@@ -16,6 +16,7 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.planyourexchange.R;
+import com.planyourexchange.fragments.schoolcourse.CitiesFragment;
 import com.planyourexchange.rest.model.BaseModel;
 import com.planyourexchange.utils.Constants;
 import com.planyourexchange.utils.InternationalNames;
@@ -47,8 +48,8 @@ public abstract class ListViewFragment<Key extends Serializable, Model extends B
     private final Fragment nextScreen;
 
     // -- Need to be called by overriding class
-    protected ListViewFragment(final int titleName, final int inflateLayout, final int drawLayout, final Fragment nextScreen) {
-        super(titleName,inflateLayout,drawLayout);
+    protected ListViewFragment(final int titleName, final int headerName, final Fragment nextScreen) {
+        super(titleName,headerName);
         this.nextScreen = nextScreen;
     }
 

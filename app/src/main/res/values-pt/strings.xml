@@ -31,4 +31,6 @@
     <string name="no_internet">Sem internet!!!</string>
     <string name="cost_of_living_fragment">Escolha uma cidade</string>
     <string name="cost_of_living_title">Custo de Vida</string>
+    <string name="health_insurances_title">Seguro Saúde</string>
+    <string name="health_insurances_header">Escolha seguro saúde desejado</string>
 </resources>

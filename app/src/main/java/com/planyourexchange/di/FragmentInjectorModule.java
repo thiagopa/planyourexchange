@@ -25,6 +25,7 @@ import android.support.v4.app.Fragment;
 
 import com.planyourexchange.fragments.costofliving.CostOfLivingFragment;
 import com.planyourexchange.fragments.base.BaseFrameLayoutFragment;
+import com.planyourexchange.fragments.healthinsurance.HealthInsurancesFragment;
 import com.planyourexchange.fragments.schoolcourse.CountriesFragment;
 import com.planyourexchange.interfaces.OnChangeListener;
 
@@ -60,7 +61,9 @@ public class FragmentInjectorModule {
     Fragment[] providePageableFragments() {
         return new Fragment[] {
                 newBaseFrameLayout(new CountriesFragment()),
+                newBaseFrameLayout(new HealthInsurancesFragment()),
                 costOfLivingFragment,
+
         };
     }
 

@@ -18,9 +18,11 @@
 
 package com.planyourexchange.fragments.healthinsurance;
 
+import android.support.v4.app.Fragment;
+
 /**
  * @author Thiago Pagonha
  * @version 15/08/15.
  */
-public class HealthInsuranceFragment {
+public class HealthInsuranceFragment extends Fragment {
 }
