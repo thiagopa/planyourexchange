@@ -21,8 +21,6 @@ import com.google.android.gms.ads.AdView;
 import com.planyourexchange.R;
 import com.planyourexchange.adapters.ScreenSlidePagerAdapter;
 import com.planyourexchange.app.PlanYourExchangeApplication;
-import com.planyourexchange.fragments.costofliving.CostOfLivingFragment;
-import com.planyourexchange.fragments.schoolcourse.SchoolCourseBaseFragment;
 import com.planyourexchange.interfaces.ProgressDialogControl;
 import com.planyourexchange.utils.PropertyReader;
 

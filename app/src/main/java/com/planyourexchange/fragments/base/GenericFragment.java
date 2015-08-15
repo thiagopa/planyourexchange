@@ -66,6 +66,11 @@ public abstract class GenericFragment extends Fragment implements FragmentName {
     }
 
     @Override
+    public int getResourceId() {
+        return titleName;
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         PlanYourExchangeApplication.getPlanYourExchangeComponent(getActivity()).inject(this);

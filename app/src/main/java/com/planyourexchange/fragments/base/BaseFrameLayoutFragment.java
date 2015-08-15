@@ -1,19 +1,14 @@
-package com.planyourexchange.fragments.schoolcourse;
+package com.planyourexchange.fragments.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.planyourexchange.R;
-import com.planyourexchange.adapters.ScreenSlidePagerAdapter;
-import com.planyourexchange.fragments.costofliving.CostOfLivingFragment;
 import com.planyourexchange.interfaces.FragmentName;
 
 /**
@@ -33,18 +28,24 @@ import com.planyourexchange.interfaces.FragmentName;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class SchoolCourseBaseFragment extends Fragment  {
+public class BaseFrameLayoutFragment extends Fragment  {
+
+    private Fragment fragment;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.school_course_base_fragment, container, false);
+        return inflater.inflate(R.layout.base_framelayout, container, false);
+    }
+
+    public void setFragment(Fragment fragment) {
+        this.fragment = fragment;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         // -- Initializing first fragment and setting screen title
-        CountriesFragment fragment = new CountriesFragment();
-        getActivity().setTitle(R.string.countries_title);
+        getActivity().setTitle(((FragmentName)fragment).getResourceId());
 
         final FragmentManager fragmentManager = getChildFragmentManager();
         // -- Changing activity title when added to backstack
@@ -52,7 +53,7 @@ public class SchoolCourseBaseFragment extends Fragment  {
                 @Override
                 public void onBackStackChanged() {
                     FragmentName fragment = (FragmentName) fragmentManager.findFragmentById(R.id.fragment_container);
-                    getActivity().setTitle(fragment.getName());
+                    getActivity().setTitle(fragment.getResourceId());
                 }
         });
 
@@ -62,6 +63,4 @@ public class SchoolCourseBaseFragment extends Fragment  {
 
         super.onActivityCreated(savedInstanceState);
     }
-
-
 }

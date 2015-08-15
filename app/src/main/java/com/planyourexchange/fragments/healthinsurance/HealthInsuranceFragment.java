@@ -1,6 +1,4 @@
-package com.planyourexchange.interfaces;
-
-/**
+/*
  * Copyright (C) 2015, Thiago Pagonha,
  * Plan Your Exchange, easy exchange to fit your budget
  *
@@ -17,9 +15,12 @@ package com.planyourexchange.interfaces;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public interface FragmentName {
-    // -- Return the name of the Screen to be set on title, Google analytics, etc
-    String getName();
-    // -- Return the resource id in case this fragment isn't attached to an Activity
-    int getResourceId();
+
+package com.planyourexchange.fragments.healthinsurance;
+
+/**
+ * @author Thiago Pagonha
+ * @version 15/08/15.
+ */
+public class HealthInsuranceFragment {
 }

@@ -20,18 +20,15 @@ package com.planyourexchange.di;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
 import com.planyourexchange.fragments.costofliving.CostOfLivingFragment;
-import com.planyourexchange.fragments.schoolcourse.CitiesFragment;
+import com.planyourexchange.fragments.base.BaseFrameLayoutFragment;
 import com.planyourexchange.fragments.schoolcourse.CountriesFragment;
-import com.planyourexchange.fragments.schoolcourse.SchoolCourseBaseFragment;
 import com.planyourexchange.interfaces.OnChangeListener;
-import com.planyourexchange.rest.api.ServerApi;
-import com.planyourexchange.utils.PropertyReader;
 
 import javax.inject.Named;
-import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -62,9 +59,16 @@ public class FragmentInjectorModule {
     @Provides
     Fragment[] providePageableFragments() {
         return new Fragment[] {
-                new SchoolCourseBaseFragment(),
-                costOfLivingFragment
+                newBaseFrameLayout(new CountriesFragment()),
+                costOfLivingFragment,
         };
+    }
+
+    @NonNull
+    private BaseFrameLayoutFragment newBaseFrameLayout(Fragment fragment) {
+        BaseFrameLayoutFragment baseFrameLayoutFragment = new BaseFrameLayoutFragment();
+        baseFrameLayoutFragment.setFragment(fragment);
+        return baseFrameLayoutFragment;
     }
 }
 
