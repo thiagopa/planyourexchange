@@ -19,6 +19,7 @@
 package com.planyourexchange.di;
 
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import com.planyourexchange.fragments.costofliving.CostOfLivingFragment;
@@ -43,6 +44,14 @@ import dagger.Provides;
 public class FragmentInjectorModule {
 
     private final CostOfLivingFragment costOfLivingFragment = new CostOfLivingFragment();
+
+    public FragmentInjectorModule() {
+        addEmptyBundle(costOfLivingFragment);
+    }
+
+    private void addEmptyBundle(Fragment fragment) {
+        fragment.setArguments(new Bundle());
+    }
 
     @Provides
     @Named("CostOfLiving")

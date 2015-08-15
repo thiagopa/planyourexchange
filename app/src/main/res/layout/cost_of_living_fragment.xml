@@ -19,7 +19,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 <RelativeLayout
-    android:id="@+id/cost_of_living_linear_layout"
+    android:id="@+id/cost_of_living_relative_layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="horizontal" >

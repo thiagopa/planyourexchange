@@ -1,20 +1,13 @@
 package com.planyourexchange.fragments.costofliving;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.planyourexchange.R;
 import com.planyourexchange.fragments.base.AbstractBaseFragment;
-import com.planyourexchange.fragments.base.GenericFragment;
-import com.planyourexchange.interfaces.OnChangeListener;
 import com.planyourexchange.rest.model.CostOfLiving;
-
-import java.math.BigDecimal;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -38,7 +31,7 @@ import static com.planyourexchange.utils.MoneyUtils.newPrice;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class CostOfLivingFragment extends AbstractBaseFragment<Integer,CostOfLiving,LinearLayout> {
+public class CostOfLivingFragment extends AbstractBaseFragment<Integer,CostOfLiving,RelativeLayout> {
 
     static class ViewHolder {
         @Bind(R.id.cost_of_living_init_text) TextView city;
@@ -54,7 +47,7 @@ public class CostOfLivingFragment extends AbstractBaseFragment<Integer,CostOfLiv
     }
 
     public CostOfLivingFragment() {
-        super(R.string.cost_of_living_title, R.layout.cost_of_living_fragment, R.id.cost_of_living_linear_layout);
+        super(R.string.cost_of_living_title, R.layout.cost_of_living_fragment, R.id.cost_of_living_relative_layout);
     }
 
     @Override
@@ -63,7 +56,7 @@ public class CostOfLivingFragment extends AbstractBaseFragment<Integer,CostOfLiv
     }
 
     @Override
-    protected void drawModel(CostOfLiving costOfLiving, LinearLayout linearLayout) {
+    protected void drawModel(CostOfLiving costOfLiving, RelativeLayout linearLayout) {
         String currency = costOfLiving.getCity().getCountry().getDefaultCurrency();
 
         ViewHolder viewHolder = new ViewHolder(linearLayout);

@@ -80,7 +80,8 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model, Mode
     public void updateView(Bundle bundle) {
         // -- Needed because success from RestCallback may not have the bundle if this object
         // -- Had acquired the bundle from a notifier (this method) instead of a constructor
-        setArguments(bundle);
+        getArguments().putAll(bundle);
+
         Key key = (Key) bundle.getSerializable(KEY_ID);
         ModelView modelView = (ModelView) getActivity().findViewById(this.drawLayout);
 
