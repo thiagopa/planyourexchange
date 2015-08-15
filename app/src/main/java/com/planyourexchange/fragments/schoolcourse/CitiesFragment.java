@@ -39,7 +39,7 @@ public class CitiesFragment extends ListViewFragment<Integer,City> {
     OnChangeListener onChangeListener;
 
     public CitiesFragment() {
-        super(R.string.cities_title,R.layout.cities_fragment, R.id.cities_list_view, new CourseOrSchoolFragment());
+        super(R.string.cities_title,R.string.choose_city, new CourseOrSchoolFragment());
     }
 
     @Override

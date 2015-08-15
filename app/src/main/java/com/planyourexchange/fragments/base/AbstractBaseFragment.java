@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.planyourexchange.R;
 import com.planyourexchange.interfaces.FragmentName;
@@ -49,21 +48,20 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model, Mode
     protected static final String KEY_ID = "keyId";
 
     // -- Base properties
-    private final int headerName;
+    private final int inflateLayout;
+    private final int drawLayout;
 
     // -- Need to be called by overriding class
-    protected AbstractBaseFragment(final int titleName, final int headerName) {
+    protected AbstractBaseFragment(final int titleName, final int inflateLayout, int drawLayout) {
         super(titleName);
-        this.headerName = headerName;
+        this.inflateLayout = inflateLayout;
+        this.drawLayout = drawLayout;
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.base_list_fragment, container, false);
-        // -- Sets the text header
-        ((TextView)view.findViewById(R.id.base_list_header)).setText(headerName);
-        return view;
+        return inflater.inflate(this.inflateLayout, container, false);
     }
 
     @Override
@@ -85,7 +83,7 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model, Mode
         getArguments().putAll(bundle);
 
         Key key = (Key) bundle.getSerializable(KEY_ID);
-        ModelView modelView = (ModelView) getView().findViewById(R.id.base_list_view);
+        ModelView modelView = (ModelView) getView().findViewById(this.drawLayout);
 
         // -- Dispatch task to load resources if not cached
         if (CACHE.containsKey(key)) {
@@ -103,7 +101,7 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model, Mode
 
     @Override
     public void success(Model model, Response response) {
-        ModelView modelView = (ModelView) getView().findViewById(R.id.base_list_view);
+        ModelView modelView = (ModelView) getView().findViewById(this.drawLayout);
         CACHE.put((Key) getArguments().get(KEY_ID), model);
         drawModel(model, modelView);
         onTaskFinished();

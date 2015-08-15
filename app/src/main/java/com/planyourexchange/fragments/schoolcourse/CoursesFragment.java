@@ -27,7 +27,7 @@ import java.io.Serializable;
 public class CoursesFragment extends ListViewFragment<Integer,Course> {
 
     public CoursesFragment() {
-        super(R.string.courses_title, R.layout.courses_fragment, R.id.courses_list_view, new SchoolCourseValueFragment());
+        super(R.string.courses_title,R.string.choose_course, new SchoolCourseValueFragment());
     }
 
     @Override

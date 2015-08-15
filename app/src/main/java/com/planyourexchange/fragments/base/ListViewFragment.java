@@ -46,11 +46,19 @@ import java.util.List;
 public abstract class ListViewFragment<Key extends Serializable, Model extends BaseModel> extends AbstractBaseFragment<Key, List<Model>, ListView> {
 
     private final Fragment nextScreen;
+    private final int headerName;
 
     // -- Need to be called by overriding class
     protected ListViewFragment(final int titleName, final int headerName, final Fragment nextScreen) {
-        super(titleName,headerName);
+        super(titleName,R.layout.base_list_fragment,R.id.base_list_view);
         this.nextScreen = nextScreen;
+        this.headerName = headerName;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        // -- Sets the text header
+        ((TextView)view.findViewById(R.id.base_list_header)).setText(headerName);
     }
 
     @Override
