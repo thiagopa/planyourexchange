@@ -1,6 +1,7 @@
 package com.planyourexchange.fragments.base;
 
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import com.google.android.gms.analytics.Tracker;
 import com.planyourexchange.R;
 import com.planyourexchange.app.PlanYourExchangeApplication;
 import com.planyourexchange.interfaces.FragmentName;
+import com.planyourexchange.interfaces.ProgressDialogControl;
 import com.planyourexchange.rest.api.ServerApi;
 
 import javax.inject.Inject;
@@ -44,8 +46,7 @@ public abstract class GenericFragment extends Fragment implements FragmentName {
     protected ServerApi serverApi;
 
     private final int titleName;
-
-    private ProgressDialog progressDialog;
+    private ProgressDialogControl progressDialogControl;
 
     public GenericFragment(int titleName) {
         this.titleName = titleName;
@@ -72,23 +73,16 @@ public abstract class GenericFragment extends Fragment implements FragmentName {
 
 
     protected void onTaskStarted() {
-        progressDialog = ProgressDialog.show(getActivity(),
-                getResources().getString(R.string.loading_title),
-                getResources().getString(R.string.loading_dialog));
+        progressDialogControl.show();
     }
 
     protected void onTaskFinished() {
-        if(progressDialog!=null) {
-            progressDialog.dismiss();
-        }
+        progressDialogControl.dismiss();
     }
 
     @Override
-    public void onDetach() {
-        // -- In case the task never finishes...
-        if(progressDialog!=null && progressDialog.isShowing()) {
-            progressDialog.dismiss();
-        }
-        super.onDetach();
+    public void onAttach(Activity activity) {
+        progressDialogControl = (ProgressDialogControl) activity;
+        super.onAttach(activity);
     }
 }

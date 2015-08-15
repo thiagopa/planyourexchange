@@ -1,5 +1,6 @@
 package com.planyourexchange.activities;
 
+import android.app.ProgressDialog;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,6 +23,7 @@ import com.planyourexchange.adapters.ScreenSlidePagerAdapter;
 import com.planyourexchange.app.PlanYourExchangeApplication;
 import com.planyourexchange.fragments.costofliving.CostOfLivingFragment;
 import com.planyourexchange.fragments.schoolcourse.SchoolCourseBaseFragment;
+import com.planyourexchange.interfaces.ProgressDialogControl;
 import com.planyourexchange.utils.PropertyReader;
 
 import javax.inject.Inject;
@@ -43,7 +45,7 @@ import javax.inject.Inject;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ProgressDialogControl {
 
     /*
     / -- TODO Implement this latter
@@ -67,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Inject
     Fragment pageableFragments[];
+
+    private ProgressDialog progressDialog;
 
     private AdView adView;
 
@@ -192,4 +196,29 @@ public class MainActivity extends AppCompatActivity {
         super.onConfigurationChanged(newConfig);
         newAdView();
     }
+
+    @Override
+    public void show() {
+        progressDialog = ProgressDialog.show(this,
+                getResources().getString(R.string.loading_title),
+                getResources().getString(R.string.loading_dialog));
+    }
+
+    @Override
+    public void dismiss() {
+        if(progressDialog!=null) {
+            progressDialog.dismiss();
+        }
+    }
+
+//    onDe
+//
+//    @Override
+//    public void onDetach() {
+//        // -- In case the task never finishes...
+//        if(progressDialog!=null && progressDialog.isShowing()) {
+//            progressDialog.dismiss();
+//        }
+//        super.onDetach();
+//    }
 }
