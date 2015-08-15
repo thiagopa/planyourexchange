@@ -59,6 +59,7 @@ public abstract class ListViewFragment<Key extends Serializable, Model extends B
     public void onViewCreated(View view, Bundle savedInstanceState) {
         // -- Sets the text header
         ((TextView)view.findViewById(R.id.base_list_header)).setText(headerName);
+        super.onViewCreated(view,savedInstanceState);
     }
 
     @Override

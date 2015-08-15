@@ -25,7 +25,7 @@
         android:id="@+id/base_list_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/countries_header" />
+        android:layout_below="@+id/base_list_header" />
     <TextView
         android:id="@+id/base_list_header"
         android:layout_width="wrap_content"

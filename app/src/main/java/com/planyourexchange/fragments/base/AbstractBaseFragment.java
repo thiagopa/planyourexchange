@@ -42,9 +42,7 @@ import retrofit.client.Response;
 // -- Base model for handling information between fragments that share enormous similarities
 public abstract class AbstractBaseFragment<Key extends Serializable, Model, ModelView extends View> extends GenericFragment implements FragmentName, Callback<Model>, OnChangeListener {
 
-    // -- Cache of information
-    private final Map<Key, Model> CACHE = new HashMap<Key, Model>();
-
+    protected static final String CACHE_ID = "cacheId";
     protected static final String KEY_ID = "keyId";
 
     // -- Base properties
@@ -65,7 +63,7 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model, Mode
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
         Bundle bundle = getArguments();
 
@@ -73,7 +71,7 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model, Mode
             updateView(bundle);
         }
 
-        super.onActivityCreated(savedInstanceState);
+        super.onViewCreated(view,savedInstanceState);
     }
 
     @Override
@@ -81,14 +79,19 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model, Mode
         // -- Needed because success from RestCallback may not have the bundle if this object
         // -- Had acquired the bundle from a notifier (this method) instead of a constructor
         getArguments().putAll(bundle);
-
         Key key = (Key) bundle.getSerializable(KEY_ID);
-        ModelView modelView = (ModelView) getView().findViewById(this.drawLayout);
+        Map <Key, Model> CACHE = getCache();
 
-        // -- Dispatch task to load resources if not cached
-        if (CACHE.containsKey(key)) {
-            drawModel(CACHE.get(key),modelView);
+        // -- If the key is in cache
+        if(CACHE.containsKey(key)) {
+            // -- In case the view is not visible anymore
+            View view = getView();
+            if(view!=null) {
+                ModelView modelView = (ModelView) getView().findViewById(this.drawLayout);
+                drawModel(CACHE.get(key), modelView);
+            }
         } else {
+            // -- Dispatch task to load resources if not cached
             onTaskStarted();
             callService(key);
         }
@@ -101,9 +104,16 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model, Mode
 
     @Override
     public void success(Model model, Response response) {
-        ModelView modelView = (ModelView) getView().findViewById(this.drawLayout);
-        CACHE.put((Key) getArguments().get(KEY_ID), model);
-        drawModel(model, modelView);
+
+        getCache().put((Key) getArguments().get(KEY_ID), model);
+
+        View view = getView();
+        // -- In case the view is not visible anymore
+        if(view!=null) {
+            ModelView modelView = (ModelView) view.findViewById(this.drawLayout);
+            drawModel(model, modelView);
+        }
+
         onTaskFinished();
     }
 
@@ -121,5 +131,15 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model, Mode
                         dialog.cancel();
                     }
                 }).create().show();
+    }
+
+    private Map <Key, Model> getCache() {
+        Map <Key, Model> CACHE = (Map) getArguments().get(CACHE_ID);
+        if(CACHE==null) {
+            // -- Cache of information
+            CACHE = new HashMap<Key, Model>();
+            getArguments().putSerializable(CACHE_ID, (Serializable)CACHE);
+        }
+        return CACHE;
     }
 }
