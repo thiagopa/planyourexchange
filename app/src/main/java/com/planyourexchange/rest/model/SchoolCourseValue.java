@@ -26,7 +26,7 @@ public class SchoolCourseValue {
     private School school;
     private Integer id;
 
-    private Money weekPrice;
+    private BigDecimal weekPrice;
 
     public Integer getId() {
         return id;
@@ -52,11 +52,11 @@ public class SchoolCourseValue {
         this.school = school;
     }
 
-    public Money getWeekPrice() {
+    public BigDecimal getWeekPrice() {
         return weekPrice;
     }
 
-    public void setWeekPrice(Money weekPrice) {
+    public void setWeekPrice(BigDecimal weekPrice) {
         this.weekPrice = weekPrice;
     }
 }

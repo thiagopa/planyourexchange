@@ -14,8 +14,12 @@ import com.planyourexchange.fragments.base.GenericFragment;
 import com.planyourexchange.interfaces.OnChangeListener;
 import com.planyourexchange.rest.model.CostOfLiving;
 
+import java.math.BigDecimal;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
+import static com.planyourexchange.utils.MoneyUtils.newPrice;
 
 /**
  * Copyright (C) 2015, Thiago Pagonha,
@@ -50,24 +54,26 @@ public class CostOfLivingFragment extends AbstractBaseFragment<Integer,CostOfLiv
     }
 
     public CostOfLivingFragment() {
-        super(R.string.cost_of_living_title,R.layout.cost_of_living_fragment,R.id.cost_of_living_linear_layout);
+        super(R.string.cost_of_living_title, R.layout.cost_of_living_fragment, R.id.cost_of_living_linear_layout);
     }
 
     @Override
     protected void callService(Integer cityId) {
-        serverApi.getCostOfLiving(cityId,this);
+        serverApi.getCostOfLiving(cityId, this);
     }
 
     @Override
     protected void drawModel(CostOfLiving costOfLiving, LinearLayout linearLayout) {
+        String currency = costOfLiving.getCity().getCountry().getDefaultCurrency();
+
         ViewHolder viewHolder = new ViewHolder(linearLayout);
 
         viewHolder.city.setText(costOfLiving.getCity().toString());
-        viewHolder.restaurant.setText(costOfLiving.getRestaurantAveragePerMeal().toString());
-        viewHolder.superMarket.setText(costOfLiving.getSuperMarketAveragePerMonth().toString());
-        viewHolder.transport.setText(costOfLiving.getPublicTransportMonthly().toString());
-        viewHolder.rent.setText(costOfLiving.getRentAverageMonthly().toString());
-        viewHolder.utilites.setText(costOfLiving.getUtilitesAverageMonthly().toString());
+        viewHolder.restaurant.setText(newPrice(currency, costOfLiving.getRestaurantAveragePerMeal()));
+        viewHolder.superMarket.setText(newPrice(currency, costOfLiving.getSuperMarketAveragePerMonth()));
+        viewHolder.transport.setText(newPrice(currency, costOfLiving.getPublicTransportMonthly()));
+        viewHolder.rent.setText(newPrice(currency, costOfLiving.getRentAverageMonthly()));
+        viewHolder.utilites.setText(newPrice(currency, costOfLiving.getUtilitesAverageMonthly()));
 
     }
 }

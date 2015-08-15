@@ -31,9 +31,9 @@ public class HealthInsurance {
     private String companyName;
     private String companyWebsite;
 
-    private Money singlePricePerMonth;
-    private Money couplePricePerMonth;
-    private Money famillyPricePerMonth;
+    private BigDecimal singlePricePerMonth;
+    private BigDecimal couplePricePerMonth;
+    private BigDecimal famillyPricePerMonth;
 
     public Integer getId() {
         return id;
@@ -67,27 +67,27 @@ public class HealthInsurance {
         this.companyWebsite = companyWebsite;
     }
 
-    public Money getSinglePricePerMonth() {
+    public BigDecimal getSinglePricePerMonth() {
         return singlePricePerMonth;
     }
 
-    public void setSinglePricePerMonth(Money singlePricePerMonth) {
+    public void setSinglePricePerMonth(BigDecimal singlePricePerMonth) {
         this.singlePricePerMonth = singlePricePerMonth;
     }
 
-    public Money getCouplePricePerMonth() {
+    public BigDecimal getCouplePricePerMonth() {
         return couplePricePerMonth;
     }
 
-    public void setCouplePricePerMonth(Money couplePricePerMonth) {
+    public void setCouplePricePerMonth(BigDecimal couplePricePerMonth) {
         this.couplePricePerMonth = couplePricePerMonth;
     }
 
-    public Money getFamillyPricePerMonth() {
+    public BigDecimal getFamillyPricePerMonth() {
         return famillyPricePerMonth;
     }
 
-    public void setFamillyPricePerMonth(Money famillyPricePerMonth) {
+    public void setFamillyPricePerMonth(BigDecimal famillyPricePerMonth) {
         this.famillyPricePerMonth = famillyPricePerMonth;
     }
 }

@@ -16,26 +16,23 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.planyourexchange.rest.model;
+package com.planyourexchange.utils;
 
 import java.math.BigDecimal;
 
 /**
  * @author Thiago Pagonha
- * @version 13/08/15.
+ * @version 14/08/15.
  */
-public class Money {
-    public final BigDecimal amount;
-    public final String currency;
+public final class MoneyUtils {
+    private MoneyUtils(){
 
-    public Money(BigDecimal amount, String currency) {
-        this.amount = amount;
-        this.currency = currency;
     }
 
-    @Override
-    public String toString() {
-        return new StringBuilder().append(currency).append(" ").append(amount).toString();
-
+    public static String newPrice(String currency, BigDecimal price) {
+        return new StringBuilder()
+                .append(currency)
+                .append(" ")
+                .append(price).toString();
     }
 }

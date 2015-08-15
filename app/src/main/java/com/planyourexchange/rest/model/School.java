@@ -1,5 +1,7 @@
 package com.planyourexchange.rest.model;
 
+import java.math.BigDecimal;
+
 /**
  * Copyright (C) 2015, Thiago Pagonha,
  * Plan Your Exchange, easy exchange to fit your budget
@@ -20,8 +22,8 @@ package com.planyourexchange.rest.model;
 public class School extends BaseModel {
     private City city;
 
-    private Money enrolmentFee;
-    private Money booksFee;
+    private BigDecimal enrolmentFee;
+    private BigDecimal booksFee;
 
     private String addressLine;
     private String suburb;
@@ -35,19 +37,19 @@ public class School extends BaseModel {
         this.city = city;
     }
 
-    public Money getEnrolmentFee() {
+    public BigDecimal getEnrolmentFee() {
         return enrolmentFee;
     }
 
-    public void setEnrolmentFee(Money enrolmentFee) {
+    public void setEnrolmentFee(BigDecimal enrolmentFee) {
         this.enrolmentFee = enrolmentFee;
     }
 
-    public Money getBooksFee() {
+    public BigDecimal getBooksFee() {
         return booksFee;
     }
 
-    public void setBooksFee(Money booksFee) {
+    public void setBooksFee(BigDecimal booksFee) {
         this.booksFee = booksFee;
     }
 

@@ -1,5 +1,7 @@
 package com.planyourexchange.rest.model;
 
+import java.math.BigDecimal;
+
 /**
  * Copyright (C) 2015, Thiago Pagonha,
  * Plan Your Exchange, easy exchange to fit your budget
@@ -18,14 +20,14 @@ package com.planyourexchange.rest.model;
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 public class Country extends BaseModel {
-    private Money visaFee;
+    private BigDecimal visaFee;
     private String defaultCurrency;
 
-    public Money getVisaFee() {
+    public BigDecimal getVisaFee() {
         return visaFee;
     }
 
-    public void setVisaFee(Money visaFee) {
+    public void setVisaFee(BigDecimal visaFee) {
         this.visaFee = visaFee;
     }
 

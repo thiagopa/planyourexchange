@@ -14,6 +14,7 @@ import com.planyourexchange.R;
 import com.planyourexchange.fragments.base.AbstractBaseFragment;
 import com.planyourexchange.rest.model.SchoolCourseValue;
 import com.planyourexchange.rest.model.SchoolCourseValueKey;
+import com.planyourexchange.utils.MoneyUtils;
 
 import java.util.List;
 
@@ -78,7 +79,11 @@ public class SchoolCourseValueFragment extends AbstractBaseFragment<SchoolCourse
                 ImageLoader.getInstance().displayImage(iconUrl, imageView);
 
                 nameView.setText(name);
-                valueView.setText(schoolCourseValue.getWeekPrice().toString());
+                valueView.setText(MoneyUtils.newPrice(
+                        schoolCourseValue.getSchool().getCity().getCountry().getDefaultCurrency(),
+                        schoolCourseValue.getWeekPrice()
+                        )
+                );
 
                 return rowView;
             }
