@@ -1,12 +1,4 @@
-package com.planyourexchange.adapters;
-
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-
-import java.util.List;
-
-/**
+/*
  * Copyright (C) 2015, Thiago Pagonha,
  * Plan Your Exchange, easy exchange to fit your budget
  *
@@ -23,22 +15,17 @@ import java.util.List;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
 
-    private final List<Fragment> fragmentList;
+package com.planyourexchange.interfaces;
 
-    public ScreenSlidePagerAdapter(FragmentManager fragmentManager) {
-        super(fragmentManager);
-        fragmentList = PageFlow.fragmentList();
-    }
+import android.os.Bundle;
 
-    @Override
-    public android.support.v4.app.Fragment getItem(int position) {
-        return fragmentList.get(position);
-    }
+import com.planyourexchange.adapters.PageFlow;
 
-    @Override
-    public int getCount() {
-        return fragmentList.size();
-    }
+/**
+ * @author Thiago Pagonha
+ * @version 17/08/15.
+ */
+public interface ViewPagerControl {
+    void nextScreen(PageFlow pageFlow, Bundle bundle);
 }

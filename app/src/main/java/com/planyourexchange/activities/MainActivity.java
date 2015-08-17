@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -19,9 +20,12 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.planyourexchange.R;
+import com.planyourexchange.adapters.PageFlow;
 import com.planyourexchange.adapters.ScreenSlidePagerAdapter;
 import com.planyourexchange.app.PlanYourExchangeApplication;
+import com.planyourexchange.fragments.schoolcourse.CountriesFragment;
 import com.planyourexchange.interfaces.ProgressDialogControl;
+import com.planyourexchange.interfaces.ViewPagerControl;
 import com.planyourexchange.utils.PropertyReader;
 
 import javax.inject.Inject;
@@ -43,7 +47,7 @@ import javax.inject.Inject;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class MainActivity extends AppCompatActivity implements ProgressDialogControl {
+public class MainActivity extends AppCompatActivity implements ProgressDialogControl, ViewPagerControl {
 
     /*
     / -- TODO Implement this latter
@@ -64,9 +68,6 @@ public class MainActivity extends AppCompatActivity implements ProgressDialogCon
     */
     @Inject
     PropertyReader propertyReader;
-
-    @Inject
-    Fragment pageableFragments[];
 
     private ProgressDialog progressDialog;
 
@@ -92,6 +93,8 @@ public class MainActivity extends AppCompatActivity implements ProgressDialogCon
         // -- View Pager Adapter
         ViewPager viewPager = (ViewPager) findViewById(R.id.main_pager);
         PagerAdapter pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(),pageableFragments);
+
+        // PagerAdapter pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(),new CountriesFragment());
 
         viewPager.setAdapter(pagerAdapter);
     }
@@ -209,7 +212,12 @@ public class MainActivity extends AppCompatActivity implements ProgressDialogCon
         }
     }
 
-//    onDe
+    @Override
+    public void nextScreen(PageFlow pageFlow, Bundle bundle) {
+
+    }
+
+    //    onDe
 //
 //    @Override
 //    public void onDetach() {
