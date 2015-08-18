@@ -32,4 +32,9 @@ public class AirFareFragment extends Fragment implements SelectionListener {
     public void updateView(Bundle bundle) {
 
     }
+
+    @Override
+    public void clearView() {
+        
+    }
 }

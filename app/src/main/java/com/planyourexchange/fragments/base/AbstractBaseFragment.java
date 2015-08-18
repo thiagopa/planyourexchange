@@ -127,14 +127,15 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model, Mode
                 .setTitle(R.string.error)
                 .setNeutralButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        previousScreen();
                         dialog.cancel();
                     }
+                })
+                .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        previousScreen();
+                    }
                 }).create().show();
-    }
-
-    protected void clearView(ModelView modelView) {
-        modelView.removeAllViews();
     }
 
     private Map <Key, Model> getCache() {
@@ -145,5 +146,10 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model, Mode
             getArguments().putSerializable(CACHE_ID, (Serializable)CACHE);
         }
         return CACHE;
+    }
+
+    @Override
+    public void clearView() {
+        getArguments().remove(KEY_ID);
     }
 }

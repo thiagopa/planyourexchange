@@ -109,5 +109,6 @@ public class PageFlowPagerAdapter extends FragmentStatePagerAdapter {
 
     public void removeKeyFromFragment(int position) {
         bundleSparse.get(position).remove(KEY_ID);
+        selectionListenerSparse.get(position).get().clearView();
     }
 }

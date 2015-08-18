@@ -30,4 +30,9 @@ public interface SelectionListener {
      * @param bundle
      */
     void updateView(Bundle bundle);
+
+    /**
+     * Clear all data associated
+     */
+    void clearView();
 }
