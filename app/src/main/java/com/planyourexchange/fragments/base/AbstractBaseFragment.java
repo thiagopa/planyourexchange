@@ -118,13 +118,6 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model, Mode
     @Override
     public void failure(RetrofitError error) {
 
-        View view = getView();
-        // -- In case the view is not visible anymore
-        if(view!=null) {
-            ModelView modelView = (ModelView) view.findViewById(this.drawLayout);
-            clearView(modelView);
-        }
-
         onTaskFinished();
 
         String message = error.getMessage()!=null? error.getMessage(): getResources().getString(R.string.no_data_server);
@@ -134,6 +127,7 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model, Mode
                 .setTitle(R.string.error)
                 .setNeutralButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        previousScreen();
                         dialog.cancel();
                     }
                 }).create().show();

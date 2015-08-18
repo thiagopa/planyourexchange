@@ -27,5 +27,8 @@ import com.planyourexchange.pageflow.PageFlow;
  * @version 17/08/15.
  */
 public interface ViewPagerControl {
+    // -- Goes to specific screen with bundle
     void nextScreen(PageFlow pageFlow, Bundle bundle);
+    // -- Goes back one screen in case of failures, also remove associated bundles
+    void previousScreen();
 }

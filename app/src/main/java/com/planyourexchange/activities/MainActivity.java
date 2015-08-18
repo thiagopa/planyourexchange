@@ -227,6 +227,13 @@ public class MainActivity extends AppCompatActivity implements ProgressDialogCon
         viewPager.setCurrentItem(position);
     }
 
+    @Override
+    public void previousScreen() {
+        int position = viewPager.getCurrentItem() - 1;
+        pagerAdapter.removeKeyFromFragment(position);
+        onBackPressed();
+    }
+
     //    onDe
 //
 //    @Override

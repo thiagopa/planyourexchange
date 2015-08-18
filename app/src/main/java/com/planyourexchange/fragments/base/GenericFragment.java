@@ -86,6 +86,10 @@ public abstract class GenericFragment extends Fragment implements FragmentName {
         viewPagerControl.nextScreen(pageFlow,bundle);
     }
 
+    protected void previousScreen() {
+        viewPagerControl.previousScreen();
+    }
+
     @Override
     public void onAttach(Activity activity) {
         progressDialogControl = (ProgressDialogControl) activity;

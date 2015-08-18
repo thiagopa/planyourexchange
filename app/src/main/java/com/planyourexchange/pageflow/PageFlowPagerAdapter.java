@@ -106,4 +106,8 @@ public class PageFlowPagerAdapter extends FragmentStatePagerAdapter {
         super.destroyItem(container, position, object);
         selectionListenerSparse.remove(position);
     }
+
+    public void removeKeyFromFragment(int position) {
+        bundleSparse.get(position).remove(KEY_ID);
+    }
 }
