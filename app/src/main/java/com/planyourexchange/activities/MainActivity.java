@@ -226,8 +226,14 @@ public class MainActivity extends AppCompatActivity implements ProgressDialogCon
 
     @Override
     public void nextScreen(PageFlow pageFlow, Bundle bundle) {
-        pagerAdapter.addBundleToFragment(pageFlow.getPosition(),bundle);
-        viewPager.setCurrentItem(pageFlow.getPosition());
+
+        int position = pageFlow.getPosition();
+        // -- Store information for future fragments
+        pagerAdapter.addBundleToFragment(position,bundle);
+        // -- Update View with new data
+        pagerAdapter.updateTargetView(position,bundle);
+        // -- Swipe view
+        viewPager.setCurrentItem(position);
     }
 
     //    onDe

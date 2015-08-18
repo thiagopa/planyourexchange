@@ -27,6 +27,7 @@ import com.planyourexchange.fragments.schoolcourse.CountriesFragment;
 import com.planyourexchange.fragments.schoolcourse.CoursesFragment;
 import com.planyourexchange.fragments.schoolcourse.SchoolCourseValueFragment;
 import com.planyourexchange.fragments.result.ResultFragment;
+import com.planyourexchange.interfaces.SelectionListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,15 +47,15 @@ public enum PageFlow {
     RESULT(6, ResultFragment.class);
 
     private final int position;
-    private final Class<? extends Fragment> screen;
+    private final Class screen;
 
-    PageFlow(int position,Class<? extends Fragment> screen) {
+    <T extends Fragment & SelectionListener> PageFlow(int position,Class<T> screen) {
         this.position = position;
         this.screen = screen;
     }
 
-    public static List<Class<? extends Fragment>> newFragmentList() {
-        List<Class<? extends Fragment>> list = new ArrayList<Class<? extends Fragment>>(values().length);
+    public static List<Class> newFragmentList() {
+        List<Class> list = new ArrayList<>(values().length);
 
         for(PageFlow pageFlow : values()) {
             list.add(pageFlow.position,pageFlow.screen);

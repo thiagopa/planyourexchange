@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.planyourexchange.R;
 import com.planyourexchange.interfaces.FragmentName;
+import com.planyourexchange.interfaces.SelectionListener;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -37,7 +38,7 @@ import retrofit.client.Response;
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 // -- Base model for handling information between fragments that share enormous similarities
-public abstract class AbstractBaseFragment<Key extends Serializable, Model, ModelView extends View> extends GenericFragment implements FragmentName, Callback<Model> {
+public abstract class AbstractBaseFragment<Key extends Serializable, Model, ModelView extends View> extends GenericFragment implements FragmentName, Callback<Model>, SelectionListener {
 
     protected static final String CACHE_ID = "cacheId";
     protected static final String KEY_ID = "keyId";
@@ -72,6 +73,10 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model, Mode
     }
 
     public void updateView(Bundle bundle) {
+        // -- Needed because success from RestCallback may not have the bundle if this object
+        // -- Had acquired the bundle from a notifier (this method) instead of a constructor
+        getArguments().putAll(bundle);
+
         Key key = (Key) bundle.getSerializable(KEY_ID);
         Map <Key, Model> CACHE = getCache();
 

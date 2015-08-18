@@ -16,20 +16,18 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.planyourexchange.fragments.airfare;
+package com.planyourexchange.interfaces;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-
-import com.planyourexchange.interfaces.SelectionListener;
 
 /**
  * @author Thiago Pagonha
  * @version 17/08/15.
  */
-public class AirFareFragment extends Fragment implements SelectionListener {
-    @Override
-    public void updateView(Bundle bundle) {
-
-    }
+public interface SelectionListener {
+    /**
+     * When a selection is made updates this view with the message
+     * @param bundle
+     */
+    void updateView(Bundle bundle);
 }

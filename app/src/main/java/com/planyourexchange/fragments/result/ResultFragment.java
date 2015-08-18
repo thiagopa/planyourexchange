@@ -18,11 +18,18 @@
 
 package com.planyourexchange.fragments.result;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
+
+import com.planyourexchange.interfaces.SelectionListener;
 
 /**
  * @author Thiago Pagonha
  * @version 17/08/15.
  */
-public class ResultFragment extends Fragment {
+public class ResultFragment extends Fragment implements SelectionListener {
+    @Override
+    public void updateView(Bundle bundle) {
+
+    }
 }

@@ -5,11 +5,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.Log;
+import android.util.SparseArray;
+import android.view.ViewGroup;
 
-import java.util.ArrayList;
+import com.planyourexchange.interfaces.SelectionListener;
+
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Copyright (C) 2015, Thiago Pagonha,
@@ -32,15 +35,20 @@ public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
 
     private static final String TAG = "ScreenSlidePagerAdapter";
 
-    // -- Fragment list
-    private final List<Class<? extends Fragment>> fragmentList;
-    // -- Fragment arguments
-    private final Map<Integer,Bundle> bundleMap;
+    // -- Fragment list class to be instantiated at fixed positions
+    private final List<Class> fragmentList;
+    // -- Fragment bundles to initialize new fragments
+    private final SparseArray<Bundle> bundleSparse;
+    // -- Fragment list of active fragments that need to be updated with new data
+    private final SparseArray<WeakReference<SelectionListener>> selectionListenerSparse;
+
 
     public ScreenSlidePagerAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
         fragmentList = PageFlow.newFragmentList();
-        bundleMap = new HashMap<Integer,Bundle>(fragmentList.size());
+        int size = fragmentList.size();
+        bundleSparse = new SparseArray<>(size);
+        selectionListenerSparse = new SparseArray<>(size);
     }
 
     @Override
@@ -49,8 +57,8 @@ public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
         Fragment fragment = null;
 
         try {
-            fragment = fragmentList.get(position).newInstance();
-            Bundle mapBundle = bundleMap.get(position);
+            fragment = (Fragment) fragmentList.get(position).newInstance();
+            Bundle mapBundle = bundleSparse.get(position);
             if(mapBundle!=null) {
                 fragment.setArguments(mapBundle);
             }
@@ -62,19 +70,33 @@ public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
     }
 
     @Override
+    public Object instantiateItem(ViewGroup container, int position) {
+        SelectionListener fragment = (SelectionListener) super.instantiateItem(container, position);
+        selectionListenerSparse.put(position,new WeakReference<SelectionListener>(fragment));
+        return fragment;
+    }
+
+    @Override
     public int getCount() {
         return fragmentList.size();
     }
 
     public void addBundleToFragment(int position, Bundle bundle) {
-        Bundle mapBundle = bundleMap.get(position);
+        Bundle mapBundle = bundleSparse.get(position);
         if(mapBundle!=null) {
             mapBundle.putAll(bundle);
         } else {
-            bundleMap.put(position,bundle);
+            bundleSparse.put(position, bundle);
         }
     }
 
+    public void updateTargetView(int position, Bundle bundle) {
+        selectionListenerSparse.get(position).get().updateView(bundle);
+    }
 
-
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        super.destroyItem(container, position, object);
+        selectionListenerSparse.remove(position);
+    }
 }
