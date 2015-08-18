@@ -20,7 +20,7 @@ package com.planyourexchange.interfaces;
 
 import android.os.Bundle;
 
-import com.planyourexchange.adapters.PageFlow;
+import com.planyourexchange.pageflow.PageFlow;
 
 /**
  * @author Thiago Pagonha

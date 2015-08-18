@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.google.android.gms.analytics.HitBuilders;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.planyourexchange.R;
-import com.planyourexchange.adapters.PageFlow;
+import com.planyourexchange.pageflow.PageFlow;
 import com.planyourexchange.rest.model.BaseModel;
 import com.planyourexchange.utils.Constants;
 import com.planyourexchange.utils.InternationalNames;

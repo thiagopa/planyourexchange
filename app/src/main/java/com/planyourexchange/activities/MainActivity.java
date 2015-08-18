@@ -3,16 +3,10 @@ package com.planyourexchange.activities;
 import android.app.ProgressDialog;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.TaskStackBuilder;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -20,18 +14,14 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.planyourexchange.R;
-import com.planyourexchange.adapters.PageFlow;
-import com.planyourexchange.adapters.ScreenSlidePagerAdapter;
+import com.planyourexchange.pageflow.PageFlow;
+import com.planyourexchange.pageflow.PageFlowPagerAdapter;
 import com.planyourexchange.app.PlanYourExchangeApplication;
-import com.planyourexchange.fragments.schoolcourse.CountriesFragment;
 import com.planyourexchange.interfaces.ProgressDialogControl;
 import com.planyourexchange.interfaces.ViewPagerControl;
 import com.planyourexchange.utils.PropertyReader;
 
 import javax.inject.Inject;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Copyright (C) 2015, Thiago Pagonha,
@@ -73,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements ProgressDialogCon
     PropertyReader propertyReader;
 
     private ViewPager viewPager;
-    private ScreenSlidePagerAdapter pagerAdapter;
+    private PageFlowPagerAdapter pagerAdapter;
 
     private ProgressDialog progressDialog;
 
@@ -98,7 +88,8 @@ public class MainActivity extends AppCompatActivity implements ProgressDialogCon
         newAdView();
         // -- View Pager & Adapter
         viewPager = (ViewPager) findViewById(R.id.main_pager);
-        pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+
+        pagerAdapter = new PageFlowPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
     }
 

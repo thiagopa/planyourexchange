@@ -2,19 +2,13 @@ package com.planyourexchange.fragments.base;
 
 
 import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
-import com.planyourexchange.R;
-import com.planyourexchange.adapters.PageFlow;
+import com.planyourexchange.pageflow.PageFlow;
 import com.planyourexchange.app.PlanYourExchangeApplication;
 import com.planyourexchange.interfaces.FragmentName;
 import com.planyourexchange.interfaces.ProgressDialogControl;

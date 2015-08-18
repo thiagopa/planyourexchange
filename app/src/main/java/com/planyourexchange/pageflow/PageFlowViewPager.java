@@ -1,11 +1,4 @@
-package com.planyourexchange.fragments.schoolcourse;
-
-import com.planyourexchange.R;
-import com.planyourexchange.pageflow.PageFlow;
-import com.planyourexchange.fragments.base.ListViewFragment;
-import com.planyourexchange.rest.model.Country;
-
-/**
+/*
  * Copyright (C) 2015, Thiago Pagonha,
  * Plan Your Exchange, easy exchange to fit your budget
  *
@@ -22,16 +15,41 @@ import com.planyourexchange.rest.model.Country;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class CountriesFragment extends ListViewFragment<String,Country> {
 
+package com.planyourexchange.pageflow;
 
-    public CountriesFragment() {
-        super(R.string.countries_title,R.string.choose_country, PageFlow.CITIES);
+import android.content.Context;
+import android.support.v4.view.ViewPager;
+import android.util.AttributeSet;
+import android.view.MotionEvent;
+
+/**
+ * @author Thiago Pagonha
+ * @version 18/08/15.
+ */
+public class PageFlowViewPager extends ViewPager {
+
+    boolean enabled = false;
+
+    public PageFlowViewPager(Context context, AttributeSet attrs) {
+        super(context, attrs);
     }
 
-    // -- List all countries (only english for now)
     @Override
-    public void callService(String language) {
-        serverApi.listCountries(this);
+    public boolean onTouchEvent(MotionEvent event) {
+        if (this.enabled) {
+            return super.onTouchEvent(event);
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent event) {
+        if (this.enabled) {
+            return super.onInterceptTouchEvent(event);
+        }
+
+        return false;
     }
 }

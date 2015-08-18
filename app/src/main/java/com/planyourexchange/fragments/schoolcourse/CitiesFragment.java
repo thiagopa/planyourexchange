@@ -1,7 +1,7 @@
 package com.planyourexchange.fragments.schoolcourse;
 
 import com.planyourexchange.R;
-import com.planyourexchange.adapters.PageFlow;
+import com.planyourexchange.pageflow.PageFlow;
 import com.planyourexchange.fragments.base.ListViewFragment;
 import com.planyourexchange.rest.model.City;
 

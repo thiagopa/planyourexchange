@@ -18,12 +18,9 @@
 
 package com.planyourexchange.fragments.healthinsurance;
 
-import android.os.Bundle;
-
 import com.planyourexchange.R;
-import com.planyourexchange.adapters.PageFlow;
+import com.planyourexchange.pageflow.PageFlow;
 import com.planyourexchange.fragments.base.ListViewFragment;
-import com.planyourexchange.fragments.schoolcourse.CitiesFragment;
 import com.planyourexchange.rest.model.HealthInsurance;
 
 /**

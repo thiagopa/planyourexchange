@@ -1,4 +1,4 @@
-package com.planyourexchange.adapters;
+package com.planyourexchange.pageflow;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -32,9 +32,9 @@ import static com.planyourexchange.utils.Constants.KEY_ID;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+public class PageFlowPagerAdapter extends FragmentStatePagerAdapter {
 
-    private static final String TAG = "ScreenSlidePagerAdapter";
+    private static final String TAG = "PageFlowPagerAdapter";
 
     // -- Fragment list class to be instantiated at fixed positions
     private final List<Class> fragmentList;
@@ -44,7 +44,7 @@ public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
     private final SparseArray<WeakReference<SelectionListener>> selectionListenerSparse;
 
 
-    public ScreenSlidePagerAdapter(FragmentManager fragmentManager) {
+    public PageFlowPagerAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
         fragmentList = PageFlow.newFragmentList();
         int size = fragmentList.size();
