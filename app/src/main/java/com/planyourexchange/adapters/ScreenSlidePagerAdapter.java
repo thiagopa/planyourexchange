@@ -11,8 +11,9 @@ import android.view.ViewGroup;
 import com.planyourexchange.interfaces.SelectionListener;
 
 import java.lang.ref.WeakReference;
-import java.util.HashMap;
 import java.util.List;
+
+import static com.planyourexchange.utils.Constants.KEY_ID;
 
 /**
  * Copyright (C) 2015, Thiago Pagonha,
@@ -49,6 +50,10 @@ public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
         int size = fragmentList.size();
         bundleSparse = new SparseArray<>(size);
         selectionListenerSparse = new SparseArray<>(size);
+        // -- Hard Coding English Language for now and maybe ever!!!
+        Bundle bundle = new Bundle();
+        bundle.putString(KEY_ID,"English");
+        addBundleToFragment(PageFlow.COUNTRIES.getPosition(),bundle);
     }
 
     @Override
@@ -61,6 +66,8 @@ public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
             Bundle mapBundle = bundleSparse.get(position);
             if(mapBundle!=null) {
                 fragment.setArguments(mapBundle);
+            } else {
+                fragment.setArguments(new Bundle());
             }
         } catch (Exception e) {
             Log.e(TAG,e.getMessage());

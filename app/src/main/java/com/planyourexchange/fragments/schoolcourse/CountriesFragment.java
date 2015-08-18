@@ -29,10 +29,6 @@ public class CountriesFragment extends ListViewFragment<String,Country> {
 
     public CountriesFragment() {
         super(R.string.countries_title,R.string.choose_country, PageFlow.CITIES);
-        // -- Hard Coding English Language for now
-        Bundle bundle = new Bundle();
-        bundle.putString(KEY_ID,"English");
-        setArguments(bundle);
     }
 
     // -- List all countries (only english for now)

@@ -15,6 +15,7 @@ import com.planyourexchange.fragments.base.AbstractBaseFragment;
 import com.planyourexchange.rest.model.SchoolCourseValue;
 import com.planyourexchange.rest.model.SchoolCourseValueKey;
 import com.planyourexchange.utils.MoneyUtils;
+import static com.planyourexchange.utils.Constants.KEY_ID;
 
 import java.util.List;
 

@@ -8,6 +8,8 @@ import com.planyourexchange.rest.model.SchoolCourseValueKey;
 
 import java.io.Serializable;
 
+import static com.planyourexchange.utils.Constants.KEY_ID;
+
 /**
  * Copyright (C) 2015, Thiago Pagonha,
  * Plan Your Exchange, easy exchange to fit your budget

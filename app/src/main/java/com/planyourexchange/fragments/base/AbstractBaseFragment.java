@@ -20,6 +20,9 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+import static com.planyourexchange.utils.Constants.CACHE_ID;
+import static com.planyourexchange.utils.Constants.KEY_ID;
+
 /**
  * Copyright (C) 2015, Thiago Pagonha,
  * Plan Your Exchange, easy exchange to fit your budget
@@ -39,9 +42,6 @@ import retrofit.client.Response;
  */
 // -- Base model for handling information between fragments that share enormous similarities
 public abstract class AbstractBaseFragment<Key extends Serializable, Model, ModelView extends View> extends GenericFragment implements FragmentName, Callback<Model>, SelectionListener {
-
-    protected static final String CACHE_ID = "cacheId";
-    protected static final String KEY_ID = "keyId";
 
     // -- Base properties
     private final int inflateLayout;
