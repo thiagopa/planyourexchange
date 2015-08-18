@@ -41,7 +41,7 @@ import static com.planyourexchange.utils.Constants.KEY_ID;
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 // -- Base model for handling information between fragments that share enormous similarities
-public abstract class AbstractBaseFragment<Key extends Serializable, Model, ModelView extends View> extends GenericFragment implements FragmentName, Callback<Model>, SelectionListener {
+public abstract class AbstractBaseFragment<Key extends Serializable, Model, ModelView extends ViewGroup> extends GenericFragment implements FragmentName, Callback<Model>, SelectionListener {
 
     // -- Base properties
     private final int inflateLayout;
@@ -117,6 +117,14 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model, Mode
 
     @Override
     public void failure(RetrofitError error) {
+
+        View view = getView();
+        // -- In case the view is not visible anymore
+        if(view!=null) {
+            ModelView modelView = (ModelView) view.findViewById(this.drawLayout);
+            clearView(modelView);
+        }
+
         onTaskFinished();
 
         String message = error.getMessage()!=null? error.getMessage(): getResources().getString(R.string.no_data_server);
@@ -129,6 +137,10 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model, Mode
                         dialog.cancel();
                     }
                 }).create().show();
+    }
+
+    protected void clearView(ModelView modelView) {
+        modelView.removeAllViews();
     }
 
     private Map <Key, Model> getCache() {

@@ -112,4 +112,10 @@ public abstract class ListViewFragment<Key extends Serializable, Model extends B
     protected Serializable createNextKey(Model model) {
         return model.getId();
     }
+
+    @Override
+    protected void clearView(ListView listView) {
+        listView.setAdapter(new ArrayAdapter(getActivity(),R.layout.model_list,new String[0]));
+        listView.deferNotifyDataSetChanged();
+    }
 }
