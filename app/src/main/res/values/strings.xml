@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">Plan your Exchange</string>
     <string name="action_settings">Settings</string>
-    <string name="choose_country">Pick desired country</string>
+    <string name="choose_country">Where would you like to study English ?</string>
     <string name="choose_course">Pick desired course</string>
     <string name="choose_school">Pick desired school</string>
-    <string name="choose_city">Pick desired city</string>
+    <string name="choose_city">Which city attracts you the most ?</string>
     <string name="choose_between">Choose between</string>
     <string name="course">By Course</string>
     <string name="school">By School</string>

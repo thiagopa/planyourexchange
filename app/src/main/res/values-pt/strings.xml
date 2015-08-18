@@ -3,8 +3,8 @@
     <string name="app_name">Planeje seu intercâmbio</string>
     <string name="action_settings">Configurações</string>
     <string name="choose_between">Escolha entre</string>
-    <string name="choose_city">Escolha a cidade desejada</string>
-    <string name="choose_country">Escolha o país desejado</string>
+    <string name="choose_city">Qual cidade te atrai mais ?</string>
+    <string name="choose_country">Onde gostaria de estudar Inglês?</string>
     <string name="choose_course">Escolha o curso desejado</string>
     <string name="choose_school">Escolha a escola desejada</string>
     <string name="course">Por curso</string>

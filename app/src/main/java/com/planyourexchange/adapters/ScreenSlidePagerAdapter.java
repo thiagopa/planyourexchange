@@ -1,9 +1,12 @@
 package com.planyourexchange.adapters;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,20 +28,48 @@ import java.util.List;
  */
 public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
 
-    private final List<Fragment> fragmentList;
+    private static final String TAG = "ScreenSlidePagerAdapter";
+
+    // -- Fragment list
+    private final List<Class<? extends Fragment>> fragmentList;
+    // -- Fragment arguments
+    private final List<Bundle> bundleList;
 
     public ScreenSlidePagerAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
-        fragmentList = PageFlow.fragmentList();
+        fragmentList = PageFlow.newFragmentList();
+        bundleList = new ArrayList<Bundle>(fragmentList.size());
     }
 
     @Override
     public android.support.v4.app.Fragment getItem(int position) {
-        return fragmentList.get(position);
+
+        Fragment fragment = null;
+
+        try {
+            fragment = fragmentList.get(position).newInstance();
+            fragment.setArguments(bundleList.get(position));
+        } catch (Exception e) {
+            Log.e(TAG,e.getMessage());
+        }
+
+        return fragment;
     }
 
     @Override
     public int getCount() {
         return fragmentList.size();
     }
+
+    public void addBundleToFragment(int position, Bundle bundle) {
+        Bundle listedBundle = bundleList.get(position);
+        if(bundle!=null) {
+            listedBundle.putAll(bundle);
+        } else {
+          bundleList.set(position,bundle);
+        }
+    }
+
+
+
 }

@@ -3,6 +3,7 @@ package com.planyourexchange.fragments.schoolcourse;
 import android.os.Bundle;
 
 import com.planyourexchange.R;
+import com.planyourexchange.adapters.PageFlow;
 import com.planyourexchange.fragments.base.ListViewFragment;
 import com.planyourexchange.rest.model.Country;
 
@@ -27,7 +28,7 @@ public class CountriesFragment extends ListViewFragment<String,Country> {
 
 
     public CountriesFragment() {
-        super(R.string.countries_title,R.string.choose_country,new CitiesFragment());
+        super(R.string.countries_title,R.string.choose_country, PageFlow.CITIES);
         // -- Hard Coding English Language for now
         Bundle bundle = new Bundle();
         bundle.putString(KEY_ID,"English");

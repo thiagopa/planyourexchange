@@ -19,11 +19,7 @@
 package com.planyourexchange.app;
 
 import com.planyourexchange.activities.MainActivity;
-import com.planyourexchange.di.FragmentInjectorModule;
 import com.planyourexchange.fragments.base.GenericFragment;
-import com.planyourexchange.fragments.schoolcourse.CitiesFragment;
-import com.planyourexchange.fragments.schoolcourse.CountriesFragment;
-import com.planyourexchange.fragments.schoolcourse.CourseOrSchoolFragment;
 
 import javax.inject.Singleton;
 
@@ -35,12 +31,9 @@ import dagger.Component;
  * @version 09/08/15.
  */
 @Singleton
-@Component(modules = {PlanYourExchangeModule.class,
-                      FragmentInjectorModule.class})
+@Component(modules = {PlanYourExchangeModule.class})
 public interface PlanYourExchangeComponent {
     void inject(MainActivity mainActivity);
 
     void inject(GenericFragment genericFragment);
-    void inject(CitiesFragment citiesFragment);
-    void inject(CountriesFragment countriesFragment);
 }

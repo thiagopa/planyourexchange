@@ -30,6 +30,9 @@ import com.planyourexchange.utils.PropertyReader;
 
 import javax.inject.Inject;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Copyright (C) 2015, Thiago Pagonha,
  * Plan Your Exchange, easy exchange to fit your budget
@@ -69,15 +72,24 @@ public class MainActivity extends AppCompatActivity implements ProgressDialogCon
     @Inject
     PropertyReader propertyReader;
 
+    @Bind(R.id.main_pager)
+    ViewPager viewPager;
+
+    private ScreenSlidePagerAdapter pagerAdapter;
+
     private ProgressDialog progressDialog;
 
     private AdView adView;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // -- Inject dependecies first
         PlanYourExchangeApplication.getPlanYourExchangeComponent(this).inject(this);
+        // -- Inject Views
+        ButterKnife.bind(this);
         // -- This should be rendered first
         setContentView(R.layout.activity_main);
 
@@ -91,11 +103,7 @@ public class MainActivity extends AppCompatActivity implements ProgressDialogCon
         // -- create a new Ad
         newAdView();
         // -- View Pager Adapter
-        ViewPager viewPager = (ViewPager) findViewById(R.id.main_pager);
-        PagerAdapter pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(),pageableFragments);
-
-        // PagerAdapter pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(),new CountriesFragment());
-
+        pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
     }
 
@@ -139,11 +147,6 @@ public class MainActivity extends AppCompatActivity implements ProgressDialogCon
     }
 
     @Override
-    public void onCreateSupportNavigateUpTaskStack(TaskStackBuilder builder) {
-        super.onCreateSupportNavigateUpTaskStack(builder);
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -169,10 +172,23 @@ public class MainActivity extends AppCompatActivity implements ProgressDialogCon
         */
     }
 
+    public void onBackPressed() {
+        if (viewPager.getCurrentItem() == 0) {
+            // If the user is currently looking at the first step, allow the system to handle the
+            // Back button. This calls finish() on this activity and pops the back stack.
+            super.onBackPressed();
+        } else {
+            // Otherwise, select the previous step.
+            viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
+        }
+    }
+
+
+    /*
     @Override
     public void onBackPressed() {
         SparseArray<FragmentManager> managers = new SparseArray<>();
-        traverseManagers(getSupportFragmentManager(), managers, 0);
+        traverseManagegetItemrs(getSupportFragmentManager(), managers, 0);
         if (managers.size() > 0) {
             managers.valueAt(managers.size() - 1).popBackStackImmediate();
         } else {
@@ -191,6 +207,7 @@ public class MainActivity extends AppCompatActivity implements ProgressDialogCon
             if (fragment != null) traverseManagers(fragment.getChildFragmentManager(), managers, intent + 1);
         }
     }
+    */
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
@@ -214,7 +231,8 @@ public class MainActivity extends AppCompatActivity implements ProgressDialogCon
 
     @Override
     public void nextScreen(PageFlow pageFlow, Bundle bundle) {
-
+        pagerAdapter.addBundleToFragment(pageFlow.getPosition(),bundle);
+        viewPager.setCurrentItem(pageFlow.getPosition());
     }
 
     //    onDe

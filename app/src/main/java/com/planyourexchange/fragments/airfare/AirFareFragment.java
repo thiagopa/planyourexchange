@@ -16,16 +16,13 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.planyourexchange.interfaces;
+package com.planyourexchange.fragments.airfare;
 
-import android.os.Bundle;
+import android.support.v4.app.Fragment;
 
 /**
  * @author Thiago Pagonha
- * @version 13/08/15.
+ * @version 17/08/15.
  */
-public interface OnChangeListener {
-    void updateView(Bundle bundle);
+public class AirFareFragment extends Fragment {
 }
-
-

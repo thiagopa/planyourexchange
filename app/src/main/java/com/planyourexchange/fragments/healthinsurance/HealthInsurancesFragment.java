@@ -21,6 +21,7 @@ package com.planyourexchange.fragments.healthinsurance;
 import android.os.Bundle;
 
 import com.planyourexchange.R;
+import com.planyourexchange.adapters.PageFlow;
 import com.planyourexchange.fragments.base.ListViewFragment;
 import com.planyourexchange.fragments.schoolcourse.CitiesFragment;
 import com.planyourexchange.rest.model.HealthInsurance;
@@ -31,10 +32,9 @@ import com.planyourexchange.rest.model.HealthInsurance;
  */
 public class HealthInsurancesFragment extends ListViewFragment<Integer,HealthInsurance> {
     public HealthInsurancesFragment() {
-        super(R.string.health_insurances_title,R.string.health_insurances_header, new HealthInsuranceFragment());
+        super(R.string.health_insurances_title,R.string.health_insurances_header, PageFlow.AIR_FARE);
     }
 
-    // -- List all countries (only english for now)
     @Override
     public void callService(Integer countryId) {
         serverApi.listHealthInsurances(countryId,this);

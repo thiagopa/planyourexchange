@@ -16,6 +16,7 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.planyourexchange.R;
+import com.planyourexchange.adapters.PageFlow;
 import com.planyourexchange.fragments.schoolcourse.CitiesFragment;
 import com.planyourexchange.rest.model.BaseModel;
 import com.planyourexchange.utils.Constants;
@@ -45,11 +46,11 @@ import java.util.List;
 // -- Base model for handling information between fragments that share enormous similarities
 public abstract class ListViewFragment<Key extends Serializable, Model extends BaseModel> extends AbstractBaseFragment<Key, List<Model>, ListView> {
 
-    private final Fragment nextScreen;
+    private final PageFlow nextScreen;
     private final int headerName;
 
     // -- Need to be called by overriding class
-    protected ListViewFragment(final int titleName, final int headerName, final Fragment nextScreen) {
+    protected ListViewFragment(final int titleName, final int headerName, final PageFlow nextScreen) {
         super(titleName,R.layout.base_list_fragment,R.id.base_list_view);
         this.nextScreen = nextScreen;
         this.headerName = headerName;
@@ -93,10 +94,6 @@ public abstract class ListViewFragment<Key extends Serializable, Model extends B
 
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(KEY_ID, createNextKey(model));
-                nextScreen.setArguments(bundle);
-
-                // -- Notify any Listener attached
-                notifyListener(bundle);
 
                 // -- Analytics click event for model
                 tracker.send(new HitBuilders.EventBuilder()
@@ -104,20 +101,12 @@ public abstract class ListViewFragment<Key extends Serializable, Model extends B
                         .setAction(Constants.ACTION_CLICK_ON_MODEL)
                         .setLabel(model.getName())
                         .build());
-
-                // -- Creating transaction and adding to back stack navigation
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, nextScreen)
-                        .addToBackStack(null)
-                        .commit();
+                // -- Trigger action to change screen
+                nextScreen(nextScreen,bundle);
             }
         });
         // -- Notify that new data has arrived
         listView.deferNotifyDataSetChanged();
-    }
-
-    // -- Defaults to NO ACTION
-    protected void notifyListener(Bundle bundle) {
     }
 
     // -- Default is the model id as key

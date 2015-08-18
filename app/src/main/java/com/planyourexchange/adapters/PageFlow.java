@@ -20,13 +20,13 @@ package com.planyourexchange.adapters;
 
 import android.support.v4.app.Fragment;
 
-import com.planyourexchange.airfare.AirFareFragment;
+import com.planyourexchange.fragments.airfare.AirFareFragment;
 import com.planyourexchange.fragments.healthinsurance.HealthInsurancesFragment;
 import com.planyourexchange.fragments.schoolcourse.CitiesFragment;
 import com.planyourexchange.fragments.schoolcourse.CountriesFragment;
 import com.planyourexchange.fragments.schoolcourse.CoursesFragment;
 import com.planyourexchange.fragments.schoolcourse.SchoolCourseValueFragment;
-import com.planyourexchange.result.ResultFragment;
+import com.planyourexchange.fragments.result.ResultFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,24 +37,24 @@ import java.util.List;
  */
 public enum PageFlow {
 
-    COUNTRIES(0,new CountriesFragment()),
-    CITIES(1, new CitiesFragment()),
-    COURSES(2, new CoursesFragment()),
-    SCHOOLS(3, new SchoolCourseValueFragment()),
-    HEALTH_INSURANCE(4, new HealthInsurancesFragment()),
-    AIR_FARE(5, new AirFareFragment()),
-    RESULT(6, new ResultFragment());
+    COUNTRIES(0, CountriesFragment.class),
+    CITIES(1, CitiesFragment.class),
+    COURSES(2, CoursesFragment.class),
+    SCHOOLS(3, SchoolCourseValueFragment.class),
+    HEALTH_INSURANCE(4, HealthInsurancesFragment.class),
+    AIR_FARE(5, AirFareFragment.class),
+    RESULT(6, ResultFragment.class);
 
-    final int position;
-    final Fragment screen;
+    private final int position;
+    private final Class<? extends Fragment> screen;
 
-    PageFlow(int position,Fragment screen) {
+    PageFlow(int position,Class<? extends Fragment> screen) {
         this.position = position;
         this.screen = screen;
     }
 
-    public static List<Fragment> fragmentList() {
-        List<Fragment> list = new ArrayList<Fragment>(values().length);
+    public static List<Class<? extends Fragment>> newFragmentList() {
+        List<Class<? extends Fragment>> list = new ArrayList<Class<? extends Fragment>>(values().length);
 
         for(PageFlow pageFlow : values()) {
             list.add(pageFlow.position,pageFlow.screen);
@@ -63,4 +63,7 @@ public enum PageFlow {
         return list;
     }
 
+    public int getPosition() {
+        return position;
+    }
 }

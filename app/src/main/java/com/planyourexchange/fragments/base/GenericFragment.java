@@ -14,9 +14,11 @@ import android.view.ViewGroup;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.planyourexchange.R;
+import com.planyourexchange.adapters.PageFlow;
 import com.planyourexchange.app.PlanYourExchangeApplication;
 import com.planyourexchange.interfaces.FragmentName;
 import com.planyourexchange.interfaces.ProgressDialogControl;
+import com.planyourexchange.interfaces.ViewPagerControl;
 import com.planyourexchange.rest.api.ServerApi;
 
 import javax.inject.Inject;
@@ -47,6 +49,7 @@ public abstract class GenericFragment extends Fragment implements FragmentName {
 
     private final int titleName;
     private ProgressDialogControl progressDialogControl;
+    private ViewPagerControl viewPagerControl;
 
     public GenericFragment(int titleName) {
         this.titleName = titleName;
@@ -85,9 +88,14 @@ public abstract class GenericFragment extends Fragment implements FragmentName {
         progressDialogControl.dismiss();
     }
 
+    protected void nextScreen(PageFlow pageFlow, Bundle bundle) {
+        viewPagerControl.nextScreen(pageFlow,bundle);
+    }
+
     @Override
     public void onAttach(Activity activity) {
         progressDialogControl = (ProgressDialogControl) activity;
+        viewPagerControl = (ViewPagerControl) activity;
         super.onAttach(activity);
     }
 }
