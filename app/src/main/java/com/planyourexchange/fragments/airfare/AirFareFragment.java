@@ -35,6 +35,6 @@ public class AirFareFragment extends Fragment implements SelectionListener {
 
     @Override
     public void clearView() {
-        
+
     }
 }

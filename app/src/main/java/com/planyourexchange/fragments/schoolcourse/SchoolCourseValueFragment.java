@@ -1,19 +1,24 @@
 package com.planyourexchange.fragments.schoolcourse;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.planyourexchange.R;
 import com.planyourexchange.fragments.base.AbstractBaseFragment;
+import com.planyourexchange.pageflow.PageFlow;
 import com.planyourexchange.rest.model.SchoolCourseValue;
 import com.planyourexchange.rest.model.SchoolCourseValueKey;
+import com.planyourexchange.utils.Constants;
 import com.planyourexchange.utils.MoneyUtils;
 import static com.planyourexchange.utils.Constants.KEY_ID;
 
@@ -52,11 +57,11 @@ public class SchoolCourseValueFragment extends AbstractBaseFragment<SchoolCourse
         final SchoolCourseValueKey key = (SchoolCourseValueKey) getArguments().getSerializable(KEY_ID);
 
         // -- Handle Model rendering
-        listView.setAdapter(new ArrayAdapter<SchoolCourseValue>(getActivity(),R.layout.school_course_value_list,schoolCourseValues) {
+        listView.setAdapter(new ArrayAdapter<SchoolCourseValue>(getActivity(), R.layout.school_course_value_list, schoolCourseValues) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                View rowView = inflater.inflate(R.layout.school_course_value_list,null,true);
+                View rowView = inflater.inflate(R.layout.school_course_value_list, null, true);
 
                 SchoolCourseValue schoolCourseValue = schoolCourseValues.get(position);
 
@@ -64,11 +69,11 @@ public class SchoolCourseValueFragment extends AbstractBaseFragment<SchoolCourse
                 String name = null;
 
                 // -- If course is empty, list all courses
-                if(key.getCourseId()==null) {
+                if (key.getCourseId() == null) {
                     iconUrl = schoolCourseValue.getCourse().getIcon();
                     name = schoolCourseValue.getCourse().getName();
                     // -- On the other hand if school is empty, list all schools
-                } else if(key.getSchoolId()==null) {
+                } else if (key.getSchoolId() == null) {
                     iconUrl = schoolCourseValue.getSchool().getIcon();
                     name = schoolCourseValue.getSchool().getName();
                 }
@@ -81,12 +86,32 @@ public class SchoolCourseValueFragment extends AbstractBaseFragment<SchoolCourse
 
                 nameView.setText(name);
                 valueView.setText(MoneyUtils.newPrice(
-                        schoolCourseValue.getSchool().getCity().getCountry().getDefaultCurrency(),
-                        schoolCourseValue.getWeekPrice()
+                                schoolCourseValue.getSchool().getCity().getCountry().getDefaultCurrency(),
+                                schoolCourseValue.getWeekPrice()
                         )
                 );
 
                 return rowView;
+            }
+        });
+
+        // -- Handle onClick events
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                SchoolCourseValue schoolCourseValue = schoolCourseValues.get(position);
+
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(KEY_ID, schoolCourseValue.getSchool().getCity().getCountry().getId());
+
+                // -- Analytics click event for model
+                tracker.send(new HitBuilders.EventBuilder()
+                        .setCategory(Constants.CATEGORY_NAVIGATION)
+                        .setAction(Constants.ACTION_CLICK_ON_MODEL)
+                        .setLabel(schoolCourseValue.toString())
+                        .build());
+                // -- Trigger action to change screen
+                nextScreen(PageFlow.HEALTH_INSURANCE, bundle);
             }
         });
 

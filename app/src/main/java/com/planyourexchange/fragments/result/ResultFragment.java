@@ -35,6 +35,6 @@ public class ResultFragment extends Fragment implements SelectionListener {
 
     @Override
     public void clearView() {
-        
+
     }
 }

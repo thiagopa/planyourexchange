@@ -59,4 +59,16 @@ public class SchoolCourseValue {
     public void setWeekPrice(BigDecimal weekPrice) {
         this.weekPrice = weekPrice;
     }
+
+    @Override
+    public String toString() {
+        return new StringBuilder()
+                .append(course.getName())
+                .append(" at ")
+                .append(school.getName())
+                .append(" costs ")
+                .append(weekPrice)
+                .append(" per week")
+                .toString();
+    }
 }
