@@ -7,7 +7,9 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Copyright (C) 2015, Thiago Pagonha,
@@ -33,12 +35,12 @@ public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
     // -- Fragment list
     private final List<Class<? extends Fragment>> fragmentList;
     // -- Fragment arguments
-    private final List<Bundle> bundleList;
+    private final Map<Integer,Bundle> bundleMap;
 
     public ScreenSlidePagerAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
         fragmentList = PageFlow.newFragmentList();
-        bundleList = new ArrayList<Bundle>(fragmentList.size());
+        bundleMap = new HashMap<Integer,Bundle>(fragmentList.size());
     }
 
     @Override
@@ -48,7 +50,10 @@ public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
 
         try {
             fragment = fragmentList.get(position).newInstance();
-            fragment.setArguments(bundleList.get(position));
+            Bundle mapBundle = bundleMap.get(position);
+            if(mapBundle!=null) {
+                fragment.setArguments(mapBundle);
+            }
         } catch (Exception e) {
             Log.e(TAG,e.getMessage());
         }
@@ -62,11 +67,11 @@ public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
     }
 
     public void addBundleToFragment(int position, Bundle bundle) {
-        Bundle listedBundle = bundleList.get(position);
-        if(bundle!=null) {
-            listedBundle.putAll(bundle);
+        Bundle mapBundle = bundleMap.get(position);
+        if(mapBundle!=null) {
+            mapBundle.putAll(bundle);
         } else {
-          bundleList.set(position,bundle);
+            bundleMap.put(position,bundle);
         }
     }
 

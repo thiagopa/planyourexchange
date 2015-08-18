@@ -72,24 +72,18 @@ public class MainActivity extends AppCompatActivity implements ProgressDialogCon
     @Inject
     PropertyReader propertyReader;
 
-    @Bind(R.id.main_pager)
-    ViewPager viewPager;
-
+    private ViewPager viewPager;
     private ScreenSlidePagerAdapter pagerAdapter;
 
     private ProgressDialog progressDialog;
 
     private AdView adView;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // -- Inject dependecies first
         PlanYourExchangeApplication.getPlanYourExchangeComponent(this).inject(this);
-        // -- Inject Views
-        ButterKnife.bind(this);
         // -- This should be rendered first
         setContentView(R.layout.activity_main);
 
@@ -102,7 +96,8 @@ public class MainActivity extends AppCompatActivity implements ProgressDialogCon
             */
         // -- create a new Ad
         newAdView();
-        // -- View Pager Adapter
+        // -- View Pager & Adapter
+        viewPager = (ViewPager) findViewById(R.id.main_pager);
         pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
     }
