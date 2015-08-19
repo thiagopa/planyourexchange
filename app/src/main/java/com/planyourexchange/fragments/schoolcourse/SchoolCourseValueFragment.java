@@ -1,30 +1,18 @@
 package com.planyourexchange.fragments.schoolcourse;
 
-import android.content.Context;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.android.gms.analytics.HitBuilders;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.planyourexchange.R;
-import com.planyourexchange.fragments.base.AbstractBaseFragment;
 import com.planyourexchange.fragments.base.ListViewFragment;
 import com.planyourexchange.pageflow.PageFlow;
 import com.planyourexchange.rest.model.SchoolCourseValue;
 import com.planyourexchange.rest.model.SchoolCourseValueKey;
-import com.planyourexchange.utils.Constants;
 import com.planyourexchange.utils.MoneyUtils;
-import static com.planyourexchange.utils.Constants.KEY_ID;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Copyright (C) 2015, Thiago Pagonha,
@@ -46,7 +34,7 @@ import java.util.List;
 public class SchoolCourseValueFragment extends ListViewFragment<SchoolCourseValueKey,SchoolCourseValue> {
 
     public SchoolCourseValueFragment() {
-        super(R.string.school_course_value_title, R.string.school_course_value, R.id.school_course_value_list_view, PageFlow.HEALTH_INSURANCE);
+        super(R.string.school_course_value_title, R.string.school_course_value, R.layout.school_course_value_list, PageFlow.HEALTH_INSURANCE);
     }
 
     @Override

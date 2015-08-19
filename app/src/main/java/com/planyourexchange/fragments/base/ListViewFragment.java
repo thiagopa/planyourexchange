@@ -47,11 +47,13 @@ public abstract class ListViewFragment<Key extends Serializable, Model extends C
 
     private final PageFlow nextScreen;
     private final int headerName;
+    private final int modelListLayout;
 
-    protected ListViewFragment(int titleName, int headerName, int drawLayout ,PageFlow nextScreen) {
-        super(titleName, R.layout.base_list_fragment, drawLayout);
+    protected ListViewFragment(int titleName, int headerName, int modelListLayout ,PageFlow nextScreen) {
+        super(titleName, R.layout.base_list_fragment, R.id.base_list_view);
         this.nextScreen = nextScreen;
         this.headerName = headerName;
+        this.modelListLayout = modelListLayout;
     }
 
 
@@ -68,11 +70,11 @@ public abstract class ListViewFragment<Key extends Serializable, Model extends C
         Collections.sort(modelList);
 
         // -- Handle Model rendering
-        listView.setAdapter(new ArrayAdapter<Model>(getActivity(),R.layout.model_list,modelList) {
+        listView.setAdapter(new ArrayAdapter<Model>(getActivity(),modelListLayout,modelList) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 LayoutInflater inflater = (LayoutInflater) getLayoutInflater(null);
-                View rowView = inflater.inflate(R.layout.model_list, null, true);
+                View rowView = inflater.inflate(modelListLayout, null, true);
 
                 Model model = modelList.get(position);
 

@@ -18,10 +18,21 @@
 
 package com.planyourexchange.fragments.healthinsurance;
 
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.planyourexchange.R;
 import com.planyourexchange.pageflow.PageFlow;
 import com.planyourexchange.fragments.base.ListViewFragment;
 import com.planyourexchange.rest.model.HealthInsurance;
+import com.planyourexchange.utils.MoneyUtils;
+
+import java.io.Serializable;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * @author Thiago Pagonha
@@ -29,7 +40,7 @@ import com.planyourexchange.rest.model.HealthInsurance;
  */
 public class HealthInsurancesFragment extends ListViewFragment<Integer,HealthInsurance> {
     public HealthInsurancesFragment() {
-        super(R.string.health_insurances_title,R.string.health_insurances_header, PageFlow.AIR_FARE);
+        super(R.string.health_insurances_title,R.string.health_insurances_header,R.layout.health_insurance_list ,PageFlow.AIR_FARE);
     }
 
     @Override
@@ -37,4 +48,47 @@ public class HealthInsurancesFragment extends ListViewFragment<Integer,HealthIns
         serverApi.listHealthInsurances(countryId,this);
     }
 
+    @Override
+    protected Serializable createNextKey(HealthInsurance healthInsurance) {
+        return null;
+    }
+
+    static class ViewHolder {
+        @Bind(R.id.model_list_icon) ImageView icon;
+        @Bind(R.id.model_list_name) TextView name;
+        @Bind(R.id.single_value) TextView singleValue;
+        @Bind(R.id.couple_value) TextView coupleValue;
+        @Bind(R.id.family_value) TextView familyValue;
+
+        ViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
+    }
+
+    @Override
+    protected void renderSingleModel(HealthInsurance healthInsurance, View rowView) {
+
+        ViewHolder viewHolder = new ViewHolder(rowView);
+
+        ImageLoader.getInstance().displayImage(healthInsurance.getIcon(), viewHolder.icon);
+
+        viewHolder.name.setText(healthInsurance.getName());
+
+        String defaultCurrency = healthInsurance.getCountry().getDefaultCurrency();
+
+        viewHolder.singleValue.setText(MoneyUtils.newPrice(
+                        defaultCurrency,
+                        healthInsurance.getSinglePricePerMonth())
+        );
+
+        viewHolder.coupleValue.setText(MoneyUtils.newPrice(
+                        defaultCurrency,
+                        healthInsurance.getCouplePricePerMonth())
+        );
+
+        viewHolder.familyValue.setText(MoneyUtils.newPrice(
+                        defaultCurrency,
+                        healthInsurance.getFamillyPricePerMonth())
+        );
+    }
 }

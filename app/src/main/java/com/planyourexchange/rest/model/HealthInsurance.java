@@ -27,8 +27,7 @@ import java.math.BigDecimal;
 public class HealthInsurance extends BaseModel {
     private Country country;
 
-    private String companyName;
-    private String companyWebsite;
+    private String website;
 
     private BigDecimal singlePricePerMonth;
     private BigDecimal couplePricePerMonth;
@@ -42,20 +41,12 @@ public class HealthInsurance extends BaseModel {
         this.country = country;
     }
 
-    public String getCompanyName() {
-        return companyName;
+    public String getWebsite() {
+        return website;
     }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-    public String getCompanyWebsite() {
-        return companyWebsite;
-    }
-
-    public void setCompanyWebsite(String companyWebsite) {
-        this.companyWebsite = companyWebsite;
+    public void setWebsite(String website) {
+        this.website = website;
     }
 
     public BigDecimal getSinglePricePerMonth() {
