@@ -1,8 +1,8 @@
 package com.planyourexchange.fragments.schoolcourse;
 
 import com.planyourexchange.R;
+import com.planyourexchange.fragments.base.BaseModelListViewFragment;
 import com.planyourexchange.pageflow.PageFlow;
-import com.planyourexchange.fragments.base.ListViewFragment;
 import com.planyourexchange.rest.model.Course;
 import com.planyourexchange.rest.model.SchoolCourseValueKey;
 
@@ -27,7 +27,7 @@ import static com.planyourexchange.utils.Constants.KEY_ID;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class CoursesFragment extends ListViewFragment<Integer,Course> {
+public class CoursesFragment extends BaseModelListViewFragment<Integer,Course> {
 
     public CoursesFragment() {
         super(R.string.courses_title,R.string.choose_course, PageFlow.SCHOOLS);

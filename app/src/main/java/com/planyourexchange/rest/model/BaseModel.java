@@ -1,5 +1,7 @@
 package com.planyourexchange.rest.model;
 
+import com.planyourexchange.interfaces.GenericModel;
+
 /**
  * Copyright (C) 2015, Thiago Pagonha,
  * Plan Your Exchange, easy exchange to fit your budget
@@ -17,7 +19,7 @@ package com.planyourexchange.rest.model;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class BaseModel implements Comparable<BaseModel> {
+public class BaseModel implements Comparable<BaseModel>, GenericModel {
 
     private String icon;
     private String name;
@@ -65,5 +67,10 @@ public class BaseModel implements Comparable<BaseModel> {
     @Override
     public int compareTo(BaseModel another) {
         return name.compareTo(another.name);
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

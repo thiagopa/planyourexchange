@@ -1,8 +1,8 @@
 package com.planyourexchange.fragments.schoolcourse;
 
 import com.planyourexchange.R;
+import com.planyourexchange.fragments.base.BaseModelListViewFragment;
 import com.planyourexchange.pageflow.PageFlow;
-import com.planyourexchange.fragments.base.ListViewFragment;
 import com.planyourexchange.rest.model.City;
 
 /**
@@ -22,7 +22,7 @@ import com.planyourexchange.rest.model.City;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class CitiesFragment extends ListViewFragment<Integer,City> {
+public class CitiesFragment extends BaseModelListViewFragment<Integer,City> {
 
     public CitiesFragment() {
         super(R.string.cities_title, R.string.choose_city, PageFlow.COURSES);

@@ -21,7 +21,7 @@ import java.math.BigDecimal;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class SchoolCourseValue {
+public class SchoolCourseValue implements Comparable<SchoolCourseValue>{
     private Course course;
     private School school;
     private Integer id;
@@ -70,5 +70,10 @@ public class SchoolCourseValue {
                 .append(weekPrice)
                 .append(" per week")
                 .toString();
+    }
+
+    @Override
+    public int compareTo(SchoolCourseValue another) {
+        return course.getName().compareTo(another.getCourse().getName());
     }
 }

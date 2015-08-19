@@ -15,6 +15,7 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.planyourexchange.R;
 import com.planyourexchange.fragments.base.AbstractBaseFragment;
+import com.planyourexchange.fragments.base.ListViewFragment;
 import com.planyourexchange.pageflow.PageFlow;
 import com.planyourexchange.rest.model.SchoolCourseValue;
 import com.planyourexchange.rest.model.SchoolCourseValueKey;
@@ -22,6 +23,7 @@ import com.planyourexchange.utils.Constants;
 import com.planyourexchange.utils.MoneyUtils;
 import static com.planyourexchange.utils.Constants.KEY_ID;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -41,10 +43,10 @@ import java.util.List;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class SchoolCourseValueFragment extends AbstractBaseFragment<SchoolCourseValueKey,List<SchoolCourseValue>,ListView> {
+public class SchoolCourseValueFragment extends ListViewFragment<SchoolCourseValueKey,SchoolCourseValue> {
 
     public SchoolCourseValueFragment() {
-        super(R.string.school_course_value_title,R.layout.school_course_value_fragment, R.id.school_course_value_list_view);
+        super(R.string.school_course_value_title, R.string.school_course_value, R.id.school_course_value_list_view, PageFlow.HEALTH_INSURANCE);
     }
 
     @Override
@@ -53,69 +55,39 @@ public class SchoolCourseValueFragment extends AbstractBaseFragment<SchoolCourse
     }
 
     @Override
-    public void drawModel(final List<SchoolCourseValue> schoolCourseValues, ListView listView) {
-        final SchoolCourseValueKey key = (SchoolCourseValueKey) getArguments().getSerializable(KEY_ID);
+    protected Serializable createNextKey(SchoolCourseValue schoolCourseValue) {
+        return schoolCourseValue.getSchool().getCity().getCountry().getId();
+    }
 
-        // -- Handle Model rendering
-        listView.setAdapter(new ArrayAdapter<SchoolCourseValue>(getActivity(), R.layout.school_course_value_list, schoolCourseValues) {
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                View rowView = inflater.inflate(R.layout.school_course_value_list, null, true);
+    @Override
+    protected void renderSingleModel(SchoolCourseValue schoolCourseValue, View rowView) {
+//        SchoolCourseValueKey key = (SchoolCourseValueKey) getArguments().getSerializable(KEY_ID);
+//
+        String iconUrl = null;
+        String name = null;
 
-                SchoolCourseValue schoolCourseValue = schoolCourseValues.get(position);
+        // -- If course is empty, list all courses
+//        if (key.getCourseId() == null) {
+            iconUrl = schoolCourseValue.getCourse().getIcon();
+            name = schoolCourseValue.getCourse().getName();
+            // -- On the other hand if school is empty, list all schools
+//        } else if (key.getSchoolId() == null) {
+//            iconUrl = schoolCourseValue.getSchool().getIcon();
+//            name = schoolCourseValue.getSchool().getName();
+//        }
 
-                String iconUrl = null;
-                String name = null;
+        ImageView imageView = (ImageView) rowView.findViewById(R.id.model_list_icon);
+        TextView nameView = (TextView) rowView.findViewById(R.id.model_list_name);
+        TextView valueView = (TextView) rowView.findViewById(R.id.model_list_value);
 
-                // -- If course is empty, list all courses
-                if (key.getCourseId() == null) {
-                    iconUrl = schoolCourseValue.getCourse().getIcon();
-                    name = schoolCourseValue.getCourse().getName();
-                    // -- On the other hand if school is empty, list all schools
-                } else if (key.getSchoolId() == null) {
-                    iconUrl = schoolCourseValue.getSchool().getIcon();
-                    name = schoolCourseValue.getSchool().getName();
-                }
+        ImageLoader.getInstance().displayImage(iconUrl, imageView);
 
-                ImageView imageView = (ImageView) rowView.findViewById(R.id.model_list_icon);
-                TextView nameView = (TextView) rowView.findViewById(R.id.model_list_name);
-                TextView valueView = (TextView) rowView.findViewById(R.id.model_list_value);
+        nameView.setText(name);
+        valueView.setText(MoneyUtils.newPrice(
+                        schoolCourseValue.getSchool().getCity().getCountry().getDefaultCurrency(),
+                        schoolCourseValue.getWeekPrice()
+                )
+        );
 
-                ImageLoader.getInstance().displayImage(iconUrl, imageView);
-
-                nameView.setText(name);
-                valueView.setText(MoneyUtils.newPrice(
-                                schoolCourseValue.getSchool().getCity().getCountry().getDefaultCurrency(),
-                                schoolCourseValue.getWeekPrice()
-                        )
-                );
-
-                return rowView;
-            }
-        });
-
-        // -- Handle onClick events
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                SchoolCourseValue schoolCourseValue = schoolCourseValues.get(position);
-
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(KEY_ID, schoolCourseValue.getSchool().getCity().getCountry().getId());
-
-                // -- Analytics click event for model
-                tracker.send(new HitBuilders.EventBuilder()
-                        .setCategory(Constants.CATEGORY_NAVIGATION)
-                        .setAction(Constants.ACTION_CLICK_ON_MODEL)
-                        .setLabel(schoolCourseValue.toString())
-                        .build());
-                // -- Trigger action to change screen
-                nextScreen(PageFlow.HEALTH_INSURANCE, bundle);
-            }
-        });
-
-        // -- Notify that new data has arrived
-        listView.deferNotifyDataSetChanged();
     }
 }

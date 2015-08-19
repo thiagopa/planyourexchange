@@ -1,12 +1,4 @@
-package com.planyourexchange.fragments.schoolcourse;
-
-import com.planyourexchange.R;
-import com.planyourexchange.fragments.base.BaseModelListViewFragment;
-import com.planyourexchange.pageflow.PageFlow;
-import com.planyourexchange.fragments.base.ListViewFragment;
-import com.planyourexchange.rest.model.Country;
-
-/**
+/*
  * Copyright (C) 2015, Thiago Pagonha,
  * Plan Your Exchange, easy exchange to fit your budget
  *
@@ -23,16 +15,15 @@ import com.planyourexchange.rest.model.Country;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class CountriesFragment extends BaseModelListViewFragment<String,Country> {
 
+package com.planyourexchange.interfaces;
 
-    public CountriesFragment() {
-        super(R.string.countries_title,R.string.choose_country, PageFlow.CITIES);
-    }
-
-    // -- List all countries (only english for now)
-    @Override
-    public void callService(String language) {
-        serverApi.listCountries(this);
-    }
+/**
+ * @author Thiago Pagonha
+ * @version 18/08/15.
+ */
+public interface GenericModel {
+    Integer getId();
+    String getName();
+    String getIcon();
 }

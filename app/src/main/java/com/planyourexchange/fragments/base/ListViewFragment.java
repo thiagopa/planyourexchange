@@ -43,23 +43,23 @@ import static com.planyourexchange.utils.Constants.KEY_ID;
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 // -- Base model for handling information between fragments that share enormous similarities
-public abstract class ListViewFragment<Key extends Serializable, Model extends BaseModel> extends AbstractBaseFragment<Key, List<Model>, ListView> {
+public abstract class ListViewFragment<Key extends Serializable, Model extends Comparable> extends AbstractBaseFragment<Key, List<Model>, ListView> {
 
     private final PageFlow nextScreen;
     private final int headerName;
 
-    // -- Need to be called by overriding class
-    protected ListViewFragment(final int titleName, final int headerName, final PageFlow nextScreen) {
-        super(titleName,R.layout.base_list_fragment,R.id.base_list_view);
+    protected ListViewFragment(int titleName, int headerName, int drawLayout ,PageFlow nextScreen) {
+        super(titleName, R.layout.base_list_fragment, drawLayout);
         this.nextScreen = nextScreen;
         this.headerName = headerName;
     }
+
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         // -- Sets the text header
         ((TextView)view.findViewById(R.id.base_list_header)).setText(headerName);
-        super.onViewCreated(view,savedInstanceState);
+        super.onViewCreated(view, savedInstanceState);
     }
 
     @Override
@@ -72,15 +72,11 @@ public abstract class ListViewFragment<Key extends Serializable, Model extends B
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 LayoutInflater inflater = (LayoutInflater) getLayoutInflater(null);
-                View rowView = inflater.inflate(R.layout.model_list,null,true);
+                View rowView = inflater.inflate(R.layout.model_list, null, true);
 
                 Model model = modelList.get(position);
 
-                ImageView imageView = (ImageView) rowView.findViewById(R.id.model_list_icon);
-                TextView textView = (TextView) rowView.findViewById(R.id.model_list_name);
-
-                ImageLoader.getInstance().displayImage(model.getIcon(), imageView);
-                textView.setText(InternationalNames.getInternationalName(getContext(),model.getName()));
+                renderSingleModel(model, rowView);
 
                 return rowView;
             }
@@ -98,19 +94,27 @@ public abstract class ListViewFragment<Key extends Serializable, Model extends B
                 tracker.send(new HitBuilders.EventBuilder()
                         .setCategory(Constants.CATEGORY_NAVIGATION)
                         .setAction(Constants.ACTION_CLICK_ON_MODEL)
-                        .setLabel(model.getName())
+                        .setLabel(model.toString())
                         .build());
                 // -- Trigger action to change screen
-                nextScreen(nextScreen,bundle);
+                nextScreen(nextScreen, bundle);
             }
         });
         // -- Notify that new data has arrived
         listView.deferNotifyDataSetChanged();
     }
 
-    // -- Default is the model id as key
-    protected Serializable createNextKey(Model model) {
-        return model.getId();
-    }
+    /**
+     * Create key for next key based on model
+     * @param model
+     * @return
+     */
+    protected abstract Serializable createNextKey(Model model);
 
+    /**
+     * Render specific model based on its rowView
+     * @param model
+     * @param rowView
+     */
+    protected abstract void renderSingleModel(Model model, View rowView);
 }
