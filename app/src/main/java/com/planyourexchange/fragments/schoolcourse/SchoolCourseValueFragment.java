@@ -56,12 +56,12 @@ public class SchoolCourseValueFragment extends ListViewFragment<SchoolCourseValu
 
         // -- If course is empty, list all courses
 //        if (key.getCourseId() == null) {
-            iconUrl = schoolCourseValue.getCourse().getIcon();
-            name = schoolCourseValue.getCourse().getName();
+//            iconUrl = schoolCourseValue.getCourse().getIcon();
+//            name = schoolCourseValue.getCourse().getName();
             // -- On the other hand if school is empty, list all schools
 //        } else if (key.getSchoolId() == null) {
-//            iconUrl = schoolCourseValue.getSchool().getIcon();
-//            name = schoolCourseValue.getSchool().getName();
+            iconUrl = schoolCourseValue.getSchool().getIcon();
+            name = schoolCourseValue.getSchool().getName();
 //        }
 
         ImageView imageView = (ImageView) rowView.findViewById(R.id.model_list_icon);
