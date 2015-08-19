@@ -75,4 +75,9 @@ public class SchoolCourseValueFragment extends ListViewFragment<SchoolCourseValu
         );
         viewHolder.duration.setText(schoolCourseValue.getCourse().getWeekDuration());
     }
+
+    @Override
+    protected void saveOption(SchoolCourseValue schoolCourseValue) {
+       pageFlowContext.setSchoolCourseValue(schoolCourseValue);
+    }
 }

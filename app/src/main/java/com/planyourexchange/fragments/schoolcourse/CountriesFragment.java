@@ -35,4 +35,9 @@ public class CountriesFragment extends BaseModelListViewFragment<String,Country>
     public void callService(String language) {
         serverApi.listCountries(this);
     }
+
+    @Override
+    protected void saveOption(Country country) {
+        pageFlowContext.setCountry(country);
+    }
 }

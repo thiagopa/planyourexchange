@@ -33,4 +33,8 @@ public class CitiesFragment extends BaseModelListViewFragment<Integer,City> {
         serverApi.listCities(modelId, this);
     }
 
+    @Override
+    protected void saveOption(City city) {
+        pageFlowContext.setCity(city);
+    }
 }

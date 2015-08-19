@@ -45,4 +45,9 @@ public class CoursesFragment extends BaseModelListViewFragment<Integer,Course> {
         key.setCourseId(model.getId());
         return key;
     }
+
+    @Override
+    protected void saveOption(Course course) {
+        pageFlowContext.setCourse(course);
+    }
 }

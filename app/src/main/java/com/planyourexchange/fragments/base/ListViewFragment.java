@@ -98,6 +98,9 @@ public abstract class ListViewFragment<Key extends Serializable, Model extends C
                         .setAction(Constants.ACTION_CLICK_ON_MODEL)
                         .setLabel(model.toString())
                         .build());
+
+                saveOption(model);
+
                 // -- Trigger action to change screen
                 nextScreen(nextScreen, bundle);
             }
@@ -119,4 +122,10 @@ public abstract class ListViewFragment<Key extends Serializable, Model extends C
      * @param rowView
      */
     protected abstract void renderSingleModel(Model model, View rowView);
+
+    /**
+     * Save option to user context
+     * @param model
+     */
+    protected abstract void saveOption(Model model);
 }

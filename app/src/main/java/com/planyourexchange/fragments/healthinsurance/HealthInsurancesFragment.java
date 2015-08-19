@@ -91,4 +91,9 @@ public class HealthInsurancesFragment extends ListViewFragment<Integer,HealthIns
                         healthInsurance.getFamillyPricePerMonth())
         );
     }
+
+    @Override
+    protected void saveOption(HealthInsurance healthInsurance) {
+        pageFlowContext.setHealthInsurance(healthInsurance);
+    }
 }

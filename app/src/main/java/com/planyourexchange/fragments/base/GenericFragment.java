@@ -13,6 +13,7 @@ import com.planyourexchange.app.PlanYourExchangeApplication;
 import com.planyourexchange.interfaces.FragmentName;
 import com.planyourexchange.interfaces.ProgressDialogControl;
 import com.planyourexchange.interfaces.ViewPagerControl;
+import com.planyourexchange.pageflow.PageFlowContext;
 import com.planyourexchange.rest.api.ServerApi;
 
 import javax.inject.Inject;
@@ -40,6 +41,8 @@ public abstract class GenericFragment extends Fragment implements FragmentName {
     protected Tracker tracker;
     @Inject
     protected ServerApi serverApi;
+    @Inject
+    protected PageFlowContext pageFlowContext;
 
     private final int titleName;
     private ProgressDialogControl progressDialogControl;

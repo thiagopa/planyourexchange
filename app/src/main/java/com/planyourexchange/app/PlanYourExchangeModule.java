@@ -23,6 +23,7 @@ import android.util.Log;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.planyourexchange.R;
+import com.planyourexchange.pageflow.PageFlowContext;
 import com.planyourexchange.rest.api.ServerApi;
 import com.planyourexchange.rest.service.ServerService;
 import com.planyourexchange.utils.PropertyReader;
@@ -50,6 +51,7 @@ public class PlanYourExchangeModule {
     private GoogleAnalytics googleAnalytics;
     private Tracker tracker;
     private ServerApi serverApi;
+    private PageFlowContext pageFlowContext;
 
     public PlanYourExchangeModule(PlanYourExchangeApplication planYourExchangeApplication) {
 
@@ -76,6 +78,8 @@ public class PlanYourExchangeModule {
                 propertyReader.getProperty("service.password"));
 
         this.serverApi = serverService.serverApi;
+
+        this.pageFlowContext = new PageFlowContext();
     }
 
     @Provides @Singleton PropertyReader providePropertyReader() {
@@ -88,5 +92,9 @@ public class PlanYourExchangeModule {
 
     @Provides @Singleton Tracker provideTracker() {
         return tracker;
+    }
+
+    @Provides @Singleton PageFlowContext providePageFlowContext() {
+        return pageFlowContext;
     }
 }
