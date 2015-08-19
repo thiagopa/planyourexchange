@@ -14,6 +14,9 @@ import com.planyourexchange.utils.MoneyUtils;
 
 import java.io.Serializable;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Copyright (C) 2015, Thiago Pagonha,
  * Plan Your Exchange, easy exchange to fit your budget
@@ -47,35 +50,29 @@ public class SchoolCourseValueFragment extends ListViewFragment<SchoolCourseValu
         return schoolCourseValue.getSchool().getCity().getCountry().getId();
     }
 
+    static class ViewHolder {
+        @Bind(R.id.school_course_icon) ImageView icon;
+        @Bind(R.id.school_course_name) TextView name;
+        @Bind(R.id.school_course_price) TextView price;
+        @Bind(R.id.school_course_duration) TextView duration;
+
+        ViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
+    }
+
     @Override
     protected void renderSingleModel(SchoolCourseValue schoolCourseValue, View rowView) {
-//        SchoolCourseValueKey key = (SchoolCourseValueKey) getArguments().getSerializable(KEY_ID);
-//
-        String iconUrl = null;
-        String name = null;
+        ViewHolder viewHolder = new ViewHolder(rowView);
 
-        // -- If course is empty, list all courses
-//        if (key.getCourseId() == null) {
-//            iconUrl = schoolCourseValue.getCourse().getIcon();
-//            name = schoolCourseValue.getCourse().getName();
-            // -- On the other hand if school is empty, list all schools
-//        } else if (key.getSchoolId() == null) {
-            iconUrl = schoolCourseValue.getSchool().getIcon();
-            name = schoolCourseValue.getSchool().getName();
-//        }
+        ImageLoader.getInstance().displayImage(schoolCourseValue.getSchool().getIcon(), viewHolder.icon);
 
-        ImageView imageView = (ImageView) rowView.findViewById(R.id.model_list_icon);
-        TextView nameView = (TextView) rowView.findViewById(R.id.model_list_name);
-        TextView valueView = (TextView) rowView.findViewById(R.id.model_list_value);
-
-        ImageLoader.getInstance().displayImage(iconUrl, imageView);
-
-        nameView.setText(name);
-        valueView.setText(MoneyUtils.newPrice(
+        viewHolder.name.setText(schoolCourseValue.getSchool().getName());
+        viewHolder.price.setText(MoneyUtils.newPrice(
                         schoolCourseValue.getSchool().getCity().getCountry().getDefaultCurrency(),
                         schoolCourseValue.getWeekPrice()
                 )
         );
-
+        viewHolder.duration.setText(schoolCourseValue.getCourse().getWeekDuration());
     }
 }

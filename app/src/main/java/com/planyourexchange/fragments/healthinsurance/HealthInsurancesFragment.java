@@ -54,11 +54,11 @@ public class HealthInsurancesFragment extends ListViewFragment<Integer,HealthIns
     }
 
     static class ViewHolder {
-        @Bind(R.id.model_list_icon) ImageView icon;
-        @Bind(R.id.model_list_name) TextView name;
-        @Bind(R.id.single_value) TextView singleValue;
-        @Bind(R.id.couple_value) TextView coupleValue;
-        @Bind(R.id.family_value) TextView familyValue;
+        @Bind(R.id.health_insurance_icon) ImageView icon;
+        @Bind(R.id.health_insurance_name) TextView name;
+        @Bind(R.id.health_insurance_single_price) TextView singlePrice;
+        @Bind(R.id.health_insurance_couple_price) TextView couplePrice;
+        @Bind(R.id.health_insurance_family_price) TextView familyPrice;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
@@ -76,17 +76,17 @@ public class HealthInsurancesFragment extends ListViewFragment<Integer,HealthIns
 
         String defaultCurrency = healthInsurance.getCountry().getDefaultCurrency();
 
-        viewHolder.singleValue.setText(MoneyUtils.newPrice(
+        viewHolder.singlePrice.setText(MoneyUtils.newPrice(
                         defaultCurrency,
                         healthInsurance.getSinglePricePerMonth())
         );
 
-        viewHolder.coupleValue.setText(MoneyUtils.newPrice(
+        viewHolder.couplePrice.setText(MoneyUtils.newPrice(
                         defaultCurrency,
                         healthInsurance.getCouplePricePerMonth())
         );
 
-        viewHolder.familyValue.setText(MoneyUtils.newPrice(
+        viewHolder.familyPrice.setText(MoneyUtils.newPrice(
                         defaultCurrency,
                         healthInsurance.getFamillyPricePerMonth())
         );

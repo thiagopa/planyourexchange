@@ -21,7 +21,7 @@
     android:layout_height="fill_parent"
     android:orientation="horizontal" >
     <ImageView
-        android:id="@+id/model_list_icon"
+        android:id="@+id/health_insurance_icon"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:padding="5dp" />
@@ -30,7 +30,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/model_list_name"
+            android:id="@+id/health_insurance_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -39,35 +39,32 @@
             android:padding="2dp"
             android:textColor="#33CC33" />
         <TextView
-            android:id="@+id/single_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:text="Single price per month:"/>
         <TextView
-            android:id="@+id/single_value"
+            android:id="@+id/health_insurance_single_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"/>
         <TextView
-            android:id="@+id/couple_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:text="Couple price per month:"/>
         <TextView
-            android:id="@+id/couple_value"
+            android:id="@+id/health_insurance_couple_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"/>
         <TextView
-            android:id="@+id/family_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:text="Family price per month:"/>
         <TextView
-            android:id="@+id/family_value"
+            android:id="@+id/health_insurance_family_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"/>
