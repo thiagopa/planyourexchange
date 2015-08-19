@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="Cost:"/>
+            android:text="@string/cost"/>
         <TextView
             android:id="@+id/school_course_price"
             android:layout_width="wrap_content"
@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="Course duration:"/>
+            android:text="@string/course_duration"/>
         <TextView
             android:id="@+id/school_course_duration"
             android:layout_width="wrap_content"

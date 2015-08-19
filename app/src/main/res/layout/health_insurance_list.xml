@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="Single price per month:"/>
+            android:text="@string/single_price"/>
         <TextView
             android:id="@+id/health_insurance_single_price"
             android:layout_width="wrap_content"
@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="Couple price per month:"/>
+            android:text="@string/couple_price"/>
         <TextView
             android:id="@+id/health_insurance_couple_price"
             android:layout_width="wrap_content"
@@ -62,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="Family price per month:"/>
+            android:text="@string/family_price"/>
         <TextView
             android:id="@+id/health_insurance_family_price"
             android:layout_width="wrap_content"

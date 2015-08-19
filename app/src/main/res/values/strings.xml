@@ -25,4 +25,9 @@
     <string name="cost_of_living_title">Cost of Living</string>
     <string name="health_insurances_title">Health Insurances</string>
     <string name="health_insurances_header">Pick desired health Insurance</string>
+    <string name="cost" >Cost:</string>
+    <string name="course_duration" >Course duration:</string>
+    <string name="family_price" >Family price per month:</string>
+    <string name="couple_price" >Couple price per month:</string>
+    <string name="single_price" >Single price per month:</string>
 </resources>

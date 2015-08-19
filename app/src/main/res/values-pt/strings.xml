@@ -33,4 +33,9 @@
     <string name="cost_of_living_title">Custo de Vida</string>
     <string name="health_insurances_title">Seguro Saúde</string>
     <string name="health_insurances_header">Escolha seguro saúde desejado</string>
+    <string name="cost" >Custo:</string>
+    <string name="course_duration" >Duração do curso:</string>
+    <string name="single_price">Solteiro por mês:</string>
+    <string name="family_price">Familia por mês:</string>
+    <string name="couple_price">Casal por mês:</string>
 </resources>
