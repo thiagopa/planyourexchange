@@ -15,12 +15,13 @@
   ~ You should have received a copy of the GNU Affero General Public License
   ~ along with this program. If not, see <http://www.gnu.org/licenses/>.
   -->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="horizontal" >
     <ImageView
-        android:id="@+id/school_course_icon"
+        android:id="@+id/course_icon"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:padding="5dp" />
@@ -29,7 +30,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/school_course_name"
+            android:id="@+id/course_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -38,20 +39,20 @@
             android:padding="2dp"
             android:textColor="#33CC33" />
         <TextView
-            android:id="@+id/school_course_price_text"
+            android:id="@+id/course_duration_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="@string/cost"
-            android:layout_below="@id/school_course_name"
+            android:text="@string/course_duration"
+            android:layout_below="@id/course_name"
             />
 
         <TextView
-            android:id="@+id/school_course_price"
+            android:id="@+id/course_duration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_below="@id/school_course_name"
-            android:layout_toRightOf="@+id/school_course_price_text"/>
+            android:layout_below="@id/course_name"
+            android:layout_toRightOf="@+id/course_duration_text"/>
     </RelativeLayout>
 </LinearLayout>

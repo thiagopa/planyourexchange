@@ -54,7 +54,6 @@ public class SchoolCourseValueFragment extends ListViewFragment<SchoolCourseValu
         @Bind(R.id.school_course_icon) ImageView icon;
         @Bind(R.id.school_course_name) TextView name;
         @Bind(R.id.school_course_price) TextView price;
-        @Bind(R.id.school_course_duration) TextView duration;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
@@ -73,7 +72,6 @@ public class SchoolCourseValueFragment extends ListViewFragment<SchoolCourseValu
                         schoolCourseValue.getWeekPrice()
                 )
         );
-        viewHolder.duration.setText(schoolCourseValue.getCourse().getWeekDuration());
     }
 
     @Override

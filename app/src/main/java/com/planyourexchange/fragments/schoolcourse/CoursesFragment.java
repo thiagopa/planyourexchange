@@ -1,12 +1,23 @@
 package com.planyourexchange.fragments.schoolcourse;
 
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.planyourexchange.R;
 import com.planyourexchange.fragments.base.BaseModelListViewFragment;
+import com.planyourexchange.fragments.base.ListViewFragment;
 import com.planyourexchange.pageflow.PageFlow;
 import com.planyourexchange.rest.model.Course;
+import com.planyourexchange.rest.model.SchoolCourseValue;
 import com.planyourexchange.rest.model.SchoolCourseValueKey;
+import com.planyourexchange.utils.MoneyUtils;
 
 import java.io.Serializable;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 import static com.planyourexchange.utils.Constants.KEY_ID;
 
@@ -27,10 +38,10 @@ import static com.planyourexchange.utils.Constants.KEY_ID;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class CoursesFragment extends BaseModelListViewFragment<Integer,Course> {
+public class CoursesFragment extends ListViewFragment<Integer,Course> {
 
     public CoursesFragment() {
-        super(R.string.courses_title,R.string.choose_course, PageFlow.SCHOOLS);
+        super(R.string.courses_title,R.string.choose_course, R.layout.course_list, PageFlow.SCHOOLS);
     }
 
     @Override
@@ -49,5 +60,24 @@ public class CoursesFragment extends BaseModelListViewFragment<Integer,Course> {
     @Override
     protected void saveOption(Course course) {
         pageFlowContext.setCourse(course);
+    }
+
+    static class ViewHolder {
+        @Bind(R.id.course_icon) ImageView icon;
+        @Bind(R.id.course_name) TextView name;
+        @Bind(R.id.course_duration) TextView duration;
+
+        ViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
+    }
+
+    @Override
+    protected void renderSingleModel(Course course, View rowView) {
+        ViewHolder viewHolder = new ViewHolder(rowView);
+
+        ImageLoader.getInstance().displayImage(course.getIcon(), viewHolder.icon);
+        viewHolder.name.setText(course.getName());
+        viewHolder.duration.setText(course.getWeekDuration().toString());
     }
 }
