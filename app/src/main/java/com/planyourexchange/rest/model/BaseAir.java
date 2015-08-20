@@ -1,8 +1,4 @@
-package com.planyourexchange.rest.model;
-
-import com.google.gson.annotations.SerializedName;
-
-/**
+/*
  * Copyright (C) 2015, Thiago Pagonha,
  * Plan Your Exchange, easy exchange to fit your budget
  *
@@ -19,25 +15,40 @@ import com.google.gson.annotations.SerializedName;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class Course extends BaseModel {
 
-    private Integer weekDuration;
+package com.planyourexchange.rest.model;
 
-    private boolean isFlexible;
+/**
+ * @author Thiago Pagonha
+ * @version 20/08/15.
+ */
+public class BaseAir {
+    private Integer id;
 
-    public boolean isFlexible() {
-        return isFlexible;
+    private String origin;
+    private String destination;
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setIsFlexible(boolean isFlexible) {
-        this.isFlexible = isFlexible;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Integer getWeekDuration() {
-        return weekDuration;
+    public String getOrigin() {
+        return origin;
     }
 
-    public void setWeekDuration(Integer weekDuration) {
-        this.weekDuration = weekDuration;
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
     }
 }

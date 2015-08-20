@@ -1,5 +1,6 @@
 package com.planyourexchange.rest.api;
 
+import com.planyourexchange.rest.model.AirFare;
 import com.planyourexchange.rest.model.AuthToken;
 import com.planyourexchange.rest.model.City;
 import com.planyourexchange.rest.model.CostOfLiving;
@@ -19,6 +20,7 @@ import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.POST;
 import retrofit.http.Path;
+import retrofit.http.Query;
 
 /**
  * Copyright (C) 2015, Thiago Pagonha,
@@ -63,4 +65,7 @@ public interface ServerApi {
 
     @POST("/schoolcoursevalue/find/")
     void findCourseSchoolValue(@Body SchoolCourseValueKey request,Callback<List<SchoolCourseValue>> callback);
+
+    @GET("/airfares/")
+    void getAirFares(@Query("origin") String origin, @Query("destination") String destination, Callback<List<AirFare>> callback);
 }

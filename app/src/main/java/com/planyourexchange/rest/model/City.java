@@ -22,6 +22,8 @@ public class City extends BaseModel {
     private Country country;
     private State state;
 
+    private String airport;
+
     public Country getCountry() {
         return country;
     }
@@ -36,6 +38,14 @@ public class City extends BaseModel {
 
     public void setState(State state) {
         this.state = state;
+    }
+
+    public String getAirport() {
+        return airport;
+    }
+
+    public void setAirport(String airport) {
+        this.airport = airport;
     }
 
     @Override
