@@ -103,6 +103,8 @@ public class PageFlowPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
+        // -- save cache and key in just in case the view would be restored
+        addBundleToFragment(position, ((Fragment)object).getArguments());
         super.destroyItem(container, position, object);
         selectionListenerSparse.remove(position);
     }
