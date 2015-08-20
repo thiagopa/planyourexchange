@@ -22,7 +22,10 @@ import android.util.Log;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.planyourexchange.R;
+import com.planyourexchange.locator.LocationService;
 import com.planyourexchange.pageflow.PageFlowContext;
 import com.planyourexchange.rest.api.ServerApi;
 import com.planyourexchange.rest.service.ServerService;
@@ -52,6 +55,7 @@ public class PlanYourExchangeModule {
     private Tracker tracker;
     private ServerApi serverApi;
     private PageFlowContext pageFlowContext;
+    private LocationService locationService;
 
     public PlanYourExchangeModule(PlanYourExchangeApplication planYourExchangeApplication) {
 
@@ -78,6 +82,9 @@ public class PlanYourExchangeModule {
                 propertyReader.getProperty("service.password"));
 
         this.serverApi = serverService.serverApi;
+        // -- Initialize Location Based Api
+
+        this.locationService = new LocationService(planYourExchangeApplication);
 
         this.pageFlowContext = new PageFlowContext();
     }
@@ -96,5 +103,9 @@ public class PlanYourExchangeModule {
 
     @Provides @Singleton PageFlowContext providePageFlowContext() {
         return pageFlowContext;
+    }
+
+    @Provides @Singleton LocationService provideLocatoinService() {
+        return locationService;
     }
 }

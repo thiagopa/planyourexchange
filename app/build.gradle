@@ -59,5 +59,7 @@ dependencies {
     // Joda Time and converters
     compile 'joda-time:joda-time:2.8.2'
     compile 'com.fatboyindustrial.gson-jodatime-serialisers:gson-jodatime-serialisers:1.2.0'
+    // Google Location API
+    compile 'com.google.android.gms:play-services:6.5.87'
 
 }
