@@ -1,5 +1,6 @@
 package com.planyourexchange.rest.service;
 
+import com.fatboyindustrial.gsonjodatime.Converters;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -35,17 +36,19 @@ public final class ServerService {
 
         final TokenManager tokenManager = new TokenManager();
 
-        // -- Saving a lot of config
-        Gson gson = new GsonBuilder()
-                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-                .create();
+        // -- Initializing gson factory with joda converters and underscores default policy
+        GsonBuilder builder = new GsonBuilder();
+        builder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
+        Converters.registerLocalDate(builder);
+        Converters.registerLocalTime(builder);
+
         // -- For Token Authentication Purposes
         OkHttpClient okHttpClient = new OkHttpClient();
         okHttpClient.setAuthenticator(tokenManager);
 
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setLogLevel(RestAdapter.LogLevel.FULL)
-                .setConverter(new GsonConverter(gson))
+                .setConverter(new GsonConverter(builder.create()))
                 .setEndpoint(serviceUrl)
                 .setRequestInterceptor(tokenManager)
                 .setClient(new OkClient(okHttpClient)).build();

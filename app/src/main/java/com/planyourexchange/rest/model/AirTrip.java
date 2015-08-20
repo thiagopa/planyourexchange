@@ -18,11 +18,7 @@
 
 package com.planyourexchange.rest.model;
 
-import android.text.format.Time;
-
 import org.joda.time.LocalTime;
-
-import java.util.Calendar;
 
 /**
  * @author Thiago Pagonha
