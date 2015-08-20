@@ -165,7 +165,9 @@ public class MainActivity extends AppCompatActivity implements ProgressDialogCon
             super.onBackPressed();
         } else {
             // Otherwise, select the previous step.
-            viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
+            int position = viewPager.getCurrentItem();
+            pagerAdapter.removeKeyFromFragment(position);
+            viewPager.setCurrentItem(position - 1);
         }
     }
 
@@ -229,8 +231,6 @@ public class MainActivity extends AppCompatActivity implements ProgressDialogCon
 
     @Override
     public void previousScreen() {
-        int position = viewPager.getCurrentItem();
-        pagerAdapter.removeKeyFromFragment(position);
         onBackPressed();
     }
 
