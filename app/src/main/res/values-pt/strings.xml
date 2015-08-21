@@ -38,4 +38,6 @@
     <string name="single_price">Solteiro por mês:</string>
     <string name="family_price">Familia por mês:</string>
     <string name="couple_price">Casal por mês:</string>
+    <string name="airfare_title">Taxa Aérea</string>
+    <string name="airfare_header">Trechos aéreos mais escolhidos</string>
 </resources>

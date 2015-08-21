@@ -42,7 +42,7 @@ import javax.inject.Inject;
 public class AirFareFragment extends ListViewFragment<AirFareArgument,AirFare> {
 
     public AirFareFragment() {
-        super(R.string.health_insurances_title,R.string.health_insurances_header,R.layout.health_insurance_list ,PageFlow.RESULT);
+        super(R.string.airfare_title,R.string.airfare_header,R.layout.airfare_list ,PageFlow.RESULT);
     }
 
     @Override
@@ -57,11 +57,11 @@ public class AirFareFragment extends ListViewFragment<AirFareArgument,AirFare> {
 
     @Override
     protected void saveOption(AirFare airFare) {
-
+        pageFlowContext.setAirFare(airFare);
     }
 
     @Override
     protected void callService(AirFareArgument airFareArgument) {
-
+        serverApi.getAirFares(airFareArgument.origin,airFareArgument.destination,this);
     }
 }

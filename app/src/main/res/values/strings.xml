@@ -30,4 +30,6 @@
     <string name="family_price" >Family price per month:</string>
     <string name="couple_price" >Couple price per month:</string>
     <string name="single_price" >Single price per month:</string>
+    <string name="airfare_title">Airfare</string>
+    <string name="airfare_header">Most common air trips</string>
 </resources>

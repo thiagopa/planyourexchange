@@ -18,6 +18,7 @@
 
 package com.planyourexchange.pageflow;
 
+import com.planyourexchange.rest.model.AirFare;
 import com.planyourexchange.rest.model.City;
 import com.planyourexchange.rest.model.Country;
 import com.planyourexchange.rest.model.Course;
@@ -34,6 +35,7 @@ public class PageFlowContext {
     private Course course;
     private SchoolCourseValue schoolCourseValue;
     private HealthInsurance healthInsurance;
+    private AirFare airFare;
 
     public Country getCountry() {
         return country;
@@ -73,5 +75,13 @@ public class PageFlowContext {
 
     public void setHealthInsurance(HealthInsurance healthInsurance) {
         this.healthInsurance = healthInsurance;
+    }
+
+    public void setAirFare(AirFare airFare) {
+        this.airFare = airFare;
+    }
+
+    public AirFare getAirFare() {
+        return airFare;
     }
 }
