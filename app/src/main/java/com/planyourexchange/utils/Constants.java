@@ -26,4 +26,6 @@ public final class Constants {
 
     public static final String CACHE_ID = "cacheId";
     public static final String KEY_ID = "keyId";
+    // -- 40 kms default radius to look for an airport
+    public static final double DEFAULT_AIRPORT_RADIUS = 40;
 }

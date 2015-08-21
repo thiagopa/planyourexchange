@@ -39,14 +39,14 @@ import retrofit.client.Response;
  * @author Thiago Pagonha
  * @version 20/08/15.
  */
-public class LocationService implements ConnectionCallbacks, OnConnectionFailedListener, Callback<String> {
+public class LocationService implements ConnectionCallbacks, OnConnectionFailedListener, Callback<String[]> {
 
     private static final String TAG = "LocationService";
 
     private final GoogleApiClient googleApiClient;
     private final ServerApi serverApi;
     private Location location;
-    private String origin;
+    private String[] airports;
 
     public LocationService(Context context, ServerApi serverApi) {
         this.serverApi = serverApi;
@@ -61,7 +61,7 @@ public class LocationService implements ConnectionCallbacks, OnConnectionFailedL
     @Override
     public void onConnected(Bundle bundle) {
         location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
-        serverApi.findClosestAirport(new UserLocation(location),this);
+        serverApi.findNearbyAirports(new UserLocation(location), this);
         googleApiClient.disconnect();
     }
 
@@ -75,8 +75,8 @@ public class LocationService implements ConnectionCallbacks, OnConnectionFailedL
     }
 
     @Override
-    public void success(String origin, Response response) {
-        this.origin = origin;
+    public void success(String[] airports, Response response) {
+        this.airports = airports;
     }
 
     @Override
@@ -84,7 +84,7 @@ public class LocationService implements ConnectionCallbacks, OnConnectionFailedL
         Log.e(TAG,"Couldn't find origin airport");
     }
 
-    public String getOrigin() {
-        return origin;
+    public String[] getAirports() {
+        return airports;
     }
 }

@@ -70,6 +70,6 @@ public interface ServerApi {
     @GET("/airfares/")
     void getAirFares(@Query("origin") String origin, @Query("destination") String destination, Callback<List<AirFare>> callback);
 
-    @POST("/airport/")
-    void findClosestAirport(@Body UserLocation userLocation, Callback<String> callback);
+    @POST("/airports/")
+    void findNearbyAirports(@Body UserLocation userLocation, Callback<String[]> callback);
 }

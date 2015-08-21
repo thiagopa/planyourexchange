@@ -20,21 +20,48 @@ package com.planyourexchange.fragments.airfare;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.View;
 
+import com.planyourexchange.R;
+import com.planyourexchange.fragments.base.ListViewFragment;
 import com.planyourexchange.interfaces.SelectionListener;
+import com.planyourexchange.locator.LocationService;
+import com.planyourexchange.pageflow.PageFlow;
+import com.planyourexchange.rest.model.AirFare;
+import com.planyourexchange.rest.model.SchoolCourseValue;
+import com.planyourexchange.rest.model.SchoolCourseValueKey;
+
+import java.io.Serializable;
+
+import javax.inject.Inject;
 
 /**
  * @author Thiago Pagonha
  * @version 17/08/15.
  */
-public class AirFareFragment extends Fragment implements SelectionListener {
+public class AirFareFragment extends ListViewFragment<AirFareArgument,AirFare> {
+
+    public AirFareFragment() {
+        super(R.string.health_insurances_title,R.string.health_insurances_header,R.layout.health_insurance_list ,PageFlow.RESULT);
+    }
+
     @Override
-    public void updateView(Bundle bundle) {
+    protected Serializable createNextKey(AirFare airFare) {
+        return null;
+    }
+
+    @Override
+    protected void renderSingleModel(AirFare airFare, View rowView) {
 
     }
 
     @Override
-    public void clearView() {
+    protected void saveOption(AirFare airFare) {
+
+    }
+
+    @Override
+    protected void callService(AirFareArgument airFareArgument) {
 
     }
 }

@@ -16,25 +16,31 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.planyourexchange.rest.model;
+package com.planyourexchange.fragments.airfare;
 
-import android.location.Location;
-
-import com.planyourexchange.utils.Constants;
+import java.io.Serializable;
 
 /**
  * @author Thiago Pagonha
- * @version 20/08/15.
+ * @version 21/08/15.
  */
-public class UserLocation {
+public class AirFareArgument implements Serializable {
+    public final String origin;
+    public final String destination;
 
-    public final double latitude;
-    public final double longitude;
-    public final double radius;
+    public AirFareArgument(String origin, String destination) {
+        this.origin = origin;
+        this.destination = destination;
+    }
 
-    public UserLocation(Location location) {
-        latitude = location.getLatitude();
-        longitude = location.getLongitude();
-        radius = Constants.DEFAULT_AIRPORT_RADIUS;
+    @Override
+    public boolean equals(Object object) {
+        AirFareArgument o = (AirFareArgument)object;
+        return origin.equals(o.origin) && destination.equals(o.destination);
+    }
+
+    @Override
+    public int hashCode() {
+        return origin.hashCode() + destination.hashCode();
     }
 }

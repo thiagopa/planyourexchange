@@ -18,18 +18,25 @@
 
 package com.planyourexchange.fragments.healthinsurance;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.planyourexchange.R;
+import com.planyourexchange.app.PlanYourExchangeApplication;
+import com.planyourexchange.fragments.airfare.AirFareArgument;
+import com.planyourexchange.locator.LocationService;
 import com.planyourexchange.pageflow.PageFlow;
 import com.planyourexchange.fragments.base.ListViewFragment;
 import com.planyourexchange.rest.model.HealthInsurance;
 import com.planyourexchange.utils.MoneyUtils;
 
 import java.io.Serializable;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -39,9 +46,19 @@ import butterknife.ButterKnife;
  * @version 15/08/15.
  */
 public class HealthInsurancesFragment extends ListViewFragment<Integer,HealthInsurance> {
+
+    @Inject
+    LocationService locationService;
+
     public HealthInsurancesFragment() {
         super(R.string.health_insurances_title,R.string.health_insurances_header,R.layout.health_insurance_list ,PageFlow.AIR_FARE);
     }
+
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        PlanYourExchangeApplication.getPlanYourExchangeComponent(getActivity()).inject(this);
+//    }
 
     @Override
     public void callService(Integer countryId) {
@@ -50,9 +67,10 @@ public class HealthInsurancesFragment extends ListViewFragment<Integer,HealthIns
 
     @Override
     protected Serializable createNextKey(HealthInsurance healthInsurance) {
-        // -- Current location and desination airport
+        String[] nearbyAirports = locationService.getAirports();
+        String destination = pageFlowContext.getCity().getAirport();
 
-        return null;
+        return new AirFareArgument(nearbyAirports[0],destination);
     }
 
     static class ViewHolder {

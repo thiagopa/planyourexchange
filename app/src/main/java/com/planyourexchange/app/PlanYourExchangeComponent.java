@@ -19,7 +19,9 @@
 package com.planyourexchange.app;
 
 import com.planyourexchange.activities.MainActivity;
+import com.planyourexchange.fragments.airfare.AirFareFragment;
 import com.planyourexchange.fragments.base.GenericFragment;
+import com.planyourexchange.fragments.healthinsurance.HealthInsurancesFragment;
 
 import javax.inject.Singleton;
 
@@ -36,4 +38,5 @@ public interface PlanYourExchangeComponent {
     void inject(MainActivity mainActivity);
 
     void inject(GenericFragment genericFragment);
+    void inject(HealthInsurancesFragment healthInsurancesFragment);
 }
