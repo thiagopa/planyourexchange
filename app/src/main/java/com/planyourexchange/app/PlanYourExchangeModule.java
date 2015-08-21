@@ -82,9 +82,9 @@ public class PlanYourExchangeModule {
                 propertyReader.getProperty("service.password"));
 
         this.serverApi = serverService.serverApi;
-        // -- Initialize Location Based Api
+        // -- Initialize UserLocation Based Api
 
-        this.locationService = new LocationService(planYourExchangeApplication);
+        this.locationService = new LocationService(planYourExchangeApplication,serverApi);
 
         this.pageFlowContext = new PageFlowContext();
     }

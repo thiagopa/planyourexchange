@@ -50,6 +50,8 @@ public class HealthInsurancesFragment extends ListViewFragment<Integer,HealthIns
 
     @Override
     protected Serializable createNextKey(HealthInsurance healthInsurance) {
+        // -- Current location and desination airport
+
         return null;
     }
 

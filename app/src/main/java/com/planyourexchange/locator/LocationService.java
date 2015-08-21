@@ -28,31 +28,40 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.location.LocationServices;
+import com.planyourexchange.rest.api.ServerApi;
+import com.planyourexchange.rest.model.UserLocation;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * @author Thiago Pagonha
  * @version 20/08/15.
  */
-public class LocationService implements ConnectionCallbacks, OnConnectionFailedListener {
+public class LocationService implements ConnectionCallbacks, OnConnectionFailedListener, Callback<String> {
 
     private static final String TAG = "LocationService";
 
-    private GoogleApiClient googleApiClient;
+    private final GoogleApiClient googleApiClient;
+    private final ServerApi serverApi;
     private Location location;
+    private String origin;
 
-    public LocationService(Context context) {
+    public LocationService(Context context, ServerApi serverApi) {
+        this.serverApi = serverApi;
         this.googleApiClient = new GoogleApiClient.Builder(context)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
-
         googleApiClient.connect();
     }
 
     @Override
     public void onConnected(Bundle bundle) {
         location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+        serverApi.findClosestAirport(new UserLocation(location),this);
         googleApiClient.disconnect();
     }
 
@@ -65,7 +74,17 @@ public class LocationService implements ConnectionCallbacks, OnConnectionFailedL
         Log.e(TAG,"Connection Failed, Error code is " + connectionResult.getErrorCode());
     }
 
-    public Location getLocation() {
-        return location;
+    @Override
+    public void success(String origin, Response response) {
+        this.origin = origin;
+    }
+
+    @Override
+    public void failure(RetrofitError error) {
+        Log.e(TAG,"Couldn't find origin airport");
+    }
+
+    public String getOrigin() {
+        return origin;
     }
 }

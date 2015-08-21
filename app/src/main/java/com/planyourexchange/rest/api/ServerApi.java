@@ -7,6 +7,7 @@ import com.planyourexchange.rest.model.CostOfLiving;
 import com.planyourexchange.rest.model.Country;
 import com.planyourexchange.rest.model.Course;
 import com.planyourexchange.rest.model.HealthInsurance;
+import com.planyourexchange.rest.model.UserLocation;
 import com.planyourexchange.rest.model.School;
 import com.planyourexchange.rest.model.SchoolCourseValue;
 import com.planyourexchange.rest.model.SchoolCourseValueKey;
@@ -68,4 +69,7 @@ public interface ServerApi {
 
     @GET("/airfares/")
     void getAirFares(@Query("origin") String origin, @Query("destination") String destination, Callback<List<AirFare>> callback);
+
+    @POST("/airport/")
+    void findClosestAirport(@Body UserLocation userLocation, Callback<String> callback);
 }
