@@ -57,7 +57,7 @@ public class TokenManager implements RequestInterceptor, Callback<AuthToken>, Au
 
     // -- For while just verify if it exists
     public boolean isValidToken() {
-        return !authToken.toString().isEmpty();
+        return authToken.token != null;
     }
 
     @Override
