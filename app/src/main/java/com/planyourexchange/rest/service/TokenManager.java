@@ -35,7 +35,16 @@ import static com.planyourexchange.utils.Constants.TOKEN;
 public class TokenManager implements RequestInterceptor, Callback<AuthToken>, Authenticator {
 
     // -- Token must be acessible through multiple threads
-    private volatile StringBuilder authToken = new StringBuilder();
+    private class TokenWrapper {
+        public StringBuilder token;
+
+        @Override
+        public String toString() {
+            return token.toString();
+        }
+    }
+
+    private final TokenWrapper authToken = new TokenWrapper();
 
     private TokenAction tokenAction;
 
@@ -55,8 +64,11 @@ public class TokenManager implements RequestInterceptor, Callback<AuthToken>, Au
     public void success(AuthToken authToken, Response response) {
         // -- Writes the token and notify possible sleeping threads
         synchronized (this.authToken) {
-            this.authToken.append(TOKEN);
-            this.authToken.append(authToken.getToken());
+            if(this.authToken.token == null) {
+                this.authToken.token = new StringBuilder();
+                this.authToken.token.append(TOKEN);
+                this.authToken.token.append(authToken.getToken());
+            }
             this.authToken.notify();
         }
     }
