@@ -18,11 +18,13 @@
 
 package com.planyourexchange.rest.model;
 
+import java.io.Serializable;
+
 /**
  * @author Thiago Pagonha
  * @version 20/08/15.
  */
-public class BaseAir {
+public class BaseAir implements Serializable {
     private Integer id;
 
     private String origin;

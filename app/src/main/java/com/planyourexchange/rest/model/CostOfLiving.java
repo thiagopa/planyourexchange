@@ -18,13 +18,14 @@
 
 package com.planyourexchange.rest.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
  * @author Thiago Pagonha
  * @version 13/08/15.
  */
-public class CostOfLiving {
+public class CostOfLiving implements Serializable {
     private Integer id;
 
     private City city;

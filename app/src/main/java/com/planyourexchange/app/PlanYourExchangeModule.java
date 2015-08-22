@@ -67,6 +67,7 @@ public class PlanYourExchangeModule {
             android.os.Process.killProcess(android.os.Process.myPid());
         }
 
+
         // -- Initialize Google Analytics
         this.googleAnalytics = GoogleAnalytics.getInstance(planYourExchangeApplication);
         googleAnalytics.setLocalDispatchPeriod(DISPATCH_PERIOD_IN_SECONDS);

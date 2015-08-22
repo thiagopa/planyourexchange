@@ -18,11 +18,13 @@
 
 package com.planyourexchange.rest.model;
 
+import java.io.Serializable;
+
 /**
  * @author Thiago Pagonha
  * @version 13/08/15.
  */
-public class State {
+public class State implements Serializable {
     private String name;
     private String abbreviation;
 

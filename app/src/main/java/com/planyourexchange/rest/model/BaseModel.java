@@ -2,6 +2,8 @@ package com.planyourexchange.rest.model;
 
 import com.planyourexchange.interfaces.GenericModel;
 
+import java.io.Serializable;
+
 /**
  * Copyright (C) 2015, Thiago Pagonha,
  * Plan Your Exchange, easy exchange to fit your budget
@@ -19,7 +21,7 @@ import com.planyourexchange.interfaces.GenericModel;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class BaseModel implements Comparable<BaseModel>, GenericModel {
+public class BaseModel implements Comparable<BaseModel>, GenericModel, Serializable {
 
     private String icon;
     private String name;

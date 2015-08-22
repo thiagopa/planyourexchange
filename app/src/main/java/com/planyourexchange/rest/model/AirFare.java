@@ -20,6 +20,7 @@ package com.planyourexchange.rest.model;
 
 import org.joda.time.LocalDate;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
