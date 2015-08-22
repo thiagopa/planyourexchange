@@ -73,8 +73,8 @@ public class AirFareFragment extends ListViewFragment<AirFareArgument,AirFare> {
 
     static class RowHolder {
         @Bind(R.id.airtrip_operated_by) TextView operatedBy;
-        @Bind(R.id.airfare_origin) TextView origin;
-        @Bind(R.id.airfare_destination) TextView destination;
+        @Bind(R.id.airtrip_origin) TextView origin;
+        @Bind(R.id.airtrip_destination) TextView destination;
         @Bind(R.id.airtrip_flight_duration) TextView flightDuration;
         @Bind(R.id.airtrip_flight_layover) TextView flightLayover;
 
