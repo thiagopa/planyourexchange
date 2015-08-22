@@ -54,11 +54,11 @@ public class HealthInsurancesFragment extends ListViewFragment<Integer,HealthIns
         super(R.string.health_insurances_title,R.string.health_insurances_header,R.layout.health_insurance_list ,PageFlow.AIR_FARE);
     }
 
-//    @Override
-//    public void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        PlanYourExchangeApplication.getPlanYourExchangeComponent(getActivity()).inject(this);
-//    }
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        PlanYourExchangeApplication.getPlanYourExchangeComponent(getActivity()).inject(this);
+    }
 
     @Override
     public void callService(Integer countryId) {
@@ -70,7 +70,7 @@ public class HealthInsurancesFragment extends ListViewFragment<Integer,HealthIns
         String[] nearbyAirports = locationService.getAirports();
         String destination = pageFlowContext.getCity().getAirport();
 
-        return new AirFareArgument(nearbyAirports[0],destination);
+        return new AirFareArgument(nearbyAirports[2],destination);
     }
 
     static class ViewHolder {

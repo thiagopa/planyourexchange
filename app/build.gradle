@@ -58,7 +58,6 @@ dependencies {
     compile 'com.jakewharton:butterknife:6.1.0'
     // Joda Time and converters
     compile 'joda-time:joda-time:2.8.2'
-    compile 'com.fatboyindustrial.gson-jodatime-serialisers:gson-jodatime-serialisers:1.2.0'
     // Google UserLocation API
     compile 'com.google.android.gms:play-services:7.5.0'
 
