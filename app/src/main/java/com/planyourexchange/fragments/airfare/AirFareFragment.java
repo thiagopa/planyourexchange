@@ -24,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.planyourexchange.R;
@@ -60,6 +61,7 @@ public class AirFareFragment extends ListViewFragment<AirFareArgument,AirFare> {
     }
 
     static class ViewHolder {
+        @Bind(R.id.airfare_linear_layout) LinearLayout layout;
         @Bind(R.id.airfare_price) TextView price;
         @Bind(R.id.airfare_origin) TextView origin;
         @Bind(R.id.airfare_destination) TextView destination;
@@ -67,17 +69,17 @@ public class AirFareFragment extends ListViewFragment<AirFareArgument,AirFare> {
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
+    }
 
-        static class RowHolder {
-            @Bind(R.id.airtrip_operated_by) TextView operatedBy;
-            @Bind(R.id.airfare_origin) TextView origin;
-            @Bind(R.id.airfare_destination) TextView destination;
-            @Bind(R.id.airtrip_flight_duration) TextView flightDuration;
-            @Bind(R.id.airtrip_flight_layover) TextView flightLayover;
+    static class RowHolder {
+        @Bind(R.id.airtrip_operated_by) TextView operatedBy;
+        @Bind(R.id.airfare_origin) TextView origin;
+        @Bind(R.id.airfare_destination) TextView destination;
+        @Bind(R.id.airtrip_flight_duration) TextView flightDuration;
+        @Bind(R.id.airtrip_flight_layover) TextView flightLayover;
 
-            RowHolder (View view) {
-                ButterKnife.bind(this,view);
-            }
+        RowHolder (View view) {
+            ButterKnife.bind(this,view);
         }
     }
 
@@ -85,14 +87,14 @@ public class AirFareFragment extends ListViewFragment<AirFareArgument,AirFare> {
     protected void renderSingleModel(AirFare airFare, View rowView) {
         ViewHolder viewHolder = new ViewHolder(rowView);
 
-        viewHolder.price.setText(MoneyUtils.newPrice(airFare.getPriceCurrency(),airFare.getPrice()));
+        viewHolder.price.setText(MoneyUtils.newPrice(airFare.getPriceCurrency(), airFare.getPrice()));
         viewHolder.origin.setText(airFare.getOrigin());
         viewHolder.destination.setText(airFare.getDestination());
 
         for(AirTrip airtrip : airFare.getAirTrips()) {
             LayoutInflater inflater = (LayoutInflater) getLayoutInflater(null);
             View airTripRow = inflater.inflate(R.layout.airtrip_list, null, true);
-            ViewHolder.RowHolder rowHolder = new ViewHolder.RowHolder(airTripRow);
+            RowHolder rowHolder = new RowHolder(airTripRow);
 
             rowHolder.operatedBy.setText(airtrip.getOperatedBy());
             rowHolder.origin.setText(airtrip.getOrigin());
@@ -100,7 +102,7 @@ public class AirFareFragment extends ListViewFragment<AirFareArgument,AirFare> {
             rowHolder.flightDuration.setText(airtrip.getFlightDuration().toString());
             rowHolder.flightLayover.setText(airtrip.getAirportLayover().toString());
 
-            ((ViewGroup)rowView).addView(airTripRow);
+            viewHolder.layout.addView(airTripRow);
         }
 
     }
