@@ -21,6 +21,8 @@ package com.planyourexchange.fragments.airfare;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.planyourexchange.R;
 import com.planyourexchange.fragments.base.ListViewFragment;
@@ -30,10 +32,14 @@ import com.planyourexchange.pageflow.PageFlow;
 import com.planyourexchange.rest.model.AirFare;
 import com.planyourexchange.rest.model.SchoolCourseValue;
 import com.planyourexchange.rest.model.SchoolCourseValueKey;
+import com.planyourexchange.utils.MoneyUtils;
 
 import java.io.Serializable;
 
 import javax.inject.Inject;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * @author Thiago Pagonha
@@ -50,9 +56,23 @@ public class AirFareFragment extends ListViewFragment<AirFareArgument,AirFare> {
         return null;
     }
 
+    static class ViewHolder {
+        @Bind(R.id.airfare_price) TextView price;
+        @Bind(R.id.airfare_origin) TextView origin;
+        @Bind(R.id.airfare_destination) TextView destination;
+
+        ViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
+    }
+
     @Override
     protected void renderSingleModel(AirFare airFare, View rowView) {
+        ViewHolder viewHolder = new ViewHolder(rowView);
 
+        viewHolder.price.setText(MoneyUtils.newPrice(airFare.getPriceCurrency(),airFare.getPrice()));
+        viewHolder.origin.setText(airFare.getOrigin());
+        viewHolder.destination.setText(airFare.getDestination());
     }
 
     @Override
