@@ -81,7 +81,7 @@ public class LocationService implements ConnectionCallbacks, OnConnectionFailedL
 
     @Override
     public void failure(RetrofitError error) {
-        Log.e(TAG,"Couldn't find origin airport");
+        Log.e(TAG,"Couldn't find origins airport");
     }
 
     public String[] getAirports() {

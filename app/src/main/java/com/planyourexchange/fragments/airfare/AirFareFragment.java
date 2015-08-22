@@ -18,29 +18,19 @@
 
 package com.planyourexchange.fragments.airfare;
 
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.planyourexchange.R;
 import com.planyourexchange.fragments.base.ListViewFragment;
-import com.planyourexchange.interfaces.SelectionListener;
-import com.planyourexchange.locator.LocationService;
 import com.planyourexchange.pageflow.PageFlow;
 import com.planyourexchange.rest.model.AirFare;
 import com.planyourexchange.rest.model.AirTrip;
-import com.planyourexchange.rest.model.SchoolCourseValue;
-import com.planyourexchange.rest.model.SchoolCourseValueKey;
 import com.planyourexchange.utils.MoneyUtils;
 
 import java.io.Serializable;
-
-import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -114,6 +104,6 @@ public class AirFareFragment extends ListViewFragment<AirFareArgument,AirFare> {
 
     @Override
     protected void callService(AirFareArgument airFareArgument) {
-        serverApi.getAirFares(airFareArgument.origin,airFareArgument.destination,this);
+        serverApi.getAirFares(airFareArgument.origins,airFareArgument.destination,this);
     }
 }

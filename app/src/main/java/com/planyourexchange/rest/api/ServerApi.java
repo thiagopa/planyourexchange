@@ -68,7 +68,7 @@ public interface ServerApi {
     void findCourseSchoolValue(@Body SchoolCourseValueKey request,Callback<List<SchoolCourseValue>> callback);
 
     @GET("/airfares/")
-    void getAirFares(@Query("origin") String origin, @Query("destination") String destination, Callback<List<AirFare>> callback);
+    void getAirFares(@Query("origins") String origins, @Query("destination") String destination, Callback<List<AirFare>> callback);
 
     @POST("/airports/")
     void findNearbyAirports(@Body UserLocation userLocation, Callback<String[]> callback);

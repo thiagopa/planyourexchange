@@ -25,22 +25,36 @@ import java.io.Serializable;
  * @version 21/08/15.
  */
 public class AirFareArgument implements Serializable {
-    public final String origin;
+    public final String origins;
     public final String destination;
 
-    public AirFareArgument(String origin, String destination) {
-        this.origin = origin;
+    public AirFareArgument(String[] origins, String destination) {
+
+        if(origins.length==0) {
+            throw new IllegalArgumentException("At least one airport is needed");
+        }
+
+        StringBuilder builder = new StringBuilder();
+
+        for (String origin: origins) {
+            builder.append(origin);
+            builder.append(",");
+        }
+
+        builder.deleteCharAt(builder.length()-1);
+
+        this.origins = builder.toString();
         this.destination = destination;
     }
 
     @Override
     public boolean equals(Object object) {
         AirFareArgument o = (AirFareArgument)object;
-        return origin.equals(o.origin) && destination.equals(o.destination);
+        return origins.equals(o.origins) && destination.equals(o.destination);
     }
 
     @Override
     public int hashCode() {
-        return origin.hashCode() + destination.hashCode();
+        return origins.hashCode() + destination.hashCode();
     }
 }
