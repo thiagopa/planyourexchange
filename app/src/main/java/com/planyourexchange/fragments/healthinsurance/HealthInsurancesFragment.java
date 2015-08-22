@@ -70,7 +70,7 @@ public class HealthInsurancesFragment extends ListViewFragment<Integer,HealthIns
         String[] nearbyAirports = locationService.getAirports();
         String destination = pageFlowContext.getCity().getAirport();
 
-        return new AirFareArgument(nearbyAirports[2],destination);
+        return new AirFareArgument(nearbyAirports[0],destination);
     }
 
     static class ViewHolder {
