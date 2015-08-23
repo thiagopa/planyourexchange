@@ -37,11 +37,12 @@ public class DateUtils {
         return null;
     }
 
-    public static void sum(LocalTime timeTotal, LocalTime...locatimes) {
+    public static LocalTime sum(LocalTime timeTotal, LocalTime...locatimes) {
         for (LocalTime time : locatimes) {
-            timeTotal.plusHours(time.getHourOfDay());
-            timeTotal.plusMinutes(time.getMinuteOfHour());
-            timeTotal.plusSeconds(time.getSecondOfMinute());
+            timeTotal = timeTotal.plusHours(time.getHourOfDay());
+            timeTotal = timeTotal.plusMinutes(time.getMinuteOfHour());
+            timeTotal = timeTotal.plusSeconds(time.getSecondOfMinute());
         }
+        return timeTotal;
     }
 }

@@ -99,7 +99,7 @@ public class AirFareFragment extends ListViewFragment<AirFareArgument,AirFare> {
             rowHolder.flightDuration.setText(DateUtils.toString(airtrip.getFlightDuration()));
             rowHolder.flightLayover.setText(DateUtils.toString(airtrip.getAirportLayover()));
 
-            DateUtils.sum(timeTotal,airtrip.getFlightDuration(),airtrip.getAirportLayover());
+            timeTotal = DateUtils.sum(timeTotal,airtrip.getFlightDuration(),airtrip.getAirportLayover());
 
             viewHolder.layout.addView(airTripRow);
         }
