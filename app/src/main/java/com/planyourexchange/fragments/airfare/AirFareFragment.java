@@ -28,7 +28,10 @@ import com.planyourexchange.fragments.base.ListViewFragment;
 import com.planyourexchange.pageflow.PageFlow;
 import com.planyourexchange.rest.model.AirFare;
 import com.planyourexchange.rest.model.AirTrip;
+import com.planyourexchange.utils.DateUtils;
 import com.planyourexchange.utils.MoneyUtils;
+
+import org.joda.time.LocalTime;
 
 import java.io.Serializable;
 
@@ -55,6 +58,8 @@ public class AirFareFragment extends ListViewFragment<AirFareArgument,AirFare> {
         @Bind(R.id.airfare_price) TextView price;
         @Bind(R.id.airfare_origin) TextView origin;
         @Bind(R.id.airfare_destination) TextView destination;
+        @Bind(R.id.airfare_time_total) TextView timeTotal;
+        @Bind(R.id.airfare_stops) TextView stops;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
@@ -81,6 +86,8 @@ public class AirFareFragment extends ListViewFragment<AirFareArgument,AirFare> {
         viewHolder.origin.setText(airFare.getOrigin());
         viewHolder.destination.setText(airFare.getDestination());
 
+        LocalTime timeTotal = LocalTime.MIDNIGHT;
+
         for(AirTrip airtrip : airFare.getAirTrips()) {
             LayoutInflater inflater = (LayoutInflater) getLayoutInflater(null);
             View airTripRow = inflater.inflate(R.layout.airtrip_list, null, true);
@@ -89,12 +96,15 @@ public class AirFareFragment extends ListViewFragment<AirFareArgument,AirFare> {
             rowHolder.operatedBy.setText(airtrip.getOperatedBy());
             rowHolder.origin.setText(airtrip.getOrigin());
             rowHolder.destination.setText(airtrip.getDestination());
-            rowHolder.flightDuration.setText(airtrip.getFlightDuration().toString());
-            rowHolder.flightLayover.setText(airtrip.getAirportLayover().toString());
+            rowHolder.flightDuration.setText(DateUtils.toString(airtrip.getFlightDuration()));
+            rowHolder.flightLayover.setText(DateUtils.toString(airtrip.getAirportLayover()));
+
+            DateUtils.sum(timeTotal,airtrip.getFlightDuration(),airtrip.getAirportLayover());
 
             viewHolder.layout.addView(airTripRow);
         }
 
+        viewHolder.timeTotal.setText(DateUtils.toString(timeTotal));
     }
 
     @Override
