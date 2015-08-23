@@ -23,22 +23,22 @@
         android:id="@+id/airtrip_operated_by_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="5dp"
+        android:layout_marginTop="5dp"
         android:text="@string/operated_by" />
 
     <TextView
         android:id="@+id/airtrip_operated_by"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="5dp"
-        android:marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
         android:textColor="@color/wallet_holo_blue_light"
         android:layout_toRightOf="@+id/airtrip_operated_by_text"/>
     <TextView
         android:id="@+id/airtrip_origin_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="5dp"
+        android:layout_marginTop="5dp"
         android:text="@string/from"
         android:layout_below="@+id/airtrip_operated_by_text"/>
 
@@ -46,16 +46,16 @@
         android:id="@+id/airtrip_origin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="5dp"
-        android:marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/airtrip_origin_text"
         android:layout_below="@+id/airtrip_operated_by_text"/>
     <TextView
         android:id="@+id/airtrip_destination_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="5dp"
-        android:marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
         android:text="@string/to"
         android:layout_toRightOf="@+id/airtrip_origin"
         android:layout_below="@+id/airtrip_operated_by_text"/>
@@ -64,8 +64,8 @@
         android:id="@+id/airtrip_destination"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="5dp"
-        android:marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/airtrip_destination_text"
         android:layout_below="@+id/airtrip_operated_by_text"/>
 
@@ -73,7 +73,7 @@
         android:id="@+id/airtrip_flight_duration_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="5dp"
+        android:layout_marginTop="5dp"
         android:text="@string/flight_duration"
         android:layout_below="@+id/airtrip_origin_text"/>
 
@@ -81,8 +81,8 @@
         android:id="@+id/airtrip_flight_duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="5dp"
-        android:marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/airtrip_flight_duration_text"
         android:layout_below="@+id/airtrip_origin_text"/>
 
@@ -90,7 +90,7 @@
         android:id="@+id/airtrip_flight_layover_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="5dp"
+        android:layout_marginTop="5dp"
         android:text="@string/airport_layover"
         android:layout_below="@+id/airtrip_flight_duration_text"/>
 
@@ -98,8 +98,8 @@
         android:id="@+id/airtrip_flight_layover"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="5dp"
-        android:marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/airtrip_flight_layover_text"
         android:layout_below="@+id/airtrip_flight_duration_text"/>
 </RelativeLayout>
