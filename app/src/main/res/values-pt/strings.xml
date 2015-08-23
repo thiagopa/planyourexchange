@@ -43,4 +43,9 @@
     <string name="destination">Destino:</string>
     <string name="origin">Origem:</string>
     <string name="stops">Escalas:</string>
+    <string name="airport_layover">Escala:</string>
+    <string name="flight_duration">Duração do voo:</string>
+    <string name="from">De:</string>
+    <string name="operated_by">Operado por:</string>
+    <string name="to">para</string>
 </resources>
