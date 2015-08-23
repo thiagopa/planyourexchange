@@ -20,7 +20,6 @@ package com.planyourexchange.fragments.airfare;
 
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
@@ -35,9 +34,7 @@ import com.planyourexchange.utils.MoneyUtils;
 import org.joda.time.Period;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import butterknife.Bind;
@@ -55,7 +52,7 @@ public class AirFareFragment extends ListViewFragment<AirFareArgument,AirFare> {
 
     @Override
     protected Serializable createNextKey(AirFare airFare) {
-        return null;
+        return airFare;
     }
 
     static class ViewHolder {
