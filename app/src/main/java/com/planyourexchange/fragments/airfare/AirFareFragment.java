@@ -31,13 +31,13 @@ import com.planyourexchange.rest.model.AirTrip;
 import com.planyourexchange.utils.DateUtils;
 import com.planyourexchange.utils.MoneyUtils;
 
-import org.joda.time.DateTime;
-import org.joda.time.Duration;
-import org.joda.time.LocalTime;
-import org.joda.time.MutablePeriod;
 import org.joda.time.Period;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -86,13 +86,17 @@ public class AirFareFragment extends ListViewFragment<AirFareArgument,AirFare> {
     protected void renderSingleModel(AirFare airFare, View rowView) {
         ViewHolder viewHolder = new ViewHolder(rowView);
 
+        // -- First line with price, origin and destination of AirFare
         viewHolder.price.setText(MoneyUtils.newPrice(airFare.getPriceCurrency(), airFare.getPrice()));
         viewHolder.origin.setText(airFare.getOrigin());
         viewHolder.destination.setText(airFare.getDestination());
 
+        // -- Total time period and stops
         Period timeTotal = Period.ZERO;
+        Set<String> stops = new HashSet<>();
 
         for(AirTrip airtrip : airFare.getAirTrips()) {
+            // -- Inflates a new rowLayout and populate all specific trip data
             LayoutInflater inflater = (LayoutInflater) getLayoutInflater(null);
             View airTripRow = inflater.inflate(R.layout.airtrip_list, null, true);
             RowHolder rowHolder = new RowHolder(airTripRow);
@@ -103,12 +107,20 @@ public class AirFareFragment extends ListViewFragment<AirFareArgument,AirFare> {
             rowHolder.flightDuration.setText(DateUtils.toString(airtrip.getFlightDuration()));
             rowHolder.flightLayover.setText(DateUtils.toString(airtrip.getAirportLayover()));
 
-            timeTotal = DateUtils.sum(timeTotal,airtrip.getFlightDuration(),airtrip.getAirportLayover());
-
             viewHolder.layout.addView(airTripRow);
-        }
 
+            // -- Calculate total time adding this airTrip
+            // -- Stops that this trip can have
+            timeTotal = DateUtils.sum(timeTotal,airtrip.getFlightDuration(),airtrip.getAirportLayover());
+            stops.add(airtrip.getOrigin());
+            stops.add(airtrip.getDestination());
+        }
+        // -- Removes origin and destination because they're not stops
+        stops.remove(airFare.getOrigin());
+        stops.remove(airFare.getDestination());
+        // -- Setting total time and stops
         viewHolder.timeTotal.setText(DateUtils.toTimeDelta(timeTotal));
+        viewHolder.stops.setText(stops.toString());
     }
 
     @Override
