@@ -17,13 +17,13 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/airfare_linear_layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="horizontal" >
+    android:orientation="vertical" >
     <RelativeLayout android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
         <TextView
             android:id="@+id/airfare_price"
             android:layout_width="wrap_content"
@@ -45,11 +45,5 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/airfare_origin"/>
-        <LinearLayout
-            android:id="@+id/airfare_linear_layout"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_below="@+id/airfare_price"/>
     </RelativeLayout>
 </LinearLayout>
