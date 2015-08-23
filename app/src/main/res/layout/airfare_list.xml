@@ -17,7 +17,6 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/airfare_linear_layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
@@ -30,7 +29,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:padding="2dp"
             android:textColor="#33CC33" />
 
@@ -89,6 +88,47 @@
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/airfare_stops_text"
             android:layout_below="@+id/airfare_destination_text"/>
-
     </RelativeLayout>
+    <TableLayout
+        android:id="@+id/airfare_table_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/operated_by" />
+
+            <TextView
+                android:id="@+id/airtrip_origin_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/from"/>
+
+            <TextView
+                android:id="@+id/airtrip_destination_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:text="@string/to" />
+
+            <TextView
+                android:id="@+id/airtrip_flight_duration_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/flight_duration" />
+
+            <TextView
+                android:id="@+id/airtrip_flight_layover_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/airport_layover"/>
+
+        </TableRow>
+    </TableLayout>
 </LinearLayout>

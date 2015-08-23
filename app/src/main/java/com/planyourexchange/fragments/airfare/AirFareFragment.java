@@ -21,6 +21,7 @@ package com.planyourexchange.fragments.airfare;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.planyourexchange.R;
@@ -58,7 +59,7 @@ public class AirFareFragment extends ListViewFragment<AirFareArgument,AirFare> {
     }
 
     static class ViewHolder {
-        @Bind(R.id.airfare_linear_layout) LinearLayout layout;
+        @Bind(R.id.airfare_table_layout) TableLayout layout;
         @Bind(R.id.airfare_price) TextView price;
         @Bind(R.id.airfare_origin) TextView origin;
         @Bind(R.id.airfare_destination) TextView destination;
