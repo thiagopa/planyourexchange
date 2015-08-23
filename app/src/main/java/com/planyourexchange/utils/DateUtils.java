@@ -20,8 +20,11 @@ package com.planyourexchange.utils;
 
 import android.widget.TextView;
 
+import org.joda.time.DateTime;
+import org.joda.time.Duration;
 import org.joda.time.LocalTime;
 import org.joda.time.MutablePeriod;
+import org.joda.time.Period;
 import org.joda.time.format.ISOPeriodFormat;
 import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
@@ -35,12 +38,13 @@ public class DateUtils {
     private static final String PATTERN = "HH:mm";
     private static final PeriodFormatter FORMATTER = new PeriodFormatterBuilder()
             .appendDays()
-            .appendSuffix("days")
-            .appendSeparatorIfFieldsAfter(" ")
+            .appendSuffix(" day"," days")
+            .appendSeparator(" ")
             .appendHours()
-            .appendSuffix(":")
+            .appendSuffix(" hour", " hours")
+            .appendSeparator(" ")
             .appendMinutes()
-            .appendSuffix(":")
+            .appendSuffix(" minute", " minutes")
             .toFormatter();
 
     public static String toString(LocalTime localTime) {
@@ -50,15 +54,16 @@ public class DateUtils {
         return null;
     }
 
-    public static void sum(MutablePeriod timeTotal,LocalTime...locatimes) {
+    public static Period sum(Period timeTotal,LocalTime...locatimes) {
         for (LocalTime time : locatimes) {
-            timeTotal.addHours(time.getHourOfDay());
-            timeTotal.addMinutes(time.getMinuteOfHour());
-            timeTotal.addSeconds(time.getSecondOfMinute());
+            timeTotal = timeTotal.plusHours(time.getHourOfDay());
+            timeTotal = timeTotal.plusMinutes(time.getMinuteOfHour());
+            timeTotal = timeTotal.plusSeconds(time.getSecondOfMinute());
         }
+        return timeTotal;
     }
 
-    public static String toString(MutablePeriod mutablePeriod) {
-        return mutablePeriod.toString(FORMATTER);
+    public static String toTimeDelta(Period timeTotal) {
+        return timeTotal.normalizedStandard().toString(FORMATTER);
     }
 }

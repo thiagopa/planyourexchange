@@ -31,6 +31,8 @@ import com.planyourexchange.rest.model.AirTrip;
 import com.planyourexchange.utils.DateUtils;
 import com.planyourexchange.utils.MoneyUtils;
 
+import org.joda.time.DateTime;
+import org.joda.time.Duration;
 import org.joda.time.LocalTime;
 import org.joda.time.MutablePeriod;
 import org.joda.time.Period;
@@ -88,7 +90,7 @@ public class AirFareFragment extends ListViewFragment<AirFareArgument,AirFare> {
         viewHolder.origin.setText(airFare.getOrigin());
         viewHolder.destination.setText(airFare.getDestination());
 
-        MutablePeriod timeTotal = new MutablePeriod();
+        Period timeTotal = Period.ZERO;
 
         for(AirTrip airtrip : airFare.getAirTrips()) {
             LayoutInflater inflater = (LayoutInflater) getLayoutInflater(null);
@@ -101,12 +103,12 @@ public class AirFareFragment extends ListViewFragment<AirFareArgument,AirFare> {
             rowHolder.flightDuration.setText(DateUtils.toString(airtrip.getFlightDuration()));
             rowHolder.flightLayover.setText(DateUtils.toString(airtrip.getAirportLayover()));
 
-            DateUtils.sum(timeTotal,airtrip.getFlightDuration(),airtrip.getAirportLayover());
+            timeTotal = DateUtils.sum(timeTotal,airtrip.getFlightDuration(),airtrip.getAirportLayover());
 
             viewHolder.layout.addView(airTripRow);
         }
 
-        viewHolder.timeTotal.setText(DateUtils.toString(timeTotal));
+        viewHolder.timeTotal.setText(DateUtils.toTimeDelta(timeTotal));
     }
 
     @Override
