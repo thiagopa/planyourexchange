@@ -34,29 +34,59 @@
             android:padding="2dp"
             android:textColor="#33CC33" />
         <TextView
+            android:id="@+id/airfare_origin_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/airfare_price"
+            android:text="@string/origin" />
+        <TextView
             android:id="@+id/airfare_origin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/airfare_price"/>
+            android:layout_toRightOf="@+id/airfare_origin_text"/>
+        <TextView
+            android:id="@+id/airfare_destination_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/airfare_price"
+            android:layout_below="@+id/airfare_origin_text"
+            android:text="@string/destination"/>
+
         <TextView
             android:id="@+id/airfare_destination"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/airfare_origin"/>
+            android:layout_toRightOf="@+id/airfare_destination_text"
+            android:layout_below="@+id/airfare_origin" />
+
         <TextView
             android:id="@+id/airfare_time_total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/airfare_destination"/>
+            android:layout_toRightOf="@+id/airfare_origin"/>
+
+        <TextView
+            android:id="@+id/airfare_stops_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/airfare_price"
+            android:layout_below="@+id/airfare_origin_text"
+            android:text="@string/stops"
+            android:layout_bellow="@+id/airfare_destination_text"/>
+
         <TextView
             android:id="@+id/airfare_stops"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/airfare_time_total"/>
+            android:layout_toRightOf="@+id/airfare_stops_text"
+            android:layout_bellow="@+id/airfare_destination_text"/>
 
     </RelativeLayout>
 </LinearLayout>

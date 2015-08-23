@@ -32,4 +32,7 @@
     <string name="single_price" >Single price per month:</string>
     <string name="airfare_title">Airfare</string>
     <string name="airfare_header">Most common air trips</string>
+    <string name="origin">Origin:</string>
+    <string name="destination">Destination:</string>
+    <string name="stops">Stops:</string>
 </resources>

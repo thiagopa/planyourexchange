@@ -40,4 +40,7 @@
     <string name="couple_price">Casal por mês:</string>
     <string name="airfare_title">Taxa Aérea</string>
     <string name="airfare_header">Trechos aéreos mais escolhidos</string>
+    <string name="destination">Destino:</string>
+    <string name="origin">Origem:</string>
+    <string name="stops">Escalas:</string>
 </resources>
