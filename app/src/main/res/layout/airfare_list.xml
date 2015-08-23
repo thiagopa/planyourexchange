@@ -104,6 +104,7 @@
                 android:id="@+id/airtrip_origin_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:text="@string/from"/>
 
@@ -120,6 +121,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
                 android:text="@string/flight_duration" />
 
             <TextView
@@ -127,6 +129,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
                 android:text="@string/airport_layover"/>
 
         </TableRow>
