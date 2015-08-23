@@ -21,6 +21,10 @@ package com.planyourexchange.utils;
 import android.widget.TextView;
 
 import org.joda.time.LocalTime;
+import org.joda.time.MutablePeriod;
+import org.joda.time.format.ISOPeriodFormat;
+import org.joda.time.format.PeriodFormatter;
+import org.joda.time.format.PeriodFormatterBuilder;
 
 /**
  * @author Thiago Pagonha
@@ -29,6 +33,15 @@ import org.joda.time.LocalTime;
 public class DateUtils {
 
     private static final String PATTERN = "HH:mm";
+    private static final PeriodFormatter FORMATTER = new PeriodFormatterBuilder()
+            .appendDays()
+            .appendSuffix("days")
+            .appendSeparatorIfFieldsAfter(" ")
+            .appendHours()
+            .appendSuffix(":")
+            .appendMinutes()
+            .appendSuffix(":")
+            .toFormatter();
 
     public static String toString(LocalTime localTime) {
         if(localTime!=null) {
@@ -37,12 +50,15 @@ public class DateUtils {
         return null;
     }
 
-    public static LocalTime sum(LocalTime timeTotal, LocalTime...locatimes) {
+    public static void sum(MutablePeriod timeTotal,LocalTime...locatimes) {
         for (LocalTime time : locatimes) {
-            timeTotal = timeTotal.plusHours(time.getHourOfDay());
-            timeTotal = timeTotal.plusMinutes(time.getMinuteOfHour());
-            timeTotal = timeTotal.plusSeconds(time.getSecondOfMinute());
+            timeTotal.addHours(time.getHourOfDay());
+            timeTotal.addMinutes(time.getMinuteOfHour());
+            timeTotal.addSeconds(time.getSecondOfMinute());
         }
-        return timeTotal;
+    }
+
+    public static String toString(MutablePeriod mutablePeriod) {
+        return mutablePeriod.toString(FORMATTER);
     }
 }
