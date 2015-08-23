@@ -35,9 +35,9 @@
     <string name="origin">Origin:</string>
     <string name="destination">Destination:</string>
     <string name="stops">Stops:</string>
-    <string name="operated_by">Operated by:</string>
-    <string name="from">From:</string>
-    <string name="to">to</string>
-    <string name="flight_duration">Flight duration:</string>
-    <string name="airport_layover">Layover:</string>
+    <string name="operated_by">Operated by</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="flight_duration">Flight duration</string>
+    <string name="airport_layover">Layover</string>
 </resources>
