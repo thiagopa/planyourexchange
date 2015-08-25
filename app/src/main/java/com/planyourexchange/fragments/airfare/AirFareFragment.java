@@ -52,7 +52,7 @@ public class AirFareFragment extends ListViewFragment<AirFareArgument,AirFare> {
 
     @Override
     protected Serializable createNextKey(AirFare airFare) {
-        return null;
+        return pageFlowContext.getCity().getId();
     }
 
     static class ViewHolder {

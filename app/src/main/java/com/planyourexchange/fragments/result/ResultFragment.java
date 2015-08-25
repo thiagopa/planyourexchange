@@ -64,7 +64,7 @@ public class ResultFragment extends AbstractBaseFragment<Integer,CostOfLiving,Te
 
     private ResultCalculations resultCalculations;
 
-    protected ResultFragment() {
+    public ResultFragment() {
         super(R.string.result_title, R.layout.result_fragment, R.id.result_cost_of_living);
     }
 
@@ -120,8 +120,8 @@ public class ResultFragment extends AbstractBaseFragment<Integer,CostOfLiving,Te
     }
 
     @Override
-    protected void callService(Integer integer) {
-
+    protected void callService(Integer cityId) {
+        serverApi.getCostOfLiving(cityId, this);
     }
 
     @Override
