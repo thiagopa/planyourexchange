@@ -18,13 +18,12 @@
 
 package com.planyourexchange.utils;
 
-import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
 import org.joda.time.Period;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 
 /**
  * @author Thiago Pagonha

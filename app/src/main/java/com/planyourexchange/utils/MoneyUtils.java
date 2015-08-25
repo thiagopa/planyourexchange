@@ -19,20 +19,18 @@
 package com.planyourexchange.utils;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 /**
  * @author Thiago Pagonha
  * @version 14/08/15.
  */
 public final class MoneyUtils {
-    private MoneyUtils(){
 
+    private MoneyUtils(){
     }
 
     public static String newPrice(String currency, BigDecimal price) {
-        return new StringBuilder()
-                .append(currency)
-                .append(" ")
-                .append(price).toString();
+        return new DecimalFormat(currency+" 0.00").format(price);
     }
 }

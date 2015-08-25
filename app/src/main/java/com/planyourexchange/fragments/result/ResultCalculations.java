@@ -21,7 +21,11 @@ package com.planyourexchange.fragments.result;
 import com.planyourexchange.rest.model.CostOfLiving;
 import com.planyourexchange.rest.model.School;
 
+import org.joda.time.DurationFieldType;
+import org.joda.time.LocalDate;
 import org.joda.time.Months;
+import org.joda.time.Period;
+import org.joda.time.PeriodType;
 import org.joda.time.Weeks;
 
 import java.math.BigDecimal;
@@ -47,8 +51,9 @@ public class ResultCalculations {
 
     public void setNumberOfWeeks(Integer numberOfWeeks) {
         this.numberOfWeeks = new BigDecimal(numberOfWeeks);
-        Weeks weeks = Weeks.weeks(numberOfWeeks);
-        months = new BigDecimal(weeks.toPeriod().normalizedStandard().getMonths());
+        LocalDate localDate = LocalDate.now();
+        Months months = Months.monthsBetween(localDate,localDate.plusWeeks(numberOfWeeks));
+        this.months = new BigDecimal(months.getMonths());
     }
 
 
