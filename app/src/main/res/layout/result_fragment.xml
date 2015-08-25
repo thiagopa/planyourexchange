@@ -17,7 +17,7 @@
   ~ along with this program. If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -30,12 +30,31 @@
         android:textSize="20dp" />
 
     <TextView
+        android:id="@+id/result_visa_fee_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/visa_fee"
+        android:textSize="20dp"
+        android:layout_below="@id/result_country_state_city"/>
+
+    <TextView
+        android:id="@+id/result_visa_fee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/visa_fee"
+        android:textSize="20dp"
+        android:layout_below="@id/result_country_state_city"
+        android:layout_toRightOf="@id/result_visa_fee_text"/>
+
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/result_course_school"
         android:layout_gravity="center_horizontal"
         android:text="Course @ School"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:layout_below="@id/result_visa_fee"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -43,7 +62,8 @@
         android:id="@+id/result_cost_for_weeks"
         android:layout_gravity="center_horizontal"
         android:text="Cost for n Weeks"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:layout_below="@id/result_course_school"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -51,7 +71,8 @@
         android:id="@+id/result_health_insurance"
         android:layout_gravity="center_horizontal"
         android:text="Health Insurance"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:layout_below="@id/result_cost_for_weeks"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -59,5 +80,6 @@
         android:id="@+id/result_airfare"
         android:layout_gravity="center_horizontal"
         android:text="AirFare"
-        android:textSize="20dp" />
-</LinearLayout>
+        android:textSize="20dp"
+        android:layout_below="@id/result_health_insurance"/>
+</RelativeLayout>

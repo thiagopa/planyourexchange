@@ -40,4 +40,5 @@
     <string name="to">To</string>
     <string name="flight_duration">Flight duration</string>
     <string name="airport_layover">Layover</string>
+    <string name="visa_fee">Visa Fee:</string>
 </resources>

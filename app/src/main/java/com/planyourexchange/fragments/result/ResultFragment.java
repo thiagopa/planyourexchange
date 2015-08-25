@@ -54,6 +54,7 @@ public class ResultFragment extends Fragment implements SelectionListener {
     @Inject Tracker tracker;
 
     @Bind(R.id.result_country_state_city) TextView countryStateCity;
+    @Bind(R.id.result_visa_fee) TextView visaFee;
     @Bind(R.id.result_course_school)TextView courseSchool;
     @Bind(R.id.result_cost_for_weeks) TextView costForWeeks;
     @Bind(R.id.result_health_insurance) TextView healthInsurance;
@@ -115,6 +116,7 @@ public class ResultFragment extends Fragment implements SelectionListener {
                 .append(MoneyUtils.newPrice(defaultCurrency,totalInsuranceCost));
 
         countryStateCity.setText(countryStateCityText.toString());
+        visaFee.setText(MoneyUtils.newPrice(defaultCurrency,pageFlowContext.getCountry().getVisaFee()));
         courseSchool.setText(courseSchoolText.toString());
         costForWeeks.setText(costForWeeksText.toString());
         healthInsurance.setText(healthInsuranceText.toString());
