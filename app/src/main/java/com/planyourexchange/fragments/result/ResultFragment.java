@@ -71,7 +71,6 @@ public class ResultFragment extends AbstractBaseFragment<Integer,CostOfLiving,Te
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         ButterKnife.bind(this, view);
-        populateResults();
     }
 
     private void populateResults() {
@@ -113,10 +112,13 @@ public class ResultFragment extends AbstractBaseFragment<Integer,CostOfLiving,Te
                 .append(totalInsuranceCost);
 
         countryStateCity.setText(countryStateCityText.toString());
-        visaFee.setText(MoneyUtils.newPrice(defaultCurrency,pageFlowContext.getCountry().getVisaFee()));
+        visaFee.setText(MoneyUtils.newPrice(defaultCurrency, pageFlowContext.getCountry().getVisaFee()));
         courseSchool.setText(courseSchoolText.toString());
         costForWeeks.setText(costForWeeksText.toString());
         healthInsurance.setText(healthInsuranceText.toString());
+
+        AirFare airFare = pageFlowContext.getAirFare();
+        this.airFare.setText(MoneyUtils.newPrice(airFare.getPriceCurrency(), airFare.getPrice()));
     }
 
     @Override
@@ -126,10 +128,9 @@ public class ResultFragment extends AbstractBaseFragment<Integer,CostOfLiving,Te
 
     @Override
     protected void drawModel(CostOfLiving costOfLiving, TextView textView) {
+        populateResults();
+
         String totalCostOfLiving = resultCalculations.totalCostOfLiving(costOfLiving);
         textView.setText(totalCostOfLiving);
-
-        AirFare airFare = pageFlowContext.getAirFare();
-        this.airFare.setText(MoneyUtils.newPrice(airFare.getPriceCurrency(),airFare.getPrice()));
-    }
+   }
 }

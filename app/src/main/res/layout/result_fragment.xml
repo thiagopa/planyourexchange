@@ -22,18 +22,15 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/result_country_state_city_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/result_country_state_city_text"
-        android:layout_gravity="center_horizontal"
-        android:text="City:"
-          />
+        android:text="City:" />
 
     <TextView
+        android:id="@+id/result_country_state_city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/result_country_state_city"
-        android:layout_gravity="center_horizontal"
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@id/result_country_state_city_text"/>
 
@@ -42,14 +39,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/visa_fee"
-        android:layout_below="@id/result_country_state_city"/>
+        android:layout_below="@id/result_country_state_city_text"/>
 
     <TextView
         android:id="@+id/result_visa_fee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:layout_below="@id/result_country_state_city"
+        android:layout_below="@id/result_country_state_city_text"
         android:layout_toRightOf="@id/result_visa_fee_text"/>
 
     <TextView
@@ -57,23 +54,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cost_of_living"
-        android:layout_below="@id/result_visa_fee"/>
+        android:layout_below="@id/result_visa_fee_text"/>
 
     <TextView
         android:id="@+id/result_cost_of_living"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
+        android:layout_below="@id/result_visa_fee_text"
         android:layout_toRightOf="@id/result_cost_of_living_text"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/result_course_school"
-        android:layout_gravity="center_horizontal"
         android:text="Course @ School"
-         
-        />
+        android:layout_below="@id/result_cost_of_living_text" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -81,7 +77,7 @@
         android:id="@+id/result_cost_for_weeks"
         android:layout_gravity="center_horizontal"
         android:text="Cost for n Weeks"
-         
+
         android:layout_below="@id/result_course_school"/>
 
     <TextView
