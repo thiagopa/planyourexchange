@@ -31,9 +31,11 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.planyourexchange.R;
 import com.planyourexchange.app.PlanYourExchangeApplication;
+import com.planyourexchange.fragments.base.AbstractBaseFragment;
 import com.planyourexchange.interfaces.SelectionListener;
 import com.planyourexchange.pageflow.PageFlowContext;
 import com.planyourexchange.rest.model.AirFare;
+import com.planyourexchange.rest.model.CostOfLiving;
 import com.planyourexchange.utils.Constants;
 import com.planyourexchange.utils.MoneyUtils;
 
@@ -45,13 +47,13 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
+ * The results page which will have all calculation
+ * Actually has a final rest call to identify the cost of living for the given city
+ * Could have done this before, but this is better
  * @author Thiago Pagonha
  * @version 17/08/15.
  */
-public class ResultFragment extends Fragment implements SelectionListener {
-
-    @Inject PageFlowContext pageFlowContext;
-    @Inject Tracker tracker;
+public class ResultFragment extends AbstractBaseFragment<Integer,CostOfLiving,TextView> {
 
     @Bind(R.id.result_country_state_city) TextView countryStateCity;
     @Bind(R.id.result_visa_fee) TextView visaFee;
@@ -60,50 +62,45 @@ public class ResultFragment extends Fragment implements SelectionListener {
     @Bind(R.id.result_health_insurance) TextView healthInsurance;
     @Bind(R.id.result_airfare) TextView airFare;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        PlanYourExchangeApplication.getPlanYourExchangeComponent(getActivity()).inject(this);
+    private ResultCalculations resultCalculations;
+
+    protected ResultFragment() {
+        super(R.string.result_title, R.layout.result_fragment, R.id.result_cost_of_living);
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        // -- Send tracking information to Google Analytics so I know which screen users are browsing
-        tracker.setScreenName("Result");
-        tracker.send(new HitBuilders.ScreenViewBuilder().build());
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.result_fragment, container, false);
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         ButterKnife.bind(this, view);
         populateResults();
-        return view;
     }
 
     private void populateResults() {
 
-        int numberOfWeeks = pageFlowContext.getCourse().getWeekDuration();
-        BigDecimal totalCourseCost = pageFlowContext.getSchoolCourseValue().getWeekPrice().multiply(new BigDecimal(numberOfWeeks));
-        BigDecimal totalInsuranceCost = pageFlowContext.getHealthInsurance().getSinglePricePerMonth().multiply(new BigDecimal(numberOfWeeks));
         String defaultCurrency = pageFlowContext.getCountry().getDefaultCurrency();
+        Integer numberOfWeeks = pageFlowContext.getSchoolCourseValue().getCourse().getWeekDuration();
+
+        resultCalculations = new ResultCalculations(defaultCurrency, numberOfWeeks);
+
+        String totalCourseCost = resultCalculations.totalCourseCost(pageFlowContext.getSchoolCourseValue().getWeekPrice(), pageFlowContext.getSchoolCourseValue().getSchool());
+        // -- Choose option, default single
+        String totalInsuranceCost = resultCalculations.totalInsuranceCost(pageFlowContext.getHealthInsurance().getSinglePricePerMonth());
+
 
         StringBuilder countryStateCityText = new StringBuilder()
-                .append(pageFlowContext.getCountry().getName())
-                .append("/")
-                .append(pageFlowContext.getCity().getState().getName())
-                .append("/")
-                .append(pageFlowContext.getCity().getName());
+                .append(pageFlowContext.getCity().getName())
+                .append(",")
+                .append(pageFlowContext.getCity().getState().getAbbreviation())
+                .append(",")
+                .append(pageFlowContext.getCountry().getName());
+
 
         StringBuilder courseSchoolText = new StringBuilder()
                 .append(pageFlowContext.getCourse().getName())
-                .append("/")
+                .append(" at ")
                 .append(pageFlowContext.getSchoolCourseValue().getSchool().getName());
 
         StringBuilder costForWeeksText = new StringBuilder()
-                .append(MoneyUtils.newPrice(defaultCurrency,totalCourseCost))
+                .append(totalCourseCost)
                 .append(" for ")
                 .append(numberOfWeeks)
                 .append(" weeks");
@@ -113,7 +110,7 @@ public class ResultFragment extends Fragment implements SelectionListener {
                 .append(" for ")
                 .append(numberOfWeeks)
                 .append(" weeks costs ")
-                .append(MoneyUtils.newPrice(defaultCurrency,totalInsuranceCost));
+                .append(totalInsuranceCost);
 
         countryStateCity.setText(countryStateCityText.toString());
         visaFee.setText(MoneyUtils.newPrice(defaultCurrency,pageFlowContext.getCountry().getVisaFee()));
@@ -122,15 +119,17 @@ public class ResultFragment extends Fragment implements SelectionListener {
         healthInsurance.setText(healthInsuranceText.toString());
     }
 
-
     @Override
-    public void updateView(Bundle bundle) {
-        AirFare airFare = (AirFare) bundle.get(Constants.KEY_ID);
-        this.airFare.setText(MoneyUtils.newPrice(airFare.getPriceCurrency(),airFare.getPrice()));
+    protected void callService(Integer integer) {
+
     }
 
-    // -- This is the last view, doesn't need to be cleared
     @Override
-    public void clearView() {}
+    protected void drawModel(CostOfLiving costOfLiving, TextView textView) {
+        String totalCostOfLiving = resultCalculations.totalCostOfLiving(costOfLiving);
+        textView.setText(totalCostOfLiving);
 
+        AirFare airFare = pageFlowContext.getAirFare();
+        this.airFare.setText(MoneyUtils.newPrice(airFare.getPriceCurrency(),airFare.getPrice()));
+    }
 }

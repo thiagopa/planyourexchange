@@ -41,7 +41,7 @@ import static com.planyourexchange.utils.Constants.KEY_ID;
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 // -- Base model for handling information between fragments that share enormous similarities
-public abstract class AbstractBaseFragment<Key extends Serializable, Model, ModelView extends ViewGroup> extends GenericFragment implements FragmentName, Callback<Model>, SelectionListener {
+public abstract class AbstractBaseFragment<Key extends Serializable, Model, ModelView extends View> extends GenericFragment implements FragmentName, Callback<Model>, SelectionListener {
 
     // -- Base properties
     private final int inflateLayout;

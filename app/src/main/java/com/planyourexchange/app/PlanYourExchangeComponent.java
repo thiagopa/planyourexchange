@@ -40,5 +40,4 @@ public interface PlanYourExchangeComponent {
 
     void inject(GenericFragment genericFragment);
     void inject(HealthInsurancesFragment healthInsurancesFragment);
-    void inject(ResultFragment resultFragment);
 }

@@ -49,4 +49,6 @@
     <string name="operated_by">Operado por</string>
     <string name="to">Para</string>
     <string name="visa_fee">Taxa do Visto:</string>
+    <string name="cost_of_living">Custo de Vida:</string>
+    <string name="result_title">Resultado</string>
 </resources>
