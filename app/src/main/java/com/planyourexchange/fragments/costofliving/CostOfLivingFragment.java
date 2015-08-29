@@ -55,8 +55,10 @@ public class CostOfLivingFragment extends AbstractBaseFragment<Integer,CostOfLiv
         serverApi.getCostOfLiving(cityId, this);
     }
 
+
     @Override
     protected void drawModel(CostOfLiving costOfLiving, RelativeLayout linearLayout) {
+        /*
         String currency = costOfLiving.getCity().getCountry().getDefaultCurrency();
 
         ViewHolder viewHolder = new ViewHolder(linearLayout);
@@ -67,6 +69,6 @@ public class CostOfLivingFragment extends AbstractBaseFragment<Integer,CostOfLiv
         viewHolder.transport.setText(newPrice(currency, costOfLiving.getPublicTransportMonthly()));
         viewHolder.rent.setText(newPrice(currency, costOfLiving.getRentAverageMonthly()));
         viewHolder.utilites.setText(newPrice(currency, costOfLiving.getUtilitesAverageMonthly()));
-
+        */
     }
 }

@@ -28,8 +28,6 @@ import java.math.BigDecimal;
 public class CostOfLiving implements Serializable {
     private Integer id;
 
-    private City city;
-
     private BigDecimal restaurantAveragePerMeal;
     private BigDecimal superMarketAveragePerMonth;
     private BigDecimal publicTransportMonthly;
@@ -42,14 +40,6 @@ public class CostOfLiving implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public City getCity() {
-        return city;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
     }
 
     public BigDecimal getRestaurantAveragePerMeal() {
