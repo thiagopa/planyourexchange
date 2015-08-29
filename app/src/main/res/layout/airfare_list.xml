@@ -79,7 +79,7 @@
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/airfare_price"
             android:text="@string/stops"
-            android:layout_below="@+id/airfare_destination_text"/>
+            android:layout_below="@+id/airfare_destination"/>
 
         <TextView
             android:id="@+id/airfare_stops"
@@ -87,7 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/airfare_stops_text"
-            android:layout_below="@+id/airfare_destination_text"/>
+            android:layout_below="@+id/airfare_destination"/>
     </RelativeLayout>
     <TableLayout
         android:id="@+id/airfare_table_layout"

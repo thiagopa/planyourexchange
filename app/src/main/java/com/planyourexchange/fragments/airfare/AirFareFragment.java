@@ -86,8 +86,8 @@ public class AirFareFragment extends ListViewFragment<AirFareArgument,AirFare> {
 
         // -- First line with price, origin and destination of AirFare
         viewHolder.price.setText(MoneyUtils.newPrice(airFare.getPriceCurrency(), airFare.getPrice()));
-        viewHolder.origin.setText(airFare.getOrigin());
-        viewHolder.destination.setText(airFare.getDestination());
+        viewHolder.origin.setText(airFare.getOriginAirport());
+        viewHolder.destination.setText(airFare.getDestinationAirport());
 
         // -- Total time period and stops
         Period timeTotal = Period.ZERO;

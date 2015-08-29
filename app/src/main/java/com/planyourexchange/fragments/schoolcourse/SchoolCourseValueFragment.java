@@ -47,7 +47,7 @@ public class SchoolCourseValueFragment extends ListViewFragment<SchoolCourseValu
 
     @Override
     protected Serializable createNextKey(SchoolCourseValue schoolCourseValue) {
-        return schoolCourseValue.getSchool().getCity().getCountry().getId();
+        return pageFlowContext.getCountry().getId();
     }
 
     static class ViewHolder {
@@ -68,7 +68,7 @@ public class SchoolCourseValueFragment extends ListViewFragment<SchoolCourseValu
 
         viewHolder.name.setText(schoolCourseValue.getSchool().getName());
         viewHolder.price.setText(MoneyUtils.newPrice(
-                        schoolCourseValue.getSchool().getCity().getCountry().getDefaultCurrency(),
+                        pageFlowContext.getCountry().getDefaultCurrency(),
                         schoolCourseValue.getWeekPrice()
                 )
         );

@@ -20,7 +20,6 @@ import java.math.BigDecimal;
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 public class School extends BaseModel {
-    private City city;
 
     private BigDecimal enrolmentFee;
     private BigDecimal booksFee;
@@ -28,14 +27,6 @@ public class School extends BaseModel {
     private String addressLine;
     private String suburb;
     private Integer zipCode;
-
-    public City getCity() {
-        return city;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
-    }
 
     public BigDecimal getEnrolmentFee() {
         return enrolmentFee;
