@@ -37,7 +37,7 @@ public class SensitiveDataUtilsTest extends AndroidTestCase {
 
     public void setUp() throws Exception {
         super.setUp();
-        sensitiveDataUtils = new SensitiveDataUtils("My Secret Password", "My Fixed Salt");
+        sensitiveDataUtils = new SensitiveDataUtils("My Secret Password", "My Secret Salt");
     }
 
     public void testHashKey() throws UnsupportedEncodingException, NoSuchAlgorithmException {
@@ -52,19 +52,36 @@ public class SensitiveDataUtilsTest extends AndroidTestCase {
         assertEquals("Password", decrypted);
     }
 
+    public void testDecryptStatic() throws UnsupportedEncodingException, GeneralSecurityException {
+        String decrypted = sensitiveDataUtils.decrypt("1oNLQmiADwqpwZqffi9SvA==:3Kkb2prcFsffQ6fgpCPJfY0MLqdze1er+sLHluiS0/c=:qsltPflBq21b4XCmAjmrvA==");
+        assertEquals("test",decrypted);
+    }
+
+    
     public void testEncryptGenerate() throws UnsupportedEncodingException, GeneralSecurityException {
         Map<String,String> map = new HashMap<>();
 
-        map.put("AdUnitId","ca-app-pub-6706576268520008/1039596972");
-        map.put("TestDeviceId","A3B7844916823B9B3126EA2E15462B5B");
-        map.put("service.url","https://planyourexchange.herokuapp.com/api");
-        map.put("service.userName","api_access");
-        map.put("service.password","tN%ELkQ245rkSvh5");
-        map.put("AnalyticsId","UA-34464487-3");
+        map.put("AdUnitId","?");
+        map.put("TestDeviceId","?");
+        map.put("service.url","?");
+        map.put("service.userName","?");
+        map.put("service.password","?");
+        map.put("AnalyticsId", "?");
+        map.put("test","test");
+
+        StringBuilder stringBuilder = new StringBuilder();
 
         for (Map.Entry<String,String> entry : map.entrySet()) {
-            System.out.println(entry.getKey() + " = " + sensitiveDataUtils.hashKey(entry.getKey()));
-            System.out.println(entry.getValue() + " = " + sensitiveDataUtils.encrypt(entry.getValue()));
+            stringBuilder.append(entry.getKey())
+                    .append(" = ")
+                    .append(sensitiveDataUtils.hashKey(entry.getKey()))
+                    .append("\n")
+                    .append(entry.getValue())
+                    .append(" = ")
+                    .append(sensitiveDataUtils.encrypt(entry.getValue()))
+                    .append("\n");
         }
+
+        fail(stringBuilder.toString());
     }
 }
