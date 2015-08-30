@@ -57,7 +57,6 @@ public class SensitiveDataUtilsTest extends AndroidTestCase {
         assertEquals("test",decrypted);
     }
 
-    
     public void testEncryptGenerate() throws UnsupportedEncodingException, GeneralSecurityException {
         Map<String,String> map = new HashMap<>();
 
