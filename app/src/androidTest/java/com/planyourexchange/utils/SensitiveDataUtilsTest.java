@@ -23,6 +23,9 @@ import android.test.AndroidTestCase;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Thiago Pagonha
@@ -47,5 +50,21 @@ public class SensitiveDataUtilsTest extends AndroidTestCase {
         String decrypted = sensitiveDataUtils.decrypt(encrypted);
 
         assertEquals("Password", decrypted);
+    }
+
+    public void testEncryptGenerate() throws UnsupportedEncodingException, GeneralSecurityException {
+        Map<String,String> map = new HashMap<>();
+
+        map.put("AdUnitId","ca-app-pub-6706576268520008/1039596972");
+        map.put("TestDeviceId","A3B7844916823B9B3126EA2E15462B5B");
+        map.put("service.url","https://planyourexchange.herokuapp.com/api");
+        map.put("service.userName","api_access");
+        map.put("service.password","tN%ELkQ245rkSvh5");
+        map.put("AnalyticsId","UA-34464487-3");
+
+        for (Map.Entry<String,String> entry : map.entrySet()) {
+            System.out.println(entry.getKey() + " = " + sensitiveDataUtils.hashKey(entry.getKey()));
+            System.out.println(entry.getValue() + " = " + sensitiveDataUtils.encrypt(entry.getValue()));
+        }
     }
 }

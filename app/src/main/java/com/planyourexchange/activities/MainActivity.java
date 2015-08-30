@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -40,6 +41,8 @@ import javax.inject.Inject;
  */
 public class MainActivity extends AppCompatActivity implements ProgressDialogControl, ViewPagerControl {
 
+    private static final String TAG = "MainActivity";
+
     @Inject
     PropertyReader propertyReader;
 
@@ -68,28 +71,32 @@ public class MainActivity extends AppCompatActivity implements ProgressDialogCon
     }
 
     private void newAdView() {
-        // -- Relative Layout manipulation
-        RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
+        try {
+            // -- Relative Layout manipulation
+            RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
 
-        if(adView!=null) {
-            mainLayout.removeView(adView);
+            if (adView != null) {
+                mainLayout.removeView(adView);
+            }
+            // -- Create adRequest
+            adView = new AdView(this);
+            adView.setAdUnitId(propertyReader.getProperty("AdUnitId"));
+            adView.setAdSize(AdSize.SMART_BANNER);
+            adView.setVisibility(View.VISIBLE);
+
+            RelativeLayout.LayoutParams adParams = new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            adParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            adParams.addRule(RelativeLayout.CENTER_VERTICAL);
+            mainLayout.addView(adView, adParams);
+            // -- Request a new Ad to be loaded
+
+            // -- TODO should be replaced in production
+            adView.loadAd(new AdRequest.Builder()
+                    .addTestDevice(propertyReader.getProperty("TestDeviceId")).build());
+        }catch (Exception e) {
+            Log.e(TAG,"Couldn't instantiate ad because",e);
         }
-        // -- Create adRequest
-        adView = new AdView(this);
-        adView.setAdUnitId(propertyReader.getProperty("AdUnitId"));
-        adView.setAdSize(AdSize.SMART_BANNER);
-        adView.setVisibility(View.VISIBLE);
-
-        RelativeLayout.LayoutParams adParams = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        adParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        adParams.addRule(RelativeLayout.CENTER_VERTICAL);
-        mainLayout.addView(adView, adParams);
-        // -- Request a new Ad to be loaded
-
-        // -- TODO should be replaced in production
-        adView.loadAd(new AdRequest.Builder()
-                .addTestDevice(propertyReader.getProperty("TestDeviceId")).build());
     }
 
 

@@ -41,6 +41,7 @@ import dagger.Provides;
 
 /**
  * Application-wide dependencies
+ *
  * @author Thiago Pagonha
  * @version 09/08/15.
  */
@@ -58,56 +59,65 @@ public class PlanYourExchangeModule {
     private LocationService locationService;
 
     public PlanYourExchangeModule(PlanYourExchangeApplication planYourExchangeApplication) {
-
-        // -- Initialize properties Reader
-
         try {
+            // -- Initialize properties Reader
             this.propertyReader = new PropertyReader(planYourExchangeApplication);
-        } catch (IOException e) {
+
+            // -- Initialize Google Analytics
+            this.googleAnalytics = GoogleAnalytics.getInstance(planYourExchangeApplication);
+            googleAnalytics.setLocalDispatchPeriod(DISPATCH_PERIOD_IN_SECONDS);
+
+            this.tracker = googleAnalytics.newTracker(propertyReader.getProperty("AnalyticsId"));
+            tracker.enableExceptionReporting(true);
+            tracker.enableAdvertisingIdCollection(true);
+            tracker.enableAutoActivityTracking(true);
+
+            // -- Initialize Rest Service Api
+            ServerService serverService = new ServerService(propertyReader.getProperty("service.url"),
+                    propertyReader.getProperty("service.userName"),
+                    propertyReader.getProperty("service.password"));
+
+            this.serverApi = serverService.serverApi;
+            // -- Initialize UserLocation Based Api
+
+        } catch (Exception e) {
             Log.e(TAG, planYourExchangeApplication.getResources().getString(R.string.app_init_error), e);
             android.os.Process.killProcess(android.os.Process.myPid());
+
         }
 
-
-        // -- Initialize Google Analytics
-        this.googleAnalytics = GoogleAnalytics.getInstance(planYourExchangeApplication);
-        googleAnalytics.setLocalDispatchPeriod(DISPATCH_PERIOD_IN_SECONDS);
-
-        this.tracker = googleAnalytics.newTracker(propertyReader.getProperty("AnalyticsId"));
-        tracker.enableExceptionReporting(true);
-        tracker.enableAdvertisingIdCollection(true);
-        tracker.enableAutoActivityTracking(true);
-
-        // -- Initialize Rest Service Api
-        ServerService serverService = new ServerService(propertyReader.getProperty("service.url"),
-                propertyReader.getProperty("service.userName"),
-                propertyReader.getProperty("service.password"));
-
-        this.serverApi = serverService.serverApi;
-        // -- Initialize UserLocation Based Api
-
-        this.locationService = new LocationService(planYourExchangeApplication,serverApi);
+        this.locationService = new LocationService(planYourExchangeApplication, serverApi);
 
         this.pageFlowContext = new PageFlowContext();
     }
 
-    @Provides @Singleton PropertyReader providePropertyReader() {
+    @Provides
+    @Singleton
+    PropertyReader providePropertyReader() {
         return propertyReader;
     }
 
-    @Provides @Singleton ServerApi provideServerApi() {
+    @Provides
+    @Singleton
+    ServerApi provideServerApi() {
         return serverApi;
     }
 
-    @Provides @Singleton Tracker provideTracker() {
+    @Provides
+    @Singleton
+    Tracker provideTracker() {
         return tracker;
     }
 
-    @Provides @Singleton PageFlowContext providePageFlowContext() {
+    @Provides
+    @Singleton
+    PageFlowContext providePageFlowContext() {
         return pageFlowContext;
     }
 
-    @Provides @Singleton LocationService provideLocatoinService() {
+    @Provides
+    @Singleton
+    LocationService provideLocatoinService() {
         return locationService;
     }
 }

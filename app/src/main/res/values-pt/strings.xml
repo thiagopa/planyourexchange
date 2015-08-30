@@ -10,7 +10,7 @@
     <string name="course">Por curso</string>
     <string name="school">Por escola</string>
     <string name="school_course_value">Valor do curso por semana por escola</string>
-    <string name="app_init_error">Fechando Aplicativo, faltando arquivo de propriedades!!!</string>
+    <string name="app_init_error">Fechando Aplicativo, faltando configurações cruciais!!!</string>
     <string name="loading_title">Carregando</string>
     <string name="loading_dialog">Por favor, aguarde um momento</string>
     <string name="United_Kingdom">Reino Unido</string>
