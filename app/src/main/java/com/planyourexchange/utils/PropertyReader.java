@@ -6,6 +6,9 @@ import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Properties;
 
 /**
@@ -27,22 +30,33 @@ import java.util.Properties;
  */
 public class PropertyReader {
 
-    private Properties properties;
+    private final Properties properties = new Properties();
 
     private static final String SECRET_PROPERTIES = "secret.properties";
+    private static final String SECRET_PASSWORD = "secret_password.properties";
 
-    public PropertyReader(Context context) throws IOException {
-        properties = new Properties();
-        loadProperties(context, SECRET_PROPERTIES);
+    private final SensitiveDataUtils sensitiveDataUtils;
+
+    public PropertyReader(Context context) throws IOException, GeneralSecurityException {
+        final Properties secretPasswordProperties = new Properties();
+        loadProperties(context,SECRET_PASSWORD,secretPasswordProperties);
+
+        sensitiveDataUtils = new SensitiveDataUtils(secretPasswordProperties.getProperty("PASSWORD"),
+                secretPasswordProperties.getProperty("SALT"));
+
+        loadProperties(context, SECRET_PROPERTIES, properties);
     }
 
-    private void loadProperties(Context context, String file) throws IOException {
+    private void loadProperties(Context context, String file,Properties properties) throws IOException {
         AssetManager assetManager = context.getAssets();
         InputStream inputStream = assetManager.open(file);
         properties.load(inputStream);
     }
 
-    public String getProperty(String property) {
-        return properties.getProperty(property);
+    public String getProperty(String property) throws UnsupportedEncodingException, GeneralSecurityException {
+        String hashedKey = sensitiveDataUtils.hashKey(property);
+        String value = properties.getProperty(hashedKey);
+
+        return sensitiveDataUtils.decrypt(value);
     }
 }

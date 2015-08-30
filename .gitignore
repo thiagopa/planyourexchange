@@ -6,3 +6,5 @@
 /build
 /captures
 /app/src/main/assets/secret.properties
+/app/src/main/assets/secret_password.properties
+/app/src/main/assets/secret_unencrypted.properties
