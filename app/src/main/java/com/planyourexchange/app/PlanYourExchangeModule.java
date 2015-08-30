@@ -60,6 +60,7 @@ public class PlanYourExchangeModule {
     public PlanYourExchangeModule(PlanYourExchangeApplication planYourExchangeApplication) {
 
         // -- Initialize properties Reader
+
         try {
             this.propertyReader = new PropertyReader(planYourExchangeApplication);
         } catch (IOException e) {
