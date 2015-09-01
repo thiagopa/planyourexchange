@@ -1,5 +1,7 @@
 package com.planyourexchange.rest.service;
 
+import android.content.SharedPreferences;
+
 import com.fatboyindustrial.gsonjodatime.Converters;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -32,9 +34,9 @@ public final class ServerService {
 
     public final ServerApi serverApi;
 
-    public ServerService(String serviceUrl, final String userName, final String password) {
+    public ServerService(String serviceUrl, final String userName, final String password, SharedPreferences sharedPreferences) {
 
-        final TokenManager tokenManager = new TokenManager();
+        final TokenManager tokenManager = new TokenManager(sharedPreferences);
 
         // -- Initializing gson factory with joda converters and underscores default policy
         GsonBuilder builder = new GsonBuilder();

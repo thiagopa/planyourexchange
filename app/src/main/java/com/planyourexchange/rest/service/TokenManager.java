@@ -1,5 +1,7 @@
 package com.planyourexchange.rest.service;
 
+import android.content.SharedPreferences;
+
 import com.planyourexchange.rest.model.AuthToken;
 import com.squareup.okhttp.Authenticator;
 import com.squareup.okhttp.Request;
@@ -34,6 +36,17 @@ import static com.planyourexchange.utils.Constants.TOKEN;
  */
 public class TokenManager implements RequestInterceptor, Callback<AuthToken>, Authenticator {
 
+    private static final String AUTH_TOKEN = "AUTH_TOKEN";
+    private final SharedPreferences sharedPreferences;
+
+    public TokenManager(SharedPreferences sharedPreferences) {
+        this.sharedPreferences = sharedPreferences;
+        String savedAuthToken = sharedPreferences.getString(AUTH_TOKEN,null);
+        if(savedAuthToken!=null) {
+            authToken.token = new StringBuilder(savedAuthToken);
+        }
+    }
+
     // -- Token must be acessible through multiple threads
     private class TokenWrapper {
         public StringBuilder token;
@@ -65,9 +78,14 @@ public class TokenManager implements RequestInterceptor, Callback<AuthToken>, Au
         // -- Writes the token and notify possible sleeping threads
         synchronized (this.authToken) {
             if(this.authToken.token == null) {
+                // -- Create a new token
                 this.authToken.token = new StringBuilder();
                 this.authToken.token.append(TOKEN);
                 this.authToken.token.append(authToken.getToken());
+                // -- Save the token
+                SharedPreferences.Editor editor = this.sharedPreferences.edit();
+                editor.putString(AUTH_TOKEN,this.authToken.toString());
+                editor.commit();
             }
             this.authToken.notify();
         }

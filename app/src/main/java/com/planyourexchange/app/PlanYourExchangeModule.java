@@ -30,6 +30,7 @@ import com.planyourexchange.pageflow.PageFlowContext;
 import com.planyourexchange.rest.api.ServerApi;
 import com.planyourexchange.rest.service.ServerService;
 import com.planyourexchange.utils.PropertyReader;
+import com.securepreferences.SecurePreferences;
 
 import java.io.IOException;
 
@@ -75,7 +76,8 @@ public class PlanYourExchangeModule {
             // -- Initialize Rest Service Api
             ServerService serverService = new ServerService(propertyReader.getProperty("service.url"),
                     propertyReader.getProperty("service.userName"),
-                    propertyReader.getProperty("service.password"));
+                    propertyReader.getProperty("service.password"),
+                    new SecurePreferences(planYourExchangeApplication));
 
             this.serverApi = serverService.serverApi;
             // -- Initialize UserLocation Based Api
