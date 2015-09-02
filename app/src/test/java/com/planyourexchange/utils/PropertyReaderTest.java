@@ -44,6 +44,7 @@ public class PropertyReaderTest {
 
     @Mock AssetManager assetManager;
     @Mock Context context;
+    @Mock SensitiveDataUtils sensitiveDataUtils;
 
     @Before
     public void setup() throws IOException {
@@ -52,9 +53,12 @@ public class PropertyReaderTest {
 
     @Test
     public void testGetSecretData() throws Exception {
-        InputStream inputStream = IOUtils.toInputStream("secretData=XYZ");
+        InputStream inputStream = IOUtils.toInputStream("ASDFG=1QAZ2WSX3EDC");
         when(assetManager.open(any(String.class))).thenReturn(inputStream);
-        PropertyReader propertyReader = new PropertyReader(context);
+        PropertyReader propertyReader = new PropertyReader(context,sensitiveDataUtils);
+
+        when(sensitiveDataUtils.hashKey("secretData")).thenReturn("ASDFG");
+        when(sensitiveDataUtils.decrypt("1QAZ2WSX3EDC")).thenReturn("XYZ");
 
         String secretData = propertyReader.getProperty("secretData");
         assertEquals("XYZ",secretData);
@@ -63,7 +67,7 @@ public class PropertyReaderTest {
     @Test(expected = IOException.class)
     public void testError() throws Exception {
         when(assetManager.open(any(String.class))).thenThrow(new IOException("No file found"));
-        PropertyReader propertyReader = new PropertyReader(context);
+        PropertyReader propertyReader = new PropertyReader(context,sensitiveDataUtils);
 
         propertyReader.getProperty("anything");
     }

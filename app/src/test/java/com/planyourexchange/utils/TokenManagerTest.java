@@ -1,12 +1,18 @@
 package com.planyourexchange.utils;
 
+import android.content.SharedPreferences;
+
 import com.planyourexchange.rest.model.AuthToken;
 import com.planyourexchange.rest.service.TokenManager;
 import com.squareup.okhttp.Protocol;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.IOException;
 
@@ -15,6 +21,8 @@ import static org.junit.Assert.fail;
 
 import static com.planyourexchange.utils.Constants.AUTHORIZATION;
 import static com.planyourexchange.utils.Constants.TOKEN;
+
+import static org.mockito.Mockito.*;
 
 
 /**
@@ -34,14 +42,26 @@ import static com.planyourexchange.utils.Constants.TOKEN;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+@RunWith(MockitoJUnitRunner.class)
 public class TokenManagerTest {
 
     static final Object LOCK = new Object();
 
+    @Mock
+    SharedPreferences sharedPreferences;
+
+    @Mock
+    SharedPreferences.Editor editor;
+
+    @Before
+    public void setUp() {
+        when(sharedPreferences.edit()).thenReturn(editor);
+    }
+
     @Test(timeout = 1000)
     public void test_authenticate_before_success() throws Exception {
 
-        final TokenManager tokenManager = new TokenManager();
+        final TokenManager tokenManager = new TokenManager(sharedPreferences);
         final AuthToken authToken = new AuthToken();
         authToken.setToken("NICE TOKEN");
 

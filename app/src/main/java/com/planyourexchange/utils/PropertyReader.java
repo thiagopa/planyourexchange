@@ -47,6 +47,13 @@ public class PropertyReader {
         loadProperties(context, SECRET_PROPERTIES, properties);
     }
 
+    public PropertyReader(Context context, SensitiveDataUtils sensitiveDataUtils) throws IOException {
+
+        this.sensitiveDataUtils = sensitiveDataUtils;
+
+        loadProperties(context, SECRET_PROPERTIES, properties);
+    }
+
     private void loadProperties(Context context, String file,Properties properties) throws IOException {
         AssetManager assetManager = context.getAssets();
         InputStream inputStream = assetManager.open(file);
