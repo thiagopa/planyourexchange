@@ -40,6 +40,8 @@ import com.planyourexchange.utils.Constants;
 import com.planyourexchange.utils.MoneyUtils;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -61,6 +63,7 @@ public class ResultFragment extends AbstractBaseFragment<Integer,CostOfLiving,Te
     @Bind(R.id.result_cost_for_weeks) TextView costForWeeks;
     @Bind(R.id.result_health_insurance) TextView healthInsurance;
     @Bind(R.id.result_airfare) TextView airFare;
+    @Bind(R.id.result_total_cost) TextView totalCost;
 
     private ResultCalculations resultCalculations;
 
@@ -73,17 +76,19 @@ public class ResultFragment extends AbstractBaseFragment<Integer,CostOfLiving,Te
         ButterKnife.bind(this, view);
     }
 
-    private void populateResults() {
+    @Override
+    protected void drawModel(CostOfLiving costOfLiving, TextView textView) {
+
+        BigDecimal totalExchangeCost = BigDecimal.ZERO;
 
         String defaultCurrency = pageFlowContext.getCountry().getDefaultCurrency();
         Integer numberOfWeeks = pageFlowContext.getSchoolCourseValue().getCourse().getWeekDuration();
 
-        resultCalculations = new ResultCalculations(defaultCurrency, numberOfWeeks);
+        resultCalculations = new ResultCalculations(numberOfWeeks);
 
-        String totalCourseCost = resultCalculations.totalCourseCost(pageFlowContext.getSchoolCourseValue().getWeekPrice(), pageFlowContext.getSchoolCourseValue().getSchool());
+        BigDecimal totalCourseCost = resultCalculations.totalCourseCost(pageFlowContext.getSchoolCourseValue().getWeekPrice(), pageFlowContext.getSchoolCourseValue().getSchool());
         // -- Choose option, default single
-        String totalInsuranceCost = resultCalculations.totalInsuranceCost(pageFlowContext.getHealthInsurance().getSinglePricePerMonth());
-
+        BigDecimal totalInsuranceCost = resultCalculations.totalInsuranceCost(pageFlowContext.getHealthInsurance().getSinglePricePerMonth());
 
         StringBuilder countryStateCityText = new StringBuilder()
                 .append(pageFlowContext.getCity().getName())
@@ -99,7 +104,7 @@ public class ResultFragment extends AbstractBaseFragment<Integer,CostOfLiving,Te
                 .append(pageFlowContext.getSchoolCourseValue().getSchool().getName());
 
         StringBuilder costForWeeksText = new StringBuilder()
-                .append(totalCourseCost)
+                .append(MoneyUtils.newPrice(defaultCurrency, totalCourseCost))
                 .append(" for ")
                 .append(numberOfWeeks)
                 .append(" weeks");
@@ -109,7 +114,7 @@ public class ResultFragment extends AbstractBaseFragment<Integer,CostOfLiving,Te
                 .append(" for ")
                 .append(numberOfWeeks)
                 .append(" weeks costs ")
-                .append(totalInsuranceCost);
+                .append(MoneyUtils.newPrice(defaultCurrency, totalInsuranceCost));
 
         AirFare airFare = pageFlowContext.getAirFare();
 
@@ -121,12 +126,22 @@ public class ResultFragment extends AbstractBaseFragment<Integer,CostOfLiving,Te
                 .append(" costs ")
                 .append(MoneyUtils.newPrice(airFare.getPriceCurrency(), airFare.getPrice()));
 
+        this.airFare.setText(airFareText.toString());
+
         countryStateCity.setText(countryStateCityText.toString());
         visaFee.setText(MoneyUtils.newPrice(defaultCurrency, pageFlowContext.getCountry().getVisaFee()));
         courseSchool.setText(courseSchoolText.toString());
         costForWeeks.setText(costForWeeksText.toString());
         healthInsurance.setText(healthInsuranceText.toString());
-        this.airFare.setText(airFareText.toString());
+
+        BigDecimal totalCostOfLiving = resultCalculations.totalCostOfLiving(costOfLiving);
+        textView.setText(MoneyUtils.newPrice(defaultCurrency,totalCostOfLiving));
+
+        totalExchangeCost = totalCostOfLiving.add(totalCourseCost)
+                .add(totalInsuranceCost)
+                .add(pageFlowContext.getCountry().getVisaFee());
+
+        totalCost.setText(MoneyUtils.newPrice(defaultCurrency,totalExchangeCost));
     }
 
     @Override
@@ -134,11 +149,4 @@ public class ResultFragment extends AbstractBaseFragment<Integer,CostOfLiving,Te
         serverApi.getCostOfLiving(cityId, this);
     }
 
-    @Override
-    protected void drawModel(CostOfLiving costOfLiving, TextView textView) {
-        populateResults();
-
-        String totalCostOfLiving = resultCalculations.totalCostOfLiving(costOfLiving);
-        textView.setText(totalCostOfLiving);
-   }
 }

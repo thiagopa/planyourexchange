@@ -40,12 +40,10 @@ import static com.planyourexchange.utils.MoneyUtils.newPrice;
  */
 public class ResultCalculations {
     private static final BigDecimal TWO_MEALS = new BigDecimal("2");
-    private final String defaultCurrency;
     private BigDecimal numberOfWeeks;
     private BigDecimal months;
 
-    public ResultCalculations(String defaultCurrency, Integer numberOfWeeks) {
-        this.defaultCurrency = defaultCurrency;
+    public ResultCalculations(Integer numberOfWeeks) {
         setNumberOfWeeks(numberOfWeeks);
     }
 
@@ -57,15 +55,15 @@ public class ResultCalculations {
     }
 
 
-    public String totalCourseCost(BigDecimal weekPrice, School school) {
-        return newPrice(defaultCurrency, weekPrice.multiply(numberOfWeeks).add(school.getBooksFee()).add(school.getEnrolmentFee()));
+    public BigDecimal totalCourseCost(BigDecimal weekPrice, School school) {
+        return weekPrice.multiply(numberOfWeeks).add(school.getBooksFee()).add(school.getEnrolmentFee());
     }
 
-    public String totalInsuranceCost(BigDecimal pricePerMonth) {
-        return newPrice(defaultCurrency, pricePerMonth.multiply(months));
+    public BigDecimal totalInsuranceCost(BigDecimal pricePerMonth) {
+        return pricePerMonth.multiply(months);
     }
 
-    public String totalCostOfLiving(CostOfLiving costOfLiving) {
+    public BigDecimal totalCostOfLiving(CostOfLiving costOfLiving) {
         // -- Restaurant 2 meals a day
         BigDecimal totalRestaurantCost = costOfLiving.getRestaurantAveragePerMeal().multiply(TWO_MEALS).multiply(numberOfWeeks);
         BigDecimal totalMonthlyCost = costOfLiving.getPublicTransportMonthly()
@@ -74,6 +72,6 @@ public class ResultCalculations {
                 .add(costOfLiving.getUtilitesAverageMonthly())
                 .multiply(months);
 
-        return newPrice(defaultCurrency, totalRestaurantCost.add(totalMonthlyCost));
+        return totalRestaurantCost.add(totalMonthlyCost);
     }
 }
