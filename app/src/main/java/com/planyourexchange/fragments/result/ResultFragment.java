@@ -111,14 +111,22 @@ public class ResultFragment extends AbstractBaseFragment<Integer,CostOfLiving,Te
                 .append(" weeks costs ")
                 .append(totalInsuranceCost);
 
+        AirFare airFare = pageFlowContext.getAirFare();
+
+        StringBuilder airFareText = new StringBuilder()
+                .append("Airfare from ")
+                .append(airFare.getOriginAirport())
+                .append(" to ")
+                .append(airFare.getDestinationAirport())
+                .append(" costs ")
+                .append(MoneyUtils.newPrice(airFare.getPriceCurrency(), airFare.getPrice()));
+
         countryStateCity.setText(countryStateCityText.toString());
         visaFee.setText(MoneyUtils.newPrice(defaultCurrency, pageFlowContext.getCountry().getVisaFee()));
         courseSchool.setText(courseSchoolText.toString());
         costForWeeks.setText(costForWeeksText.toString());
         healthInsurance.setText(healthInsuranceText.toString());
-
-        AirFare airFare = pageFlowContext.getAirFare();
-        this.airFare.setText(MoneyUtils.newPrice(airFare.getPriceCurrency(), airFare.getPrice()));
+        this.airFare.setText(airFareText.toString());
     }
 
     @Override
