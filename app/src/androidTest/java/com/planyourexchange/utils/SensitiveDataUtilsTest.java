@@ -19,6 +19,7 @@
 package com.planyourexchange.utils;
 
 import android.test.AndroidTestCase;
+import android.test.suitebuilder.annotation.Suppress;
 
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
@@ -57,6 +58,14 @@ public class SensitiveDataUtilsTest extends AndroidTestCase {
         assertEquals("test",decrypted);
     }
 
+
+    /**
+     * This method is used to generated encrypted keys and hashes
+     * with the secret password and salt above
+     * @throws UnsupportedEncodingException
+     * @throws GeneralSecurityException
+     */
+    @Suppress
     public void testEncryptGenerate() throws UnsupportedEncodingException, GeneralSecurityException {
         Map<String,String> map = new HashMap<>();
 

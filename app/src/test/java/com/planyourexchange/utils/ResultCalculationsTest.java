@@ -41,13 +41,13 @@ public class ResultCalculationsTest {
 
     @Before
     public void setUp() {
-        calculations = new ResultCalculations("USD",50);
+        calculations = new ResultCalculations(50);
     }
 
     @Test
     public void testTotalInsuranceCost() {
-        String result = calculations.totalInsuranceCost(new BigDecimal("47.5"));
-        assertThat(result,is("USD 522.50"));
+        BigDecimal result = calculations.totalInsuranceCost(new BigDecimal("47.5"));
+        assertThat(result,is(new BigDecimal("522.5")));
     }
 
     @Test
@@ -55,8 +55,8 @@ public class ResultCalculationsTest {
         School school = new School();
         school.setBooksFee(new BigDecimal("110"));
         school.setEnrolmentFee(new BigDecimal("280"));
-        String result = calculations.totalCourseCost(new BigDecimal("220"), school);
-        assertThat(result,is("USD 11390.00"));
+        BigDecimal result = calculations.totalCourseCost(new BigDecimal("220"), school);
+        assertThat(result,is( new BigDecimal("11390")));
     }
 
     @Test
@@ -68,8 +68,8 @@ public class ResultCalculationsTest {
         costOfLiving.setUtilitesAverageMonthly(new BigDecimal("80"));
         costOfLiving.setRestaurantAveragePerMeal(new BigDecimal("20.5"));
 
-        String result = calculations.totalCostOfLiving(costOfLiving);
-        assertThat(result,is("USD 34148.00"));
+        BigDecimal result = calculations.totalCostOfLiving(costOfLiving);
+        assertThat(result,is( new BigDecimal("34148.0")));
     }
 
 
