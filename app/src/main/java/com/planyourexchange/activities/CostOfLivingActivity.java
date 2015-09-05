@@ -19,7 +19,6 @@
 package com.planyourexchange.activities;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 import com.planyourexchange.R;
@@ -56,6 +55,8 @@ public class CostOfLivingActivity extends AdActivity {
         // -- Inject dependecies first
         PlanYourExchangeApplication.getPlanYourExchangeComponent(this).inject(this);
         setContentView(R.layout.activity_cost_of_living);
+
+        newAdView();
 
         ButterKnife.bind(this);
 

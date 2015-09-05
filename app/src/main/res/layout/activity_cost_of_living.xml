@@ -19,10 +19,10 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 <RelativeLayout
-    android:id="@+id/cost_of_living_relative_layout"
+    android:id="@+id/mainLayout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="horizontal" >
+    android:orientation="horizontal">
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/cost_of_living_init_text"
         android:layout_width="fill_parent"
@@ -178,8 +178,5 @@
         android:layout_below="@+id/cost_of_living_rent_text"
         android:layout_toRightOf="@+id/cost_of_living_utilities_text"
         android:gravity="right"/>
-
-
-
 </RelativeLayout>
 </ScrollView>
