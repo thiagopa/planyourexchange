@@ -107,5 +107,15 @@
 
         android:layout_below="@id/result_airfare"/>
 
+    <Button
+        android:id="@+id/result_cost_of_living_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@id/result_total_cost"
+
+        android:text="@string/cost_of_living_details"/>
+
+
 
 </RelativeLayout>

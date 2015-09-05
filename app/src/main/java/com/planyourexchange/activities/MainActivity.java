@@ -39,72 +39,25 @@ import javax.inject.Inject;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class MainActivity extends AppCompatActivity implements ProgressDialogControl, ViewPagerControl {
-
-    private static final String TAG = "MainActivity";
-
-    @Inject
-    PropertyReader propertyReader;
+public class MainActivity extends AdActivity implements ProgressDialogControl, ViewPagerControl {
 
     private ViewPager viewPager;
     private PageFlowPagerAdapter pagerAdapter;
 
     private ProgressDialog progressDialog;
 
-    private AdView adView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // -- Inject dependecies first
-        PlanYourExchangeApplication.getPlanYourExchangeComponent(this).inject(this);
         // -- This should be rendered first
         setContentView(R.layout.activity_main);
-
         // -- create a new Ad
         newAdView();
         // -- View Pager & Adapter
         viewPager = (ViewPager) findViewById(R.id.main_pager);
-
         pagerAdapter = new PageFlowPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
     }
-
-    private void newAdView() {
-        try {
-            // -- Relative Layout manipulation
-            RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
-
-            if (adView != null) {
-                mainLayout.removeView(adView);
-            }
-            // -- Create adRequest
-            adView = new AdView(this);
-            adView.setAdUnitId(propertyReader.getProperty("AdUnitId"));
-            adView.setAdSize(AdSize.SMART_BANNER);
-            adView.setVisibility(View.VISIBLE);
-
-            RelativeLayout.LayoutParams adParams = new RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-            adParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-            adParams.addRule(RelativeLayout.CENTER_VERTICAL);
-            mainLayout.addView(adView, adParams);
-            // -- Request a new Ad to be loaded
-
-            // -- TODO should be replaced in production
-            adView.loadAd(new AdRequest.Builder()
-                    .addTestDevice(propertyReader.getProperty("TestDeviceId")).build());
-        }catch (Exception e) {
-            Log.e(TAG,"Couldn't instantiate ad because",e);
-        }
-    }
-
-
-    // TODO -- Leave this to hide banners when donated
-    private void hideBanner() {
-        adView.setVisibility(View.GONE);
-    }
-
 
     public void onBackPressed() {
         if (viewPager.getCurrentItem() == 0) {
@@ -117,12 +70,6 @@ public class MainActivity extends AppCompatActivity implements ProgressDialogCon
             pagerAdapter.removeKeyFromFragment(position);
             viewPager.setCurrentItem(position - 1);
         }
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        newAdView();
     }
 
     @Override

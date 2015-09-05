@@ -43,4 +43,6 @@
     <string name="visa_fee">Visa Fee:</string>
     <string name="cost_of_living">Cost of Living:</string>
     <string name="result_title">Result</string>
+    <string name="details">details</string>
+    <string name="cost_of_living_details">Cost of Living details</string>
 </resources>

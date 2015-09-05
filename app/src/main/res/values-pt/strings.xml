@@ -51,4 +51,6 @@
     <string name="visa_fee">Taxa do Visto:</string>
     <string name="cost_of_living">Custo de Vida:</string>
     <string name="result_title">Resultado</string>
+    <string name="details">detalhes</string>
+    <string name="cost_of_living_details">Custo de vida, detalhes</string>
 </resources>

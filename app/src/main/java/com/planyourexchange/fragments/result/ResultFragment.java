@@ -18,6 +18,7 @@
 
 package com.planyourexchange.fragments.result;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -30,6 +31,7 @@ import android.widget.TextView;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.planyourexchange.R;
+import com.planyourexchange.activities.CostOfLivingActivity;
 import com.planyourexchange.app.PlanYourExchangeApplication;
 import com.planyourexchange.fragments.base.AbstractBaseFragment;
 import com.planyourexchange.interfaces.SelectionListener;
@@ -47,6 +49,7 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * The results page which will have all calculation
@@ -149,4 +152,8 @@ public class ResultFragment extends AbstractBaseFragment<Integer,CostOfLiving,Te
         serverApi.getCostOfLiving(cityId, this);
     }
 
+    @OnClick(R.id.result_cost_of_living_details)
+    public void costOfLivingDetails() {
+        startActivity(new Intent(getActivity(),CostOfLivingActivity.class));
+    }
 }

@@ -20,6 +20,7 @@ package com.planyourexchange.pageflow;
 
 import com.planyourexchange.rest.model.AirFare;
 import com.planyourexchange.rest.model.City;
+import com.planyourexchange.rest.model.CostOfLiving;
 import com.planyourexchange.rest.model.Country;
 import com.planyourexchange.rest.model.Course;
 import com.planyourexchange.rest.model.HealthInsurance;
@@ -36,6 +37,7 @@ public class PageFlowContext {
     private SchoolCourseValue schoolCourseValue;
     private HealthInsurance healthInsurance;
     private AirFare airFare;
+    private CostOfLiving costOfLiving;
 
     public Country getCountry() {
         return country;
@@ -83,5 +85,13 @@ public class PageFlowContext {
 
     public AirFare getAirFare() {
         return airFare;
+    }
+
+    public CostOfLiving getCostOfLiving() {
+        return costOfLiving;
+    }
+
+    public void setCostOfLiving(CostOfLiving costOfLiving) {
+        this.costOfLiving = costOfLiving;
     }
 }

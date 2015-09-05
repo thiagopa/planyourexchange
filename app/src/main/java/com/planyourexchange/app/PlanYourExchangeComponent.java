@@ -18,6 +18,8 @@
 
 package com.planyourexchange.app;
 
+import com.planyourexchange.activities.AdActivity;
+import com.planyourexchange.activities.CostOfLivingActivity;
 import com.planyourexchange.activities.MainActivity;
 import com.planyourexchange.fragments.airfare.AirFareFragment;
 import com.planyourexchange.fragments.base.GenericFragment;
@@ -36,7 +38,8 @@ import dagger.Component;
 @Singleton
 @Component(modules = {PlanYourExchangeModule.class})
 public interface PlanYourExchangeComponent {
-    void inject(MainActivity mainActivity);
+    void inject(AdActivity adActivity);
+    void inject(CostOfLivingActivity costOfLivingActivity);
 
     void inject(GenericFragment genericFragment);
     void inject(HealthInsurancesFragment healthInsurancesFragment);
