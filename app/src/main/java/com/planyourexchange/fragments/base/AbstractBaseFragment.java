@@ -111,7 +111,8 @@ public abstract class AbstractBaseFragment<Key, Model, ModelView extends View> e
     @Override
     public void success(Model model, Response response) {
 
-        saveModelToCache(String.valueOf(getArguments().get(KEY_ID)), model);
+        Key key = Parcels.unwrap(getArguments().getParcelable(KEY_ID));
+        saveModelToCache(String.valueOf(key), model);
 
         View view = getView();
         // -- In case the view is not visible anymore
