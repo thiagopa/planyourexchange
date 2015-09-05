@@ -108,7 +108,7 @@ public class MainActivity extends AdActivity implements ProgressDialogControl, V
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         // -- I only need to save the current screen
-        int position = viewPager.getCurrentItem();
+         int position = viewPager.getCurrentItem();
         outState.putInt(PAGE_FLOW_POSITION,position);
 
         super.onSaveInstanceState(outState);
@@ -121,4 +121,5 @@ public class MainActivity extends AdActivity implements ProgressDialogControl, V
         int position = savedInstanceState.getInt(PAGE_FLOW_POSITION);
         viewPager.setCurrentItem(position);
     }
+
 }

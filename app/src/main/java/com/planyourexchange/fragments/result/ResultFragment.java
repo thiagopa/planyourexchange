@@ -156,6 +156,8 @@ public class ResultFragment extends AbstractBaseFragment<Integer,CostOfLiving,Te
 
     @OnClick(R.id.result_cost_of_living_details)
     public void costOfLivingDetails() {
-        startActivity(new Intent(getActivity(),CostOfLivingActivity.class));
+        Intent intent = new Intent(getActivity(),CostOfLivingActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
     }
 }
