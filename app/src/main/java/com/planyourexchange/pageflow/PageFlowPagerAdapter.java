@@ -44,11 +44,15 @@ public class PageFlowPagerAdapter extends FragmentStatePagerAdapter {
     private final SparseArray<WeakReference<SelectionListener>> selectionListenerSparse;
 
 
-    public PageFlowPagerAdapter(FragmentManager fragmentManager) {
+    public PageFlowPagerAdapter(FragmentManager fragmentManager,SparseArray<Bundle> bundleSparse) {
         super(fragmentManager);
         fragmentList = PageFlow.newFragmentList();
         int size = fragmentList.size();
-        bundleSparse = new SparseArray<>(size);
+        if(bundleSparse==null) {
+            this.bundleSparse = new SparseArray<>(size);
+        } else {
+            this.bundleSparse = bundleSparse;
+        }
         selectionListenerSparse = new SparseArray<>(size);
         // -- Hard Coding English Language for now and maybe ever!!!
         Bundle bundle = new Bundle();
@@ -112,5 +116,9 @@ public class PageFlowPagerAdapter extends FragmentStatePagerAdapter {
     public void removeKeyFromFragment(int position) {
         bundleSparse.get(position).remove(KEY_ID);
         selectionListenerSparse.get(position).get().clearView();
+    }
+
+    public SparseArray<Bundle> getBundleSparse() {
+        return bundleSparse;
     }
 }

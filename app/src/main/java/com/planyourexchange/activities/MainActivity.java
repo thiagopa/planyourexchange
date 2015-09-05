@@ -7,6 +7,7 @@ import android.os.PersistableBundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -43,6 +44,7 @@ import javax.inject.Inject;
 public class MainActivity extends AdActivity implements ProgressDialogControl, ViewPagerControl {
 
     private static final String PAGE_FLOW_POSITION = "pageFlowPosition";
+    private static final String PAGE_FLOW_FRAGMENT_KEYS = "pageFlowFragmentKeys";
     private ViewPager viewPager;
     private PageFlowPagerAdapter pagerAdapter;
 
@@ -57,8 +59,17 @@ public class MainActivity extends AdActivity implements ProgressDialogControl, V
         newAdView();
         // -- View Pager & Adapter
         viewPager = (ViewPager) findViewById(R.id.main_pager);
-        pagerAdapter = new PageFlowPagerAdapter(getSupportFragmentManager());
+        // -- In case we're restoring from a previous saved sate
+        SparseArray<Bundle> fragmentKeys = null;
+        int position = 0;
+        if(savedInstanceState!=null) {
+            fragmentKeys = savedInstanceState.getSparseParcelableArray(PAGE_FLOW_FRAGMENT_KEYS);
+            position = savedInstanceState.getInt(PAGE_FLOW_POSITION);
+        }
+
+        pagerAdapter = new PageFlowPagerAdapter(getSupportFragmentManager(),fragmentKeys);
         viewPager.setAdapter(pagerAdapter);
+        viewPager.setCurrentItem(position);
     }
 
     public void onBackPressed() {
@@ -107,19 +118,13 @@ public class MainActivity extends AdActivity implements ProgressDialogControl, V
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        // -- I only need to save the current screen
-         int position = viewPager.getCurrentItem();
+        // -- save the current screen
+        int position = viewPager.getCurrentItem();
         outState.putInt(PAGE_FLOW_POSITION,position);
+        // -- save fragment keys
+        SparseArray<Bundle> fragmentKeys = pagerAdapter.getBundleSparse();
+        outState.putSparseParcelableArray(PAGE_FLOW_FRAGMENT_KEYS, fragmentKeys);
 
         super.onSaveInstanceState(outState);
     }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-        int position = savedInstanceState.getInt(PAGE_FLOW_POSITION);
-        viewPager.setCurrentItem(position);
-    }
-
 }
