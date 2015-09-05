@@ -51,7 +51,7 @@ public class AirFareFragment extends ListViewFragment<AirFareArgument,AirFare> {
     }
 
     @Override
-    protected Serializable createNextKey(AirFare airFare) {
+    protected Object createNextKey(AirFare airFare) {
         return pageFlowContext.getCity().getId();
     }
 

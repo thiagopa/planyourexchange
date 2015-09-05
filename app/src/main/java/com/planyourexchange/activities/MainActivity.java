@@ -120,7 +120,7 @@ public class MainActivity extends AdActivity implements ProgressDialogControl, V
     protected void onSaveInstanceState(Bundle outState) {
         // -- save the current screen
         int position = viewPager.getCurrentItem();
-        outState.putInt(PAGE_FLOW_POSITION, position - 1);
+        outState.putInt(PAGE_FLOW_POSITION, position);
         // -- save fragment keys
         SparseArray<Bundle> fragmentKeys = pagerAdapter.getBundleSparse();
         outState.putSparseParcelableArray(PAGE_FLOW_FRAGMENT_KEYS, fragmentKeys);
