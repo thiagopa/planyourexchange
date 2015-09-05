@@ -1,5 +1,6 @@
 package com.planyourexchange.fragments.schoolcourse;
 
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -50,7 +51,7 @@ public class CoursesFragment extends ListViewFragment<Integer,Course> {
     }
 
     @Override
-    protected Serializable createNextKey(Course model) {
+    protected Object createNextKey(Course model) {
         SchoolCourseValueKey key = new SchoolCourseValueKey();
         key.setCityId( (Integer) getArguments().getSerializable(KEY_ID));
         key.setCourseId(model.getId());

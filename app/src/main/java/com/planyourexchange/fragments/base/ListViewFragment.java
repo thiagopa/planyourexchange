@@ -2,6 +2,7 @@ package com.planyourexchange.fragments.base;
 
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ import com.planyourexchange.pageflow.PageFlow;
 import com.planyourexchange.rest.model.BaseModel;
 import com.planyourexchange.utils.Constants;
 import com.planyourexchange.utils.InternationalNames;
+
+import org.parceler.Parcels;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -43,7 +46,7 @@ import static com.planyourexchange.utils.Constants.KEY_ID;
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 // -- Base model for handling information between fragments that share enormous similarities
-public abstract class ListViewFragment<Key extends Serializable, Model extends Comparable> extends AbstractBaseFragment<Key, List<Model>, ListView> {
+public abstract class ListViewFragment<Key, Model extends Comparable> extends AbstractBaseFragment<Key, List<Model>, ListView> {
 
     private final PageFlow nextScreen;
     private final int headerName;
@@ -90,7 +93,7 @@ public abstract class ListViewFragment<Key extends Serializable, Model extends C
                 Model model = modelList.get(position);
 
                 Bundle bundle = new Bundle();
-                bundle.putSerializable(KEY_ID, createNextKey(model));
+                bundle.putParcelable(KEY_ID, Parcels.wrap(createNextKey(model)));
 
                 // -- Analytics click event for model
                 tracker.send(new HitBuilders.EventBuilder()
@@ -114,7 +117,7 @@ public abstract class ListViewFragment<Key extends Serializable, Model extends C
      * @param model
      * @return
      */
-    protected abstract Serializable createNextKey(Model model);
+    protected abstract Object createNextKey(Model model);
 
     /**
      * Render specific model based on its rowView

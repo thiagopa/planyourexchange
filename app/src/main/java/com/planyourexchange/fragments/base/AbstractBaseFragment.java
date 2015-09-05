@@ -13,6 +13,7 @@ import com.planyourexchange.R;
 import com.planyourexchange.interfaces.FragmentName;
 import com.planyourexchange.interfaces.SelectionListener;
 
+import org.parceler.ParcelWrapper;
 import org.parceler.Parcels;
 
 import java.io.Serializable;
@@ -84,7 +85,7 @@ public abstract class AbstractBaseFragment<Key, Model, ModelView extends View> e
         // -- Had acquired the bundle from a notifier (this method) instead of a constructor
         getArguments().putAll(bundle);
 
-        String key = String.valueOf(bundle.getSerializable(KEY_ID));
+        Key key =  Parcels.unwrap(bundle.getParcelable(KEY_ID));
 
         // -- If the key is in cache
         if(getArguments().containsKey(String.valueOf(key))) {
@@ -92,7 +93,7 @@ public abstract class AbstractBaseFragment<Key, Model, ModelView extends View> e
             View view = getView();
             if(view!=null) {
                 ModelView modelView = (ModelView) getView().findViewById(this.drawLayout);
-                drawModel(getModelFromCache((key), modelView);
+                drawModel((Model)getModelFromCache(String.valueOf(key)), modelView);
             }
         } else {
             // -- Dispatch task to load resources if not cached
@@ -100,6 +101,7 @@ public abstract class AbstractBaseFragment<Key, Model, ModelView extends View> e
             callService(key);
         }
     }
+
 
     // -- Call rest Service
     protected abstract void callService(Key key);
@@ -121,12 +123,12 @@ public abstract class AbstractBaseFragment<Key, Model, ModelView extends View> e
         onTaskFinished();
     }
 
-    private void saveModelToCache(String key, Model model) {
+    private void saveModelToCache(String key, Object model) {
 
         if(model.getClass().isAssignableFrom(Collection.class)) {
-            Collection<Model> modelList = (Collection<Model>)model;
+            Collection modelList = (Collection)model;
             ArrayList<Parcelable> savedCache = new ArrayList<>(modelList.size());
-            for (Model m: modelList) {
+            for (Object m: modelList) {
                 savedCache.add(Parcels.wrap(m));
             }
             getArguments().putParcelableArrayList(key,savedCache);
@@ -134,6 +136,22 @@ public abstract class AbstractBaseFragment<Key, Model, ModelView extends View> e
             getArguments().putParcelable(key, Parcels.wrap(model));
         }
     }
+
+    private Object getModelFromCache(String key) {
+        Object model = getArguments().get(key);
+
+        if(model.getClass().isAssignableFrom(Collection.class)) {
+            Collection<Parcelable> modelList = (Collection<Parcelable>)model;
+            List savedList = new ArrayList<>(modelList.size());
+            for(Parcelable p : modelList) {
+                savedList.add(Parcels.unwrap(p));
+            }
+            return savedList;
+        }
+
+        return Parcels.unwrap((Parcelable)model);
+    }
+
 
     @Override
     public void failure(RetrofitError error) {
