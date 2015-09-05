@@ -25,13 +25,13 @@ import java.io.Serializable;
  * @version 20/08/15.
  */
 public class BaseAir implements Serializable {
-    private Integer id;
+    Integer id;
 
-    private String origin;
-    private String destination;
+    String origin;
+    String destination;
 
-    private String originAirport;
-    private String destinationAirport;
+    String originAirport;
+    String destinationAirport;
 
     public Integer getId() {
         return id;

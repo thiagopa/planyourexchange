@@ -23,9 +23,9 @@ import java.io.Serializable;
  */
 public class BaseModel implements Comparable<BaseModel>, GenericModel, Serializable {
 
-    private String icon;
-    private String name;
-    private Integer id;
+    String icon;
+    String name;
+    Integer id;
 
     public Integer getId() {
         return id;

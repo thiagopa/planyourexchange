@@ -18,20 +18,23 @@
 
 package com.planyourexchange.rest.model;
 
+import org.parceler.Parcel;
+
 import java.math.BigDecimal;
 
 /**
  * @author Thiago Pagonha
  * @version 13/08/15.
  */
+@Parcel
 public class HealthInsurance extends BaseModel {
-    private Country country;
+    Country country;
 
-    private String website;
+    String website;
 
-    private BigDecimal singlePricePerMonth;
-    private BigDecimal couplePricePerMonth;
-    private BigDecimal famillyPricePerMonth;
+    BigDecimal singlePricePerMonth;
+    BigDecimal couplePricePerMonth;
+    BigDecimal famillyPricePerMonth;
 
     public Country getCountry() {
         return country;

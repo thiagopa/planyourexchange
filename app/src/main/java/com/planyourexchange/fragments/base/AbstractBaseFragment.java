@@ -3,6 +3,7 @@ package com.planyourexchange.fragments.base;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +13,14 @@ import com.planyourexchange.R;
 import com.planyourexchange.interfaces.FragmentName;
 import com.planyourexchange.interfaces.SelectionListener;
 
+import org.parceler.Parcels;
+
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import retrofit.Callback;
@@ -41,7 +48,7 @@ import static com.planyourexchange.utils.Constants.KEY_ID;
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 // -- Base model for handling information between fragments that share enormous similarities
-public abstract class AbstractBaseFragment<Key extends Serializable, Model, ModelView extends View> extends GenericFragment implements FragmentName, Callback<Model>, SelectionListener {
+public abstract class AbstractBaseFragment<Key, Model, ModelView extends View> extends GenericFragment implements FragmentName, Callback<Model>, SelectionListener {
 
     // -- Base properties
     private final int inflateLayout;
@@ -77,16 +84,15 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model, Mode
         // -- Had acquired the bundle from a notifier (this method) instead of a constructor
         getArguments().putAll(bundle);
 
-        Key key = (Key) bundle.getSerializable(KEY_ID);
-        Map <Key, Model> CACHE = getCache();
+        String key = String.valueOf(bundle.getSerializable(KEY_ID));
 
         // -- If the key is in cache
-        if(CACHE.containsKey(key)) {
+        if(getArguments().containsKey(String.valueOf(key))) {
             // -- In case the view is not visible anymore
             View view = getView();
             if(view!=null) {
                 ModelView modelView = (ModelView) getView().findViewById(this.drawLayout);
-                drawModel(CACHE.get(key), modelView);
+                drawModel(getModelFromCache((key), modelView);
             }
         } else {
             // -- Dispatch task to load resources if not cached
@@ -103,7 +109,7 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model, Mode
     @Override
     public void success(Model model, Response response) {
 
-        getCache().put((Key) getArguments().get(KEY_ID), model);
+        saveModelToCache(String.valueOf(getArguments().get(KEY_ID)), model);
 
         View view = getView();
         // -- In case the view is not visible anymore
@@ -113,6 +119,20 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model, Mode
         }
 
         onTaskFinished();
+    }
+
+    private void saveModelToCache(String key, Model model) {
+
+        if(model.getClass().isAssignableFrom(Collection.class)) {
+            Collection<Model> modelList = (Collection<Model>)model;
+            ArrayList<Parcelable> savedCache = new ArrayList<>(modelList.size());
+            for (Model m: modelList) {
+                savedCache.add(Parcels.wrap(m));
+            }
+            getArguments().putParcelableArrayList(key,savedCache);
+        } else {
+            getArguments().putParcelable(key, Parcels.wrap(model));
+        }
     }
 
     @Override
@@ -136,16 +156,6 @@ public abstract class AbstractBaseFragment<Key extends Serializable, Model, Mode
                         previousScreen();
                     }
                 }).create().show();
-    }
-
-    private Map <Key, Model> getCache() {
-        Map <Key, Model> CACHE = (Map) getArguments().get(CACHE_ID);
-        if(CACHE==null) {
-            // -- Cache of information
-            CACHE = new HashMap<Key, Model>();
-            getArguments().putSerializable(CACHE_ID, (Serializable)CACHE);
-        }
-        return CACHE;
     }
 
     @Override

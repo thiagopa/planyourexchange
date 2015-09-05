@@ -2,6 +2,8 @@ package com.planyourexchange.rest.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import java.math.BigDecimal;
 
 /**
@@ -21,10 +23,11 @@ import java.math.BigDecimal;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+@Parcel
 public class SchoolCourseValue implements Comparable<SchoolCourseValue>{
-    private Course course;
-    private School school;
-    private Integer id;
+    Course course;
+    School school;
+    Integer id;
 
     private BigDecimal weekPrice;
 

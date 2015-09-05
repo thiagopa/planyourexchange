@@ -2,6 +2,8 @@ package com.planyourexchange.rest.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import java.io.Serializable;
 
 /**
@@ -21,7 +23,8 @@ import java.io.Serializable;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class SchoolCourseValueKey implements Serializable {
+@Parcel
+public class SchoolCourseValueKey {
 
     private Integer cityId;
     private Integer courseId;
@@ -71,5 +74,14 @@ public class SchoolCourseValueKey implements Serializable {
                         schoolId != null ?
                                 cityId.intValue() + schoolId.intValue() :
                                 cityId.intValue() : -1;
+    }
+
+    @Override
+    public String toString() {
+        return new StringBuilder()
+                .append(cityId)
+                .append(courseId)
+                .append(schoolId)
+                .toString();
     }
 }

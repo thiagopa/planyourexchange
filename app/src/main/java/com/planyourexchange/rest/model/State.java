@@ -18,15 +18,18 @@
 
 package com.planyourexchange.rest.model;
 
+import org.parceler.Parcel;
+
 import java.io.Serializable;
 
 /**
  * @author Thiago Pagonha
  * @version 13/08/15.
  */
+@Parcel
 public class State implements Serializable {
-    private String name;
-    private String abbreviation;
+    String name;
+    String abbreviation;
 
     public String getName() {
         return name;

@@ -18,6 +18,8 @@
 
 package com.planyourexchange.rest.model;
 
+import org.parceler.Parcel;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -25,14 +27,15 @@ import java.math.BigDecimal;
  * @author Thiago Pagonha
  * @version 13/08/15.
  */
+@Parcel
 public class CostOfLiving implements Serializable {
-    private Integer id;
+    Integer id;
 
-    private BigDecimal restaurantAveragePerMeal;
-    private BigDecimal superMarketAveragePerMonth;
-    private BigDecimal publicTransportMonthly;
-    private BigDecimal rentAverageMonthly;
-    private BigDecimal utilitesAverageMonthly;
+    BigDecimal restaurantAveragePerMeal;
+    BigDecimal superMarketAveragePerMonth;
+    BigDecimal publicTransportMonthly;
+    BigDecimal rentAverageMonthly;
+    BigDecimal utilitesAverageMonthly;
 
     public Integer getId() {
         return id;

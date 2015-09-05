@@ -1,5 +1,7 @@
 package com.planyourexchange.rest.model;
 
+import org.parceler.Parcel;
+
 /**
  * Copyright (C) 2015, Thiago Pagonha,
  * Plan Your Exchange, easy exchange to fit your budget
@@ -17,12 +19,13 @@ package com.planyourexchange.rest.model;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+@Parcel
 public class City extends BaseModel {
 
-    private Country country;
-    private State state;
+    Country country;
+    State state;
 
-    private String airport;
+    String airport;
 
     public Country getCountry() {
         return country;

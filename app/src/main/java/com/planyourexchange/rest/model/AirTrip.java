@@ -19,17 +19,19 @@
 package com.planyourexchange.rest.model;
 
 import org.joda.time.LocalTime;
+import org.parceler.Parcel;
 
 /**
  * @author Thiago Pagonha
  * @version 20/08/15.
  */
+@Parcel
 public class AirTrip extends BaseAir {
 
-    private String operatedBy;
+    String operatedBy;
 
-    private LocalTime flightDuration;
-    private LocalTime airportLayover;
+    LocalTime flightDuration;
+    LocalTime airportLayover;
 
     public String getOperatedBy() {
         return operatedBy;

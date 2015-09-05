@@ -19,6 +19,7 @@
 package com.planyourexchange.rest.model;
 
 import org.joda.time.LocalDate;
+import org.parceler.Parcel;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -28,13 +29,14 @@ import java.util.List;
  * @author Thiago Pagonha
  * @version 20/08/15.
  */
+@Parcel
 public class AirFare extends BaseAir implements Comparable<AirFare> {
-    private LocalDate date;
+    LocalDate date;
 
-    private BigDecimal price;
-    private String priceCurrency;
+    BigDecimal price;
+    String priceCurrency;
 
-    private List<AirTrip> airTrips;
+    List<AirTrip> airTrips;
 
     public LocalDate getDate() {
         return date;

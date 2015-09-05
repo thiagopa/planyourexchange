@@ -1,5 +1,7 @@
 package com.planyourexchange.rest.model;
 
+import org.parceler.Parcel;
+
 import java.math.BigDecimal;
 
 /**
@@ -19,14 +21,15 @@ import java.math.BigDecimal;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+@Parcel
 public class School extends BaseModel {
 
-    private BigDecimal enrolmentFee;
-    private BigDecimal booksFee;
+    BigDecimal enrolmentFee;
+    BigDecimal booksFee;
 
-    private String addressLine;
-    private String suburb;
-    private Integer zipCode;
+    String addressLine;
+    String suburb;
+    Integer zipCode;
 
     public BigDecimal getEnrolmentFee() {
         return enrolmentFee;
