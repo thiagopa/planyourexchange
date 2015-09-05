@@ -19,18 +19,33 @@
 package com.planyourexchange.activities;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.TextView;
 
+import com.planyourexchange.R;
 import com.planyourexchange.app.PlanYourExchangeApplication;
 import com.planyourexchange.pageflow.PageFlowContext;
+import com.planyourexchange.rest.model.CostOfLiving;
 
 import javax.inject.Inject;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+import static com.planyourexchange.utils.MoneyUtils.newPrice;
 
 /**
  * @author Thiago Pagonha
  * @version 04/09/15.
  */
 public class CostOfLivingActivity extends AdActivity {
+
+    @Bind(R.id.cost_of_living_init_text) TextView city;
+    @Bind(R.id.cost_of_living_restaurant_value) TextView restaurant;
+    @Bind(R.id.cost_of_living_supermarket_value) TextView superMarket;
+    @Bind(R.id.cost_of_living_transport_ticket_value) TextView transport;
+    @Bind(R.id.cost_of_living_rent_value) TextView rent;
+    @Bind(R.id.cost_of_living_utilities_value) TextView utilities;
 
     @Inject
     PageFlowContext pageFlowContext;
@@ -40,7 +55,23 @@ public class CostOfLivingActivity extends AdActivity {
         super.onCreate(savedInstanceState);
         // -- Inject dependecies first
         PlanYourExchangeApplication.getPlanYourExchangeComponent(this).inject(this);
+        setContentView(R.layout.activity_cost_of_living);
 
-        setContentView(R);
+        ButterKnife.bind(this);
+
+        CostOfLiving costOfLiving = pageFlowContext.getCostOfLiving();
+        String currency = pageFlowContext.getCountry().getDefaultCurrency();
+
+        StringBuilder cityState = new StringBuilder()
+                .append(pageFlowContext.getCity().getName())
+                .append(",")
+                .append(pageFlowContext.getCity().getState().getAbbreviation());
+
+        city.setText(cityState.toString());
+        restaurant.setText(newPrice(currency, costOfLiving.getRestaurantAveragePerMeal()));
+        superMarket.setText(newPrice(currency, costOfLiving.getSuperMarketAveragePerMonth()));
+        transport.setText(newPrice(currency, costOfLiving.getPublicTransportMonthly()));
+        rent.setText(newPrice(currency, costOfLiving.getRentAverageMonthly()));
+        utilities.setText(newPrice(currency, costOfLiving.getUtilitesAverageMonthly()));
     }
 }
