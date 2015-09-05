@@ -81,12 +81,14 @@ public class ResultFragment extends AbstractBaseFragment<Integer,CostOfLiving,Te
 
     @Override
     protected void drawModel(CostOfLiving costOfLiving, TextView textView) {
+        // -- Saving cost of living for future details
+        pageFlowContext.setCostOfLiving(costOfLiving);
 
         BigDecimal totalExchangeCost = BigDecimal.ZERO;
 
         String defaultCurrency = pageFlowContext.getCountry().getDefaultCurrency();
         Integer numberOfWeeks = pageFlowContext.getSchoolCourseValue().getCourse().getWeekDuration();
-
+        // -- Basic calculations for a specific number of weeks
         resultCalculations = new ResultCalculations(numberOfWeeks);
 
         BigDecimal totalCourseCost = resultCalculations.totalCourseCost(pageFlowContext.getSchoolCourseValue().getWeekPrice(), pageFlowContext.getSchoolCourseValue().getSchool());

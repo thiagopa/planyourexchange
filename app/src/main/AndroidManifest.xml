@@ -66,6 +66,7 @@
 
         <activity android:name=".activities.CostOfLivingActivity"
             android:label="@string/cost_of_living_title"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:parentActivityName=".activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
