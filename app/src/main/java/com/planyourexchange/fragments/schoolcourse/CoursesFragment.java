@@ -15,6 +15,8 @@ import com.planyourexchange.rest.model.SchoolCourseValue;
 import com.planyourexchange.rest.model.SchoolCourseValueKey;
 import com.planyourexchange.utils.MoneyUtils;
 
+import org.parceler.Parcels;
+
 import java.io.Serializable;
 
 import butterknife.Bind;
@@ -53,7 +55,7 @@ public class CoursesFragment extends ListViewFragment<Integer,Course> {
     @Override
     protected Object createNextKey(Course model) {
         SchoolCourseValueKey key = new SchoolCourseValueKey();
-        key.setCityId( (Integer) getArguments().getSerializable(KEY_ID));
+        key.setCityId((Integer) Parcels.unwrap(getArguments().getParcelable(KEY_ID)));
         key.setCourseId(model.getId());
         return key;
     }

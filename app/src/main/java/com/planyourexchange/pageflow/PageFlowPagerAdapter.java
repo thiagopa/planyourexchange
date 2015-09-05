@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 
 import com.planyourexchange.interfaces.SelectionListener;
 
+import org.parceler.Parcels;
+
 import java.lang.ref.WeakReference;
 import java.util.List;
 
@@ -56,7 +58,7 @@ public class PageFlowPagerAdapter extends FragmentStatePagerAdapter {
         selectionListenerSparse = new SparseArray<>(size);
         // -- Hard Coding English Language for now and maybe ever!!!
         Bundle bundle = new Bundle();
-        bundle.putString(KEY_ID,"English");
+        bundle.putParcelable(KEY_ID, Parcels.wrap("English"));
         addBundleToFragment(PageFlow.COUNTRIES.getPosition(),bundle);
     }
 

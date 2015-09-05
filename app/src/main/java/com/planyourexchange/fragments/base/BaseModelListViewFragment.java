@@ -34,7 +34,7 @@ import java.io.Serializable;
  * @author Thiago Pagonha
  * @version 18/08/15.
  */
-public abstract class BaseModelListViewFragment<Key extends Serializable, Model extends Comparable & GenericModel> extends ListViewFragment<Key,Model> {
+public abstract class BaseModelListViewFragment<Key, Model extends Comparable & GenericModel> extends ListViewFragment<Key,Model> {
 
     protected BaseModelListViewFragment(int titleName, int headerName,PageFlow nextScreen) {
         super(titleName, headerName, R.layout.model_list,nextScreen);
