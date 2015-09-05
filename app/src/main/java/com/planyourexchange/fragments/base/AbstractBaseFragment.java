@@ -125,7 +125,7 @@ public abstract class AbstractBaseFragment<Key, Model, ModelView extends View> e
 
     private void saveModelToCache(String key, Object model) {
 
-        if(model.getClass().isAssignableFrom(Collection.class)) {
+        if(Collection.class.isAssignableFrom(model.getClass())) {
             Collection modelList = (Collection)model;
             ArrayList<Parcelable> savedCache = new ArrayList<>(modelList.size());
             for (Object m: modelList) {
@@ -140,7 +140,7 @@ public abstract class AbstractBaseFragment<Key, Model, ModelView extends View> e
     private Object getModelFromCache(String key) {
         Object model = getArguments().get(key);
 
-        if(model.getClass().isAssignableFrom(Collection.class)) {
+        if(Collection.class.isAssignableFrom(model.getClass())) {
             Collection<Parcelable> modelList = (Collection<Parcelable>)model;
             List savedList = new ArrayList<>(modelList.size());
             for(Parcelable p : modelList) {
