@@ -26,9 +26,9 @@ import java.io.Serializable;
 @Parcel
 public class SchoolCourseValueKey {
 
-    private Integer cityId;
-    private Integer courseId;
-    private Integer schoolId;
+    Integer cityId;
+    Integer courseId;
+    Integer schoolId;
 
     public Integer getCityId() {
         return cityId;

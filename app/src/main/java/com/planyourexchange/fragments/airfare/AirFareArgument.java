@@ -18,15 +18,21 @@
 
 package com.planyourexchange.fragments.airfare;
 
+import org.parceler.Parcel;
+
 import java.io.Serializable;
 
 /**
  * @author Thiago Pagonha
  * @version 21/08/15.
  */
-public class AirFareArgument implements Serializable {
-    public final String origins;
-    public final String destination;
+@Parcel
+public class AirFareArgument {
+    String origins;
+    String destination;
+
+    public  AirFareArgument() {
+    }
 
     public AirFareArgument(String[] origins, String destination) {
 

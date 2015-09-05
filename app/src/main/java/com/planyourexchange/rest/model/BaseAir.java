@@ -24,7 +24,7 @@ import java.io.Serializable;
  * @author Thiago Pagonha
  * @version 20/08/15.
  */
-public class BaseAir implements Serializable {
+public class BaseAir {
     Integer id;
 
     String origin;

@@ -21,7 +21,7 @@ import java.io.Serializable;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class BaseModel implements Comparable<BaseModel>, GenericModel, Serializable {
+public class BaseModel implements Comparable<BaseModel>, GenericModel {
 
     String icon;
     String name;

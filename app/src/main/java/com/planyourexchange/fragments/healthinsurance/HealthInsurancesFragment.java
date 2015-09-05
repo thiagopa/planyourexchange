@@ -66,7 +66,7 @@ public class HealthInsurancesFragment extends ListViewFragment<Integer,HealthIns
     }
 
     @Override
-    protected Serializable createNextKey(HealthInsurance healthInsurance) {
+    protected Object createNextKey(HealthInsurance healthInsurance) {
         String[] nearbyAirports = locationService.getAirports();
         String destination = pageFlowContext.getCity().getAirport();
 

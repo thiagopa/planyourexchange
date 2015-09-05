@@ -27,7 +27,7 @@ import java.io.Serializable;
  * @version 13/08/15.
  */
 @Parcel
-public class State implements Serializable {
+public class State  {
     String name;
     String abbreviation;
 
