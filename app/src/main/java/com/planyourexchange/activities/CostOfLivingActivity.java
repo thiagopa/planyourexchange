@@ -56,8 +56,6 @@ public class CostOfLivingActivity extends AdActivity {
         PlanYourExchangeApplication.getPlanYourExchangeComponent(this).inject(this);
         setContentView(R.layout.activity_cost_of_living);
 
-        newAdView();
-
         ButterKnife.bind(this);
 
         CostOfLiving costOfLiving = pageFlowContext.getCostOfLiving();
@@ -74,5 +72,8 @@ public class CostOfLivingActivity extends AdActivity {
         transport.setText(newPrice(currency, costOfLiving.getPublicTransportMonthly()));
         rent.setText(newPrice(currency, costOfLiving.getRentAverageMonthly()));
         utilities.setText(newPrice(currency, costOfLiving.getUtilitesAverageMonthly()));
+
+
+        newAdView();
     }
 }

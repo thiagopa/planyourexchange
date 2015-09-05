@@ -3,6 +3,7 @@ package com.planyourexchange.activities;
 import android.app.ProgressDialog;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -41,6 +42,7 @@ import javax.inject.Inject;
  */
 public class MainActivity extends AdActivity implements ProgressDialogControl, ViewPagerControl {
 
+    private static final String PAGE_FLOW_POSITION = "pageFlowPosition";
     private ViewPager viewPager;
     private PageFlowPagerAdapter pagerAdapter;
 
@@ -103,4 +105,20 @@ public class MainActivity extends AdActivity implements ProgressDialogControl, V
         onBackPressed();
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        // -- I only need to save the current screen
+        int position = viewPager.getCurrentItem();
+        outState.putInt(PAGE_FLOW_POSITION,position);
+
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        int position = savedInstanceState.getInt(PAGE_FLOW_POSITION);
+        viewPager.setCurrentItem(position);
+    }
 }
