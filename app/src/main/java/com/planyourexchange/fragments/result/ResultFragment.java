@@ -77,10 +77,11 @@ public class ResultFragment extends AbstractBaseFragment<Integer,CostOfLiving,Te
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         ButterKnife.bind(this, view);
+        super.onViewCreated(view,savedInstanceState);
     }
 
     @Override
-    protected void drawModel(CostOfLiving costOfLiving, TextView textView) {
+    protected void drawModel(CostOfLiving costOfLiving, TextView costOfLivingView) {
         // -- Saving cost of living for future details
         pageFlowContext.setCostOfLiving(costOfLiving);
 
@@ -140,7 +141,7 @@ public class ResultFragment extends AbstractBaseFragment<Integer,CostOfLiving,Te
         healthInsurance.setText(healthInsuranceText.toString());
 
         BigDecimal totalCostOfLiving = resultCalculations.totalCostOfLiving(costOfLiving);
-        textView.setText(MoneyUtils.newPrice(defaultCurrency,totalCostOfLiving));
+        costOfLivingView.setText(MoneyUtils.newPrice(defaultCurrency,totalCostOfLiving));
 
         totalExchangeCost = totalCostOfLiving.add(totalCourseCost)
                 .add(totalInsuranceCost)
