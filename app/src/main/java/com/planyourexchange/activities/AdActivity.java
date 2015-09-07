@@ -30,6 +30,7 @@ import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.planyourexchange.R;
 import com.planyourexchange.app.PlanYourExchangeApplication;
+import com.planyourexchange.pageflow.PageFlowContext;
 import com.planyourexchange.utils.PropertyReader;
 
 import javax.inject.Inject;
@@ -44,6 +45,8 @@ public class AdActivity extends AppCompatActivity {
 
     @Inject
     PropertyReader propertyReader;
+    @Inject
+    PageFlowContext pageFlowContext;
 
     private AdView adView;
 

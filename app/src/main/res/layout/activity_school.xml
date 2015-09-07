@@ -30,8 +30,8 @@
     android:layout_height="fill_parent"
     android:orientation="horizontal">
 
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@id/school_details_name"
+    <TextView
+        android:id="@+id/school_details_name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="20sp"

@@ -39,7 +39,6 @@ import dagger.Component;
 @Component(modules = {PlanYourExchangeModule.class})
 public interface PlanYourExchangeComponent {
     void inject(AdActivity adActivity);
-    void inject(CostOfLivingActivity costOfLivingActivity);
 
     void inject(GenericFragment genericFragment);
     void inject(HealthInsurancesFragment healthInsurancesFragment);

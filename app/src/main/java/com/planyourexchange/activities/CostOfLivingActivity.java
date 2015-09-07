@@ -46,14 +46,9 @@ public class CostOfLivingActivity extends AdActivity {
     @Bind(R.id.cost_of_living_rent_value) TextView rent;
     @Bind(R.id.cost_of_living_utilities_value) TextView utilities;
 
-    @Inject
-    PageFlowContext pageFlowContext;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // -- Inject dependecies first
-        PlanYourExchangeApplication.getPlanYourExchangeComponent(this).inject(this);
         setContentView(R.layout.activity_cost_of_living);
 
         ButterKnife.bind(this);

@@ -44,14 +44,9 @@ public class SchoolActivity extends AdActivity {
     @Bind(R.id.school_details_books_fee_value) TextView booksFee;
     @Bind(R.id.school_details_enrolment_fee_value) TextView enrolmentFee;
 
-    @Inject
-    PageFlowContext pageFlowContext;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // -- Inject dependecies first
-        PlanYourExchangeApplication.getPlanYourExchangeComponent(this).inject(this);
         setContentView(R.layout.activity_school);
 
         ButterKnife.bind(this);
