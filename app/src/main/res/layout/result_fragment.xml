@@ -116,6 +116,14 @@
 
         android:text="@string/cost_of_living_details"/>
 
+    <Button
+        android:id="@+id/result_school_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@id/result_cost_of_living_details"
+
+        android:text="@string/school_details"/>
 
 
 </RelativeLayout>

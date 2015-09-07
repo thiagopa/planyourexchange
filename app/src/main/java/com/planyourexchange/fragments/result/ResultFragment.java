@@ -22,6 +22,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.planyourexchange.R;
 import com.planyourexchange.activities.CostOfLivingActivity;
+import com.planyourexchange.activities.SchoolActivity;
 import com.planyourexchange.app.PlanYourExchangeApplication;
 import com.planyourexchange.fragments.base.AbstractBaseFragment;
 import com.planyourexchange.interfaces.SelectionListener;
@@ -155,10 +157,23 @@ public class ResultFragment extends AbstractBaseFragment<Integer,CostOfLiving,Te
         serverApi.getCostOfLiving(cityId, this);
     }
 
-    @OnClick(R.id.result_cost_of_living_details)
-    public void costOfLivingDetails() {
-        Intent intent = new Intent(getActivity(),CostOfLivingActivity.class);
+    @OnClick({R.id.result_cost_of_living_details,
+              R.id.result_school_details})
+    public void handleClick(View view) {
+        switch (view.getId()) {
+            case R.id.result_cost_of_living_details:
+                dispatchNewActivity(CostOfLivingActivity.class);
+                break;
+            case R.id.result_school_details:
+                dispatchNewActivity(SchoolActivity.class);
+                break;
+        }
+    }
+
+    private void dispatchNewActivity(Class<? extends AppCompatActivity> targetActivity) {
+        Intent intent = new Intent(getActivity(),targetActivity);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
+
 }

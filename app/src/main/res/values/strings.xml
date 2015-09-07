@@ -45,4 +45,5 @@
     <string name="result_title">Result</string>
     <string name="details">details</string>
     <string name="cost_of_living_details">Cost of Living details</string>
+    <string name="school_details">School details</string>
 </resources>

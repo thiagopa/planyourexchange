@@ -53,4 +53,5 @@
     <string name="result_title">Resultado</string>
     <string name="details">detalhes</string>
     <string name="cost_of_living_details">Custo de vida, detalhes</string>
+    <string name="school_details">Detalhes da Escola</string>
 </resources>
